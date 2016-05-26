@@ -8,13 +8,15 @@ package game;
  * @author Constantin Schulte
  * @version 0.0 -> implemented in version 0.2
  */
+import java.awt.Point;
+
 public class Apartment extends Building {
 	private static final long serialVersionUID = 1L;
 	
 	private int resident;
 
 	public Apartment(int woodCost, int stoneCost, int ironCost, int number, int locationX, int locationY){
-		super(woodCost, stoneCost, ironCost, number, locationX, locationY);
+		super(woodCost, stoneCost, ironCost, number, new java.awt.Point(locationX, locationY));
 		resident = 10;
 	}
 
