@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Point;
+
 /*
  * Class Storage
  * 
@@ -14,7 +16,7 @@ public class Storage extends Building {
 	private int capacity;
 
 	public Storage(int number, int woodCost, int stoneCost, int ironCost, int locationX, int locationY){
-		super(number, woodCost, stoneCost, ironCost, locationX, locationY);
+		super(number, woodCost, stoneCost, ironCost, new java.awt.Point(locationX, locationY));
 		capacity = 100;
 	}
 	
