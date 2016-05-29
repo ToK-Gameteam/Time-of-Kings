@@ -23,9 +23,9 @@ import java.io.Serializable;
 	  protected int ironCost;
 	  protected int hitpoints;
 	  
-	  protected Building(int woodCost, int stoneCost, int ironCost, int number, int locationX, int locationY){
+	  protected Building(int woodCost, int stoneCost, int ironCost, int number, java.awt.Point location){
 	    level = 1;
-	    location = new java.awt.Point(locationX, locationY);
+	    this.location = location;
 	    this.number = number;
 	    hitpoints = 50;
 	  }
