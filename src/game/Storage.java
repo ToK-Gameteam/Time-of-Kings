@@ -16,7 +16,7 @@ public class Storage extends Building {
 	private int capacity;
 
 	public Storage(int number, int woodCost, int stoneCost, int ironCost, int locationX, int locationY){
-		super(number, woodCost, stoneCost, ironCost, new java.awt.Point(locationX, locationY));
+		super(number, woodCost, stoneCost, ironCost, new Point(locationX, locationY));
 		capacity = 100;
 	}
 	

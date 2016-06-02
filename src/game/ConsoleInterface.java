@@ -1,26 +1,33 @@
 package game;
 
+import java.io.IOException;
+
 public abstract class ConsoleInterface {
 
 	private static java.util.Scanner scanner;
 
 	public static void main(String[] args) {
+		try {
+			Update.checkUpdate();
+		} catch (IOException e) {
+			System.err.println("Error: " + e);
+		}
 		System.out.println("Herzlich willkommen!");
 		System.out.println("Brauchst du Hilfe? -> Optionen");
 		System.out.println("Version: Alpha Test, 0.2");
 		System.out.println("");
 		System.out.println("Patchnotes:");
-		System.out.println("Neuer Geb‰udetyp: Wohnhaus!");
-		System.out.println("Baue jetzt deine Wohnh‰user mit 'Wohnhaus bauen'.");
+		System.out.println("Neuer Geb\u00e4udetyp: Wohnhaus!");
+		System.out.println("Baue jetzt deine Wohnh\u00e4user mit 'Wohnhaus bauen'.");
 		System.out.println("");
 		System.out.println("Hotfix 1");
 		System.out.println("Neue Funktion: 'Ressourcen sammeln', sammelt deine Ressourcen");
-		System.out.println("Bugfixes: Geb‰ude nun auch in den ‰uﬂeren rechten Teil setzbar!");
-		System.out.println("Auﬂerdem ist die 'Bewegen' Funktion nun nicht mehr verbugt und funktioniert einwandfrei!");
+		System.out.println("Bugfixes: Geb\u00e4ude nun auch in den \u00e4u\u00dferen rechten Teil setzbar!");
+		System.out.println("Au\u00dferdem ist die 'Bewegen' Funktion nun nicht mehr verbugt und funktioniert einwandfrei!");
 		System.out.println("Auch die Level Up Funktion funktioniert jetzt.");
 		System.out.println("Falscheingaben von Benutzern werden jetzt abgefangen.");
 		System.out.println("");
-		System.out.println("Viel Spaﬂ!!");
+		System.out.println("Viel Spa\u00df!!");
 		
 		while( true ){
 			System.out.println("");
@@ -31,7 +38,7 @@ public abstract class ConsoleInterface {
 			}else if( in.equals( "Admin erstellen" ) ){
 				UserInterface.createAdmin();
 			}else if(in.equals("Saegewerk bauen")){
-				System.out.println("Wo soll das S‰gewerk stehen?");
+				System.out.println("Wo soll das S\u00e4gewerk stehen?");
 				System.out.println("X-Koordinate(zwischen 0 und 39):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 0 und 9):");
@@ -66,11 +73,11 @@ public abstract class ConsoleInterface {
 				int locationY =enterInt();
 				UserInterface.npBuildApartment(locationX, locationY);
 			}else if( in.equals("Level Up")){
-				System.out.println("Welches Geb‰ude willst du aufwerten?");
+				System.out.println("Welches Geb\u00e4ude willst du aufwerten?");
 				String building = enter();
 				UserInterface.npLevelUp(building);
 			}else if(in.equals("Bewegen")){
-				System.out.println("Welches Geb‰ude willst du bewegen?");
+				System.out.println("Welches Geb\u00e4ude willst du bewegen?");
 				String building = enter();
 				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (0 bis 39)?");
 				int locationX = enterInt();

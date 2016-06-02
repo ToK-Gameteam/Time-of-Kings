@@ -9,7 +9,7 @@ public class MainBuilding extends Building {
 	private int storedWood, storedStone, storedIron;
 	
 	public MainBuilding(int locationX, int locationY){
-		super(30, 30, 30, 1, new java.awt.Point(locationX, locationY));
+		super(30, 30, 30, 1, new Point(locationX, locationY));
 		capacity = 300;
 	}
 	

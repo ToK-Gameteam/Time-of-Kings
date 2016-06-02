@@ -26,7 +26,7 @@ class Distributor implements Serializable {
 	private int[][] locations;
 	private int mainBuildingBuild, lumbermillBuild, quarryBuild, mineBuild, storageBuild, apartmentsBuild;
 	
-	private static java.util.Scanner scanner;		// Zu löschen bei GUI
+	private static java.util.Scanner scanner;		// Zu loeschen bei GUI
 
 	  public Distributor(){
 	    wood = new Resource();
@@ -338,7 +338,7 @@ class Distributor implements Serializable {
 			  locations[25][1] = locationY;
 			  apartmentsBuild = 4;
 		  }else{
-			  System.err.println("Bereits Höchstzahl gebaut.");
+			  System.err.println("Bereits Hï¿½chstzahl gebaut.");
 		  }
 		  draw();
 	  }
@@ -500,7 +500,7 @@ class Distributor implements Serializable {
 			  }else if(number == 6){
 				  costs = storage6.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Lager gewählt");
+				  System.err.println("Kein Lager gewï¿½hlt");
 				 	return 0;
 			  }
 			  
@@ -541,7 +541,7 @@ class Distributor implements Serializable {
 			  }else if( number == 4){
 				  costs = apartment4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Wohnhaus gewählt");
+				  System.err.println("Kein Wohnhaus gewï¿½hlt");
 				  return 0;
 			  }
 			  
@@ -567,11 +567,11 @@ class Distributor implements Serializable {
 				  
 			  }
 		  }else{
-			  System.err.println("Kein Gebäude gewählt");
+			  System.err.println("Kein Gebï¿½ude gewï¿½hlt");
 			  return 0;
 		  }
 			  }catch( NullPointerException e){
-				  System.out.println("Gebäude nicht vorhanden.");
+				  System.out.println("Gebï¿½ude nicht vorhanden.");
 			  }
 		  return 0;
 	  }
@@ -753,7 +753,7 @@ class Distributor implements Serializable {
 			  locations[25][0] = locationX;
 			  locations[25][1] = locationY;
 		  }else{
-			  System.err.println("Kein Gebäude gewählt.");
+			  System.err.println("Kein Gebï¿½ude gewï¿½hlt.");
 		  }
 	  }
 	  
@@ -952,7 +952,7 @@ class Distributor implements Serializable {
 		  }
 		  for( int[] location : locations){
 			  while(locationX == location[0] && locationY == location[1]){
-				  System.err.println("An dieser Stelle steht bereits ein Gebäude.");
+				  System.err.println("An dieser Stelle steht bereits ein Gebï¿½ude.");
 				  System.out.println("neue X-Koordinate (0 bis 39):");
 				  locationX = enterInt();
 				  System.out.println("neue Y-Koordinate (0 bis 9):");
