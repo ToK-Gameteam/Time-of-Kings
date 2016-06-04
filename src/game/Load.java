@@ -1,6 +1,6 @@
 package game;
 
-/*
+/**
  * Class Load
  * 
  * The classes LoadAdmin and LoadPlayer load an already saved Player so you can use him again.

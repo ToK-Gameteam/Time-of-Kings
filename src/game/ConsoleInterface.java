@@ -5,7 +5,7 @@ import java.io.IOException;
 public abstract class ConsoleInterface {
 
 	private static java.util.Scanner scanner;
-
+	public static String ae = "\u00e4";
 	public static void main(String[] args) {
 		try {
 			Update.checkUpdate();
@@ -17,12 +17,12 @@ public abstract class ConsoleInterface {
 		System.out.println("Version: Alpha Test, 0.2");
 		System.out.println("");
 		System.out.println("Patchnotes:");
-		System.out.println("Neuer Geb\u00e4udetyp: Wohnhaus!");
-		System.out.println("Baue jetzt deine Wohnh\u00e4user mit 'Wohnhaus bauen'.");
+		System.out.println("Neuer Geb" + ae +"udetyp: Wohnhaus!");
+		System.out.println("Baue jetzt deine Wohnh"+ae+"user mit 'Wohnhaus bauen'.");
 		System.out.println("");
 		System.out.println("Hotfix 1");
 		System.out.println("Neue Funktion: 'Ressourcen sammeln', sammelt deine Ressourcen");
-		System.out.println("Bugfixes: Geb\u00e4ude nun auch in den \u00e4u\u00dferen rechten Teil setzbar!");
+		System.out.println("Bugfixes: Geb"+ae+"ude nun auch in den " + ae +"u\u00dferen rechten Teil setzbar!");
 		System.out.println("Au\u00dferdem ist die 'Bewegen' Funktion nun nicht mehr verbugt und funktioniert einwandfrei!");
 		System.out.println("Auch die Level Up Funktion funktioniert jetzt.");
 		System.out.println("Falscheingaben von Benutzern werden jetzt abgefangen.");
@@ -37,8 +37,8 @@ public abstract class ConsoleInterface {
 				UserInterface.createPlayer();
 			}else if( in.equals( "Admin erstellen" ) ){
 				UserInterface.createAdmin();
-			}else if(in.equals("Saegewerk bauen")){
-				System.out.println("Wo soll das S\u00e4gewerk stehen?");
+			}else if(in.equals("S" + ae +"gewerk bauen")){
+				System.out.println("Wo soll das S" + ae +"gewerk stehen?");
 				System.out.println("X-Koordinate(zwischen 0 und 39):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 0 und 9):");
@@ -73,11 +73,11 @@ public abstract class ConsoleInterface {
 				int locationY =enterInt();
 				UserInterface.npBuildApartment(locationX, locationY);
 			}else if( in.equals("Level Up")){
-				System.out.println("Welches Geb\u00e4ude willst du aufwerten?");
+				System.out.println("Welches Gebaeude willst du aufwerten?");
 				String building = enter();
 				UserInterface.npLevelUp(building);
 			}else if(in.equals("Bewegen")){
-				System.out.println("Welches Geb\u00e4ude willst du bewegen?");
+				System.out.println("Welches Gebaeude willst du bewegen?");
 				String building = enter();
 				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (0 bis 39)?");
 				int locationX = enterInt();

@@ -2,7 +2,7 @@ package game;
 
 import java.io.Serializable;
 
-/*
+/**
  * Class Player
  * 
  * The class Player creates a player, which has a name (3 - 16 numbers) and a random ID between 0 and 99,999.
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 
  * @author Constantin Schulte
  * @version 0.0
- */
+ **/
 abstract class Player implements Serializable{
 	private static final long serialVersionUID = 1L;
 	protected String name;

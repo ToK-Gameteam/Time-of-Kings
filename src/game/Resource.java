@@ -2,7 +2,7 @@ package game;
 
 import java.io.Serializable;
 
-/*
+/**
  * Class Resource
  * 
  * The class Resource creates a special type of resource (wood, stone, iron), which has a value and a limit.
@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 
  * @author Constantin Schulte
  * @version 0.1
- */
+ **/
 public class Resource implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
