@@ -12,7 +12,7 @@ package game;
 
 import java.io.Serializable;
 
- abstract class Building implements Serializable{
+ public abstract class Building implements Serializable{
 	protected static final long serialVersionUID = 1L;
 
 	  protected final int number;

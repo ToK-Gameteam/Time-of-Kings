@@ -1,6 +1,8 @@
-package game;
+package game.buildings;
 
 import java.awt.Point;
+
+import game.Building;
 
 /*
  * Class Storage

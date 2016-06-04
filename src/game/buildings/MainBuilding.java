@@ -1,6 +1,8 @@
-package game;
+package game.buildings;
 
 import java.awt.Point;
+
+import game.Building;
 
 public class MainBuilding extends Building {
 	private static final long serialVersionUID = 1L;

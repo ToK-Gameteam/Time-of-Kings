@@ -11,6 +11,10 @@ package game;
 
 import java.io.Serializable;
 
+import game.buildings.Apartment;
+import game.buildings.MainBuilding;
+import game.buildings.Storage;
+
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

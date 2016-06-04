@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import javax.swing.ProgressMonitorInputStream;
 
+import game.util.WebUtil;
+
 public class Update {
 	public static String UPDATE_URL = "https://gist.githubusercontent.com/DeathsGun/83fc464b2fed10a064349a7bee8b726b/raw/9cc34ff3b4db376d234253c81b14feec86f1121d/gistfile1.txt";
 	public static double GAME_VERSION = 0.0;
@@ -43,7 +45,7 @@ public class Update {
         ProgressMonitorInputStream pmis = new ProgressMonitorInputStream( null, "Downloading Update ...", is );
         pmis.getProgressMonitor().setMaximum( uc.getContentLength() );
         
-        FileOutputStream out = new FileOutputStream("");
+        FileOutputStream out = new FileOutputStream("Village.jar");
         
         byte[] buffer = new byte[1024];
         for( int n; (n = pmis.read(buffer)) != -1; out.write(buffer, 0, n) );

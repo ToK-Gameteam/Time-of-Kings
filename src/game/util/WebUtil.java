@@ -1,4 +1,4 @@
-package game;
+package game.util;
 
 import java.io.BufferedReader;
 import java.io.File;
