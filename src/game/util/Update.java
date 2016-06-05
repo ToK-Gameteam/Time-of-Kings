@@ -1,4 +1,4 @@
-package game;
+package game.util;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,14 +9,11 @@ import java.util.ArrayList;
 
 import javax.swing.ProgressMonitorInputStream;
 
-import game.util.WebUtil;
-
 public class Update {
 	public static String UPDATE_URL = "https://gist.githubusercontent.com/DeathsGun/83fc464b2fed10a064349a7bee8b726b/raw/9cc34ff3b4db376d234253c81b14feec86f1121d/gistfile1.txt";
 	public static double GAME_VERSION = 0.0;
 	public static void checkUpdate() throws IOException {
 		ArrayList<String> version = WebUtil.getUrlSource(UPDATE_URL);
-
 		boolean listen = false;
 		for(String s : version) {
 			s = s.replaceAll("\\<[^>]*>","").trim();
@@ -39,7 +36,7 @@ public class Update {
 	}
 	public static void downloadUpdate(Double version) throws Exception {
 		String filename = "Village.jar"; //Jar Name
-        URL url = new URL("" + version + filename);
+        URL url = new URL("http://villagetest.tk" + version + filename);
         URLConnection uc = url.openConnection();
         InputStream is = (InputStream) uc.getInputStream();
         ProgressMonitorInputStream pmis = new ProgressMonitorInputStream( null, "Downloading Update ...", is );

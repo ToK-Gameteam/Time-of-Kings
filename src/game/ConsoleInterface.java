@@ -2,6 +2,8 @@ package game;
 
 import java.io.IOException;
 
+import game.util.Update;
+
 public abstract class ConsoleInterface {
 
 	private static java.util.Scanner scanner;
