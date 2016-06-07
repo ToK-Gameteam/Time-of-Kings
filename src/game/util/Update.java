@@ -9,34 +9,44 @@ import java.util.ArrayList;
 
 import javax.swing.ProgressMonitorInputStream;
 
+import game.ConsoleInterface;
+
 public class Update {
-	public static String UPDATE_URL = "https://gist.githubusercontent.com/DeathsGun/83fc464b2fed10a064349a7bee8b726b/raw/9cc34ff3b4db376d234253c81b14feec86f1121d/gistfile1.txt";
-	public static double GAME_VERSION = 0.0;
+	/**
+	 * Eine Txt mit den Inhalt VERSION=0.3 und URL=http://test.com/Village.jar
+	 */
+	public static String UPDATE_URL = "http://pastebin.com/raw/JNA1XFLM";
+	public static double GAME_VERSION = ConsoleInterface.GAME_VERSION;
+	public static String Url = "";
 	public static void checkUpdate() throws IOException {
 		ArrayList<String> version = WebUtil.getUrlSource(UPDATE_URL);
-		boolean listen = false;
 		for(String s : version) {
 			s = s.replaceAll("\\<[^>]*>","").trim();
-			if(s.equalsIgnoreCase("START"))
-				listen = true;
-			if(s.equalsIgnoreCase("END"))
-				listen = false;
-
-			if(listen) {
+				if(s.contains("URL")) {
+					String[] splitter = s.split("=");
+					Url = splitter[1];
+				}
 				if(s.contains("VERSION")) {
 					String[] splitter = s.split("=");
 					double availableVersion = Double.parseDouble(splitter[1]);
 					if(availableVersion > GAME_VERSION) {
+						System.out.println("Update gefunden!");
+						System.out.println("Installiere danch wird geschlossen");
+						try {
+							downloadUpdate();
+						} catch (Exception e) {
+							System.err.println("Error: "+e);
+							System.exit(1);
+						}
+					System.exit(0);
 					} else {
-						System.out.println("No update found!");
+						System.out.println("Kein Update gefunden!");
 					}
 				}
 			}
 		}
-	}
-	public static void downloadUpdate(Double version) throws Exception {
-		String filename = "Village.jar"; //Jar Name
-        URL url = new URL("http://villagetest.tk" + version + filename);
+	public static void downloadUpdate() throws Exception {
+        URL url = new URL(Url);
         URLConnection uc = url.openConnection();
         InputStream is = (InputStream) uc.getInputStream();
         ProgressMonitorInputStream pmis = new ProgressMonitorInputStream( null, "Downloading Update ...", is );

@@ -6,8 +6,14 @@ import game.util.Update;
 
 public abstract class ConsoleInterface {
 
+	public static double  GAME_VERSION = 0.3;
 	private static java.util.Scanner scanner;
-	public static String ae = "\u00e4";
+	public static String ae = "\u00e4"; // Klein
+	public static String Ae = "\u00c4"; // Gross
+	public static String oe = "\u00f6"; // Klein
+	public static String Oe = "\u00d6"; // Gross
+	public static String ue = "\u00fc"; // Klein
+	public static String Ue = "\u00dc"; // Gross
 	public static String ss = "\u00df";
 	public static void main(String[] args) {
 		try {
@@ -17,7 +23,7 @@ public abstract class ConsoleInterface {
 		}
 		System.out.println("Herzlich willkommen!");
 		System.out.println("Brauchst du Hilfe? -> Optionen <-");
-		System.out.println("Version: Alpha Test, 0.2");
+		System.out.println("Version: Alpha Test, "+GAME_VERSION);
 		System.out.println("Patchnotes können mit -> notes <- eingesehen werden");
 		System.out.println("");
 		System.out.println("Viel Spa"+ss+"!!");
@@ -113,8 +119,15 @@ public abstract class ConsoleInterface {
 				System.out.println("Auch die Level Up Funktion funktioniert jetzt.");
 				System.out.println("Falscheingaben von Benutzern werden jetzt abgefangen.");
 				System.out.println("UniCode fix");
+				System.out.println("Updates k"+oe+"nnen nun auch manuel gecheckt werden mit -> checkupdate <-");
 				System.out.println("");
-			} else{
+			} else if(in.equalsIgnoreCase("checkupdate")) {
+				try {
+					Update.checkUpdate();
+				} catch (IOException e) {
+					System.err.println("Error: "+e);
+				}
+			} else {
 				System.err.println("Unbekannt");
 				System.out.println("Brauchst du Hilfe?");
 				System.out.println("'Optionen' zeigt dir alle Features");
