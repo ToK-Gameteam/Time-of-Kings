@@ -18,6 +18,8 @@ import game.buildings.Storage;
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private String oe = ConsoleInterface.oe;
+	private String ae = ConsoleInterface.ae;
 	private MainBuilding mainBuilding;
 	private ResourceCollector lumbermill, lumbermill2, lumbermill3, lumbermill4, lumbermill5;
 	private ResourceCollector quarry, quarry2, quarry3, quarry4, quarry5;
@@ -342,7 +344,7 @@ class Distributor implements Serializable {
 			  locations[25][1] = locationY;
 			  apartmentsBuild = 4;
 		  }else{
-			  System.err.println("Bereits H�chstzahl gebaut.");
+			  System.err.println("Bereits H"+oe+"chstzahl gebaut.");
 		  }
 		  draw();
 	  }
@@ -504,7 +506,7 @@ class Distributor implements Serializable {
 			  }else if(number == 6){
 				  costs = storage6.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Lager gew�hlt");
+				  System.err.println("Kein Lager gew"+ae+"hlt");
 				 	return 0;
 			  }
 			  
@@ -545,7 +547,7 @@ class Distributor implements Serializable {
 			  }else if( number == 4){
 				  costs = apartment4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Wohnhaus gew�hlt");
+				  System.err.println("Kein Wohnhaus gew"+ae+"hlt");
 				  return 0;
 			  }
 			  
@@ -571,11 +573,11 @@ class Distributor implements Serializable {
 				  
 			  }
 		  }else{
-			  System.err.println("Kein Geb�ude gew�hlt");
+			  System.err.println("Kein Geb"+ae+"ude gew"+ae+"hlt");
 			  return 0;
 		  }
 			  }catch( NullPointerException e){
-				  System.out.println("Geb�ude nicht vorhanden.");
+				  System.out.println("Geb"+ae+"ude nicht vorhanden.");
 			  }
 		  return 0;
 	  }
@@ -757,7 +759,7 @@ class Distributor implements Serializable {
 			  locations[25][0] = locationX;
 			  locations[25][1] = locationY;
 		  }else{
-			  System.err.println("Kein Geb�ude gew�hlt.");
+			  System.err.println("Kein Geb"+ae+"ude gew"+ae+"hlt.");
 		  }
 	  }
 	  
@@ -956,7 +958,7 @@ class Distributor implements Serializable {
 		  }
 		  for( int[] location : locations){
 			  while(locationX == location[0] && locationY == location[1]){
-				  System.err.println("An dieser Stelle steht bereits ein Geb�ude.");
+				  System.err.println("An dieser Stelle steht bereits ein Geb"+ae+"ude.");
 				  System.out.println("neue X-Koordinate (0 bis 39):");
 				  locationX = enterInt();
 				  System.out.println("neue Y-Koordinate (0 bis 9):");
