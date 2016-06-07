@@ -76,7 +76,7 @@ public abstract class ConsoleInterface {
 				String building = enter();
 				UserInterface.npLevelUp(building);
 			}else if(in.equalsIgnoreCase("Bewegen")){
-				System.out.println("Welches Gebaeude willst du bewegen?");
+				System.out.println("Welches Geb"+ae+"ude willst du bewegen?");
 				String building = enter();
 				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (0 bis 39)?");
 				int locationX = enterInt();
