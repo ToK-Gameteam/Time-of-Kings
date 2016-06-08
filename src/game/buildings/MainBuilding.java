@@ -1,17 +1,13 @@
 package game.buildings;
 
-import java.awt.Point;
-
-import game.Building;
-
 public class MainBuilding extends Building {
 	private static final long serialVersionUID = 1L;
 	
 	private int capacity;
 	private int storedWood, storedStone, storedIron;
 	
-	public MainBuilding(int locationX, int locationY){
-		super(30, 30, 30, 1, new Point(locationX, locationY));
+	public MainBuilding(Location location){
+		super(30, 30, 30, 1, location);
 		capacity = 300;
 	}
 	
