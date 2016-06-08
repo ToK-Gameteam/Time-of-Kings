@@ -46,28 +46,28 @@ abstract class Player implements Serializable{
 	    distributor.collect();
 	  }
 	  
-	  public void buildLumbermill(int locationX, int locationY){
-	    distributor.buildLumbermill(locationX, locationY);
+	  public void buildLumbermill( Location location ){
+	    distributor.buildLumbermill(location);
 	  }
 	  
-	  public void buildQuarry(int locationX, int locationY){
-	    distributor.buildQuarry(locationX, locationY);
+	  public void buildQuarry( Location location ){
+	    distributor.buildQuarry(location);
 	  }
 	  
-	  public void buildMine(int locationX, int locationY){
-	    distributor.buildMine(locationX, locationY);
+	  public void buildMine( Location location){
+	    distributor.buildMine(location);
 	  }
 	  
-	  public void buildStorage(int locationX, int locationY){
-		    distributor.buildStorage(locationX, locationY);
+	  public void buildStorage( Location location){
+		    distributor.buildStorage(location);
 		  }
 	  
-	  public void buildApartment(int locationX, int locationY){
-		  distributor.buildApartment(locationX, locationY);
+	  public void buildApartment( Location location){
+		  distributor.buildApartment(location);
 	  }
 	  
-	  public void moveBuilding(String building, int newX, int newY){
-		  distributor.moveBuilding(building, newX, newY);
+	  public void moveBuilding(String building, int number, Location location){
+		  distributor.moveBuilding(building, number, location);
 	  }
 	  
 	  public void draw(){
