@@ -1,6 +1,4 @@
-package game;
-
-import java.awt.Point;
+package game.buildings;
 
 /**
  * Class RessourceCollector
@@ -17,8 +15,8 @@ public class ResourceCollector extends Building {
 	  private double rest;
 	  private int limit;
 
-	  public ResourceCollector(int number, int woodCost, int stoneCost, int ironCost, int locationX, int locationY){
-	    super(number, woodCost, stoneCost, ironCost, new Point(locationX, locationY));
+	  public ResourceCollector(int number, int woodCost, int stoneCost, int ironCost, Location location){
+	    super(number, woodCost, stoneCost, ironCost, location);
 	    lastCollected = System.currentTimeMillis();
 	  }
 
