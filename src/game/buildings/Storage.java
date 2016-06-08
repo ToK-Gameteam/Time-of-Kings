@@ -35,8 +35,6 @@ public class Storage extends Building {
 			capacity = 10_000;
 		}else if(level == 6){
 			capacity = 20_000;
-		}else if(level == 7){
-			capacity = 50_000;
 		} else {
 			capacity = 75_000; // Hatte nach 3 Tagen Speicher probleme
 		}
