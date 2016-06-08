@@ -2,7 +2,7 @@ package game;
 
 import java.io.Serializable;
 
-/*
+/**
  * Class Tutorial
  * 
  * The class Tutorial introduces the player into the Game and explains the first steps.
@@ -10,17 +10,17 @@ import java.io.Serializable;
  * 
  * @author Constantin Schulte
  * @version 0.0 -> implemented in Game version 0.1
- */
+ **/
 public class Tutorial implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	private static String ae = ConsoleInterface.ae;
 	private static java.util.Scanner scanner;
 	private static Distributor distributor;
 
 	public static void startTutorial(Distributor myDistributor){
 		distributor = myDistributor;
 		System.out.println("Als erstes braucht dein Dorf ein Rathaus.");
-		System.out.println("Tipp: Du baust Gebäude indem du ??? bauen eingibst.");
+		System.out.println("Tipp: Du baust Geb"+ConsoleInterface.ae+"ude indem du ??? bauen eingibst.");
 		int mainBuildingBuild = 0;
 		while( mainBuildingBuild == 0 ){
 			String mainBuilding = enter();
@@ -29,7 +29,7 @@ public class Tutorial implements Serializable {
 				  while( mainBuildingBuild == 0 ){
 					  System.out.println("Wo soll dein Rathaus stehen?");
 					  System.out.println("X-Koordinate (zwischen 0 und 39):");
-					  System.out.println("Tipp: Gib beim Bauen eines Gebäudes an, wo es stehen soll. Stelle das Rathaus an die Position (3|3)");
+					  System.out.println("Tipp: Gib beim Bauen eines Geb"+ae+"udes an, wo es stehen soll. Stelle das Rathaus an die Position (3|3)");
 					  int locationX = enterInt();
 					  System.out.println("Y-Koordinate (zwischen 0 und 9):");
 					  int locationY = enterInt();
@@ -38,7 +38,7 @@ public class Tutorial implements Serializable {
 						  break;
 				  	}else{
 					  	System.err.println("Falsche Koordinaten.");
-					  	System.out.println("Tipp: Stelle das Gebäude an die Position (3|3).");
+					  	System.out.println("Tipp: Stelle das Geb"+ae+"ude an die Position (3|3).");
 				  	}
 				  }
 				mainBuildingBuild = 1;
