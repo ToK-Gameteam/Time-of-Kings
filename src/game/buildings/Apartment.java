@@ -1,16 +1,20 @@
 package game.buildings;
 
-import java.awt.Point;
-
-import game.Building;
-
+/**
+ * Class Apartment
+ * 
+ * The class Apartment creates a building with people living in it.
+ * 
+ * @author Constantin Schulte
+ * @version 0.0 -> implemented in version 0.2
+ */
 public class Apartment extends Building {
 	private static final long serialVersionUID = 1L;
 	
 	private int resident;
 
-	public Apartment(int woodCost, int stoneCost, int ironCost, int number, int locationX, int locationY){
-		super(woodCost, stoneCost, ironCost, number, new Point(locationX, locationY));
+	public Apartment(int woodCost, int stoneCost, int ironCost, int number, Location location){
+		super(woodCost, stoneCost, ironCost, number, location);
 		resident = 10;
 	}
 
