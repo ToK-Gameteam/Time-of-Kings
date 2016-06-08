@@ -1,24 +1,20 @@
 package game.buildings;
 
-import java.awt.Point;
-
-import game.Building;
-
 /**
-  * Class Storage
-  * 
-  * A storage is a building storing resources.
-  * 
-  * @author Constantin Schulte
-  * @version 0.0 -> implemented in Game Version 0.1
-  **/
+ * Class Storage
+ * 
+ * A storage is a building storing resources.
+ * 
+ * @author Constantin Schulte
+ * @version 0.0 -> implemented in Game Version 0.1
+ */
 public class Storage extends Building {
 	private static final long serialVersionUID = 1L;
 	
 	private int capacity;
 
-	public Storage(int number, int woodCost, int stoneCost, int ironCost, int locationX, int locationY){
-		super(number, woodCost, stoneCost, ironCost, new Point(locationX, locationY));
+	public Storage(int number, int woodCost, int stoneCost, int ironCost, Location location){
+		super(number, woodCost, stoneCost, ironCost, location);
 		capacity = 100;
 	}
 	
@@ -35,8 +31,8 @@ public class Storage extends Building {
 			capacity = 10_000;
 		}else if(level == 6){
 			capacity = 20_000;
-		} else {
-			capacity = 75_000; // Hatte nach 3 Tagen Speicher probleme
+		}else{
+			capacity = 50_000;
 		}
 		return capacity;
 	}
