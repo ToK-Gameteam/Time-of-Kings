@@ -11,10 +11,6 @@ package game;
 
 import java.io.Serializable;
 
-import game.buildings.Apartment;
-import game.buildings.MainBuilding;
-import game.buildings.Storage;
-
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -29,7 +25,7 @@ class Distributor implements Serializable {
 	private Resource wood;
 	private Resource stone;
 	private Resource iron;
-	private int[][] locations;
+	private Location[] locations;
 	private int mainBuildingBuild, lumbermillBuild, quarryBuild, mineBuild, storageBuild, apartmentsBuild;
 	
 	private static java.util.Scanner scanner;		// Zu loeschen bei GUI
@@ -43,7 +39,7 @@ class Distributor implements Serializable {
 	    quarryBuild = 0;
 	    mineBuild = 0;
 	    storageBuild = 0;
-	    locations = new int[26][2];
+	    locations = new Location[26];
 	  }
 
 	  public void collect(){
@@ -111,240 +107,202 @@ class Distributor implements Serializable {
 	    return values;
 	  }
 	  
-	  public void buildMainBuilding(int locationX, int locationY){
+	  public void buildMainBuilding( Location location ){
 		  if( mainBuildingBuild == 0){
-			  System.out.println(locationX);
-			  mainBuilding = new MainBuilding(locationX, locationY);
+			  mainBuilding = new MainBuilding(location);
 			  mainBuildingBuild = 1;
-			  locations[0][0] = locationX;
-			  locations[0][1] = locationY;
+			  locations[0] = location;
 		  }
 		  draw();
 	  }
 	  
-	  public void buildLumbermill(int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
-		  
+	  public void buildLumbermill( Location location){
+		  Location finalLocation = checkLocation(location);
+
 		  
 		 if(lumbermillBuild == 0){
 	        if(wood.getValue() >= 5){
-	            lumbermill = new ResourceCollector(1, 20, 15, 10, locationX, locationY);
-	            lumbermillBuild++;
+	            lumbermill = new ResourceCollector(1, 20, 15, 10, finalLocation);
+	            lumbermillBuild = 1;
 	            wood.subtract(5);
-	            System.out.println("Yep");
-	            locations[1][0] = locationX;
-	            locations[1][1] = locationY;
+	            locations[1] = finalLocation;
 	        }
 	    }else if(lumbermillBuild == 1){
 	    	if(wood.getValue() >= 10){
-	    		lumbermill2 = new ResourceCollector(2, 30, 30, 30, locationX, locationY);
+	    		lumbermill2 = new ResourceCollector(2, 30, 30, 30, finalLocation);
 	    		wood.subtract(10);
-	    		lumbermillBuild++;
-	            locations[2][0] = locationX;
-	            locations[2][1] = locationY;
+	    		lumbermillBuild = 2;
+	            locations[2] = finalLocation;
 	    	}
 	    }else if(lumbermillBuild == 2){
 	    	if(wood.getValue() >= 25){
-	    		lumbermill3 = new ResourceCollector(3, 50, 60, 70, locationX, locationY);
+	    		lumbermill3 = new ResourceCollector(3, 50, 60, 70, finalLocation);
 	    		wood.subtract(25);
-	    		lumbermillBuild++;
-	            locations[3][0] = locationX;
-	            locations[3][1] = locationY;
+	    		lumbermillBuild = 3;
+	            locations[3] = finalLocation;
 	    	}
 	    }else if(lumbermillBuild == 3){
 	    	if(wood.getValue() >= 100){
-	    		lumbermill4 = new ResourceCollector(4, 200, 300, 300, locationX, locationY);
-	    		lumbermillBuild++;
-	            locations[4][0] = locationX;
-	            locations[4][1] = locationY;
+	    		lumbermill4 = new ResourceCollector(4, 200, 300, 300, finalLocation);
+	    		lumbermillBuild = 4;
+	            locations[4] = finalLocation;
 	    	}
 	    }else if(lumbermillBuild == 4){
 	    	if(wood.getValue() >= 500){
-	    		lumbermill5 = new ResourceCollector( 5, 1_000, 1_000, 1_000, locationX, locationY);
+	    		lumbermill5 = new ResourceCollector( 5, 1_000, 1_000, 1_000, finalLocation);
 	    		wood.subtract(500);
-	    		lumbermillBuild++;
-	            locations[5][0] = locationX;
-	            locations[5][1] = locationY;
+	    		lumbermillBuild = 5;
+	            locations[5] = finalLocation;
 	    	}
 	    }
 	    draw();
 	  }
 	  
-	  public void buildQuarry(int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
+	  public void buildQuarry( Location location){
+		  Location finalLocation = checkLocation(location);
 		  
 		  if(quarryBuild == 0){
 			  if(wood.getValue() >= 5){
-				quarry = new ResourceCollector(1, 20, 15, 10, locationX, locationY);
 				wood.subtract(5);
 				quarryBuild++;
-	            locations[6][0] = locationX;
-	            locations[6][1] = locationY;
+	            locations[6] = finalLocation;
 			  }
 		  }else if(quarryBuild == 1){
 			  if(wood.getValue() >= 10){
-				quarry2 = new ResourceCollector( 2, 30, 30, 30, locationX, locationY);
+				quarry2 = new ResourceCollector( 2, 30, 30, 30, finalLocation);
 				wood.subtract(10);
 		    	quarryBuild++;
-	            locations[7][0] = locationX;
-	            locations[7][1] = locationY;
+	            locations[7] = location;
 			  }
 		  }else if(quarryBuild == 2){
 			  if(wood.getValue() >= 25){
-		    	quarry3 = new ResourceCollector(3, 50, 60, 70, locationX, locationY);
+		    	quarry3 = new ResourceCollector(3, 50, 60, 70, finalLocation);
 		    	wood.subtract(25);
 		   		quarryBuild++;
-	            locations[8][0] = locationX;
-	            locations[8][1] = locationY;
+	            locations[8] = finalLocation;
 		   		draw();
 			  }
 		  }else if(quarryBuild == 3){
 			if(wood.getValue() >= 100){
-				quarry4 = new ResourceCollector(4, 200, 300, 300, locationX, locationY);
+				quarry4 = new ResourceCollector(4, 200, 300, 300, finalLocation);
 				wood.subtract(100);
 				quarryBuild++;
-	            locations[9][0] = locationX;
-	            locations[9][1] = locationY;
+	            locations[9] = finalLocation;
 		    }
 		}else if(quarryBuild == 4){
 	    	if(wood.getValue() >= 500){
-	    		quarry5 = new ResourceCollector(5, 1_000, 1_000, 1_000, locationX, locationY);
+	    		quarry5 = new ResourceCollector(5, 1_000, 1_000, 1_000, finalLocation);
 	    		wood.subtract(500);
 		   		quarryBuild++;
-	            locations[10][0] = locationX;
-	            locations[10][1] = locationY;
+	            locations[10] = finalLocation;
 		   	}
 	    }
 	  draw();
 	  }
 	  
-	  public void buildMine(int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
+	  public void buildMine(Location location){
+		  Location finalLocation = checkLocation(location);
 		  
 		    if(mineBuild == 0){
 		        if(wood.getValue() >= 5){
-		            mine = new ResourceCollector(1, 20, 15, 10, locationX, locationY);
+		            mine = new ResourceCollector(1, 20, 15, 10, finalLocation);
 		            wood.subtract(5);
 		            mineBuild++;
-		            locations[11][0] = locationX;
-		            locations[11][1] = locationY;
+		            locations[11] = finalLocation;
 		        }
 		    }else if(mineBuild == 1){
 		    	if(wood.getValue() >= 10){
-		    		mine2 = new ResourceCollector(2, 30, 30, 30, locationX, locationY);
+		    		mine2 = new ResourceCollector(2, 30, 30, 30, finalLocation);
 		    		wood.subtract(10);
 		    		mineBuild++;
-		            locations[12][0] = locationX;
-		            locations[12][1] = locationY;
+		            locations[12] = finalLocation;
 		    	}
 		    }else if(mineBuild == 2){
 		    	if(wood.getValue() >= 25){
-		    		mine3 = new ResourceCollector(3, 50, 60, 70, locationX, locationY);
+		    		mine3 = new ResourceCollector(3, 50, 60, 70, finalLocation);
 		    		wood.subtract(25);
 		    		mineBuild++;
-		            locations[13][0] = locationX;
-		            locations[13][1] = locationY;
+		            locations[13] = finalLocation;
 		    	}
 		    }else if(mineBuild == 3){
 		    	if(wood.getValue() >= 100){
-		    		mine4 = new ResourceCollector(4, 200, 300, 400, locationX, locationY);
+		    		mine4 = new ResourceCollector(4, 200, 300, 400, finalLocation);
 		    		wood.subtract(100);
 		    		mineBuild++;
-		            locations[14][0] = locationX;
-		            locations[14][1] = locationY;
+		            locations[14] = finalLocation;
 		    	}
 		    }else if(mineBuild == 4){
 		    	if(wood.getValue() >= 500){
-		    		mine5 = new ResourceCollector(5, 1_000, 1_000, 1_000, locationX, locationY);
+		    		mine5 = new ResourceCollector(5, 1_000, 1_000, 1_000, finalLocation);
 		    		wood.subtract(500);
 		    		mineBuild++;
-		            locations[15][0] = locationX;
-		            locations[15][1] = locationY;
+		            locations[15] = finalLocation;
 		    	}
 		    }
 	  }
 	  
-	  public void buildStorage(int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
+	  public void buildStorage(Location location){
+		  Location finalLocation = checkLocation(location);
+		  
 		  if(storageBuild == 0){
-			  storage = new Storage(1, 30, 30, 30, locationX, locationY);
-			  locations[16][0] = locationX;
-			  locations[16][1] = locationY;
-			  storageBuild++;
+			  storage = new Storage(1, 30, 30, 30, finalLocation);
+			  locations[16] = finalLocation;
+			  storageBuild = 1;
 		  }else if(storageBuild == 1){
 			  if(wood.getValue() >= 25){
-				  storage2 = new Storage(1, 40, 50, 60, locationX, locationY);
-				  locations[17][0] = locationX;
-				  locations[17][1] = locationY;
-				  storageBuild++;
+				  storage2 = new Storage(1, 40, 50, 60, finalLocation);
+				  locations[17] = finalLocation;
+				  storageBuild = 2;
 			  }
 		  }else if(storageBuild == 2){
 			  if(wood.getValue() >= 25){
-				  storage3 = new Storage(1, 100, 200, 500, locationX, locationY);
-				  locations[18][0] = locationX;
-				  locations[18][1] = locationY;
-				  storageBuild++;
+				  storage3 = new Storage(1, 100, 200, 500, finalLocation);
+				  locations[18] = finalLocation;
+				  storageBuild = 3;
 			  }
 		  }else if(storageBuild == 3){
 			  if(wood.getValue() >= 25){
-				  storage4 = new Storage(1, 100, 200, 500, locationX, locationY);
-				  locations[19][0] = locationX;
-				  locations[19][1] = locationY;
-				  storageBuild++;
+				  storage4 = new Storage(1, 100, 200, 500, finalLocation);
+				  locations[19] = finalLocation;
+				  storageBuild = 4;
 			  }
 		  }else if(storageBuild == 4){
 			  if(wood.getValue() >= 25){
-				  storage5 = new Storage(1, 100, 200, 500, locationX, locationY);
-				  locations[20][0] = locationX;
-				  locations[20][1] = locationY;
-				  storageBuild++;
+				  storage5 = new Storage(1, 100, 200, 500, finalLocation);
+				  locations[20] = finalLocation;
+				  storageBuild = 5;
 			  }
 		  }else if(storageBuild == 5){
 			  if(wood.getValue() >= 25){
-				  storage6 = new Storage(1, 1000, 2000, 5000, locationX, locationY);
-				  locations[21][0] = locationX;
-				  locations[21][1] = locationY;
-				  storageBuild++;
+				  storage6 = new Storage(1, 1000, 2000, 5000, finalLocation);
+				  locations[21] = finalLocation;
+				  storageBuild = 6;
 			  }
 		  }
 		  draw();
 	  }
 	  
-	  public void buildApartment(int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
+	  public void buildApartment( Location location){
+		  Location finalLocation = checkLocation(location);
 		  
 		  if( apartmentsBuild == 0 ){
-			  apartment = new Apartment(30, 30, 30, 1, locationX, locationY);
-			  locations[22][0] = locationX;
-			  locations[22][1] = locationY;
+			  apartment = new Apartment(30, 30, 30, 1, finalLocation);
+			  locations[22] = finalLocation;
 			  apartmentsBuild = 1;
 		  }else if(apartmentsBuild == 1){
-			  apartment2 = new Apartment(50, 60, 70, 2, locationX, locationY);
-			  locations[23][0] = locationX;
-			  locations[23][1] = locationY;
+			  apartment2 = new Apartment(50, 60, 70, 2, finalLocation);
+			  locations[23] = finalLocation;
 			  apartmentsBuild = 2;
 		  }else if(apartmentsBuild == 2){
-			  apartment3 = new Apartment(100, 200, 300, 3, locationX, locationY);
-			  locations[24][0] = locationX;
-			  locations[24][1] = locationY;
+			  apartment3 = new Apartment(100, 200, 300, 3, finalLocation);
+			  locations[24] = finalLocation;
 			  apartmentsBuild = 3;
 		  }else if(apartmentsBuild == 3){
-			  apartment4 = new Apartment(500, 1_000, 2_000, 4, locationX, locationY);
-			  locations[25][0] = locationX;
-			  locations[25][1] = locationY;
+			  apartment4 = new Apartment(500, 1_000, 2_000, 4, finalLocation);
+			  locations[25] = finalLocation;
 			  apartmentsBuild = 4;
 		  }else{
-			  System.err.println("Bereits H"+oe+"chstzahl gebaut.");
+			  System.err.println("Bereits Höchstzahl gebaut.");
 		  }
 		  draw();
 	  }
@@ -506,7 +464,7 @@ class Distributor implements Serializable {
 			  }else if(number == 6){
 				  costs = storage6.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Lager gew"+ae+"hlt");
+				  System.err.println("Kein Lager gewählt");
 				 	return 0;
 			  }
 			  
@@ -547,7 +505,7 @@ class Distributor implements Serializable {
 			  }else if( number == 4){
 				  costs = apartment4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
 			  }else{
-				  System.err.println("Kein Wohnhaus gew"+ae+"hlt");
+				  System.err.println("Kein Wohnhaus gewählt");
 				  return 0;
 			  }
 			  
@@ -573,11 +531,11 @@ class Distributor implements Serializable {
 				  
 			  }
 		  }else{
-			  System.err.println("Kein Geb"+ae+"ude gew"+ae+"hlt");
+			  System.err.println("Kein Gebäude gewählt");
 			  return 0;
 		  }
 			  }catch( NullPointerException e){
-				  System.out.println("Geb"+ae+"ude nicht vorhanden.");
+				  System.out.println("Gebäude nicht vorhanden.");
 			  }
 		  return 0;
 	  }
@@ -622,142 +580,114 @@ class Distributor implements Serializable {
 		  iron.setLimit( ironLimit );
 	  }
 	  
-	  public void moveBuilding(String buildingToMove, int locationX, int locationY){
-		  int[] location = checkLocation(locationX, locationY);
-		  locationX = location[0];
-		  locationY = location[1];
+	  public void moveBuilding(String buildingToMove, int number, Location location ){
+		  Location finalLocation = checkLocation(location);
 		  
-		  if( buildingToMove.equals("mainBuilding")){
-			  mainBuilding.moveBuilding(locationX, locationY);
-			  locations[0][0] = locationX;
-			  locations[0][1] = locationY;
-		  }else if(buildingToMove.equals("lumbermill")){
-			  lumbermill.moveBuilding(locationX, locationY);
-			  locations[1][0] = locationX;
-			  locations[1][1] = locationY;
+		  if( buildingToMove.equals("mainBuilding") && number == 1){
+			  mainBuilding.moveBuilding(finalLocation);
+			  locations[0] = finalLocation;
+		  }else if(buildingToMove.equals("lumbermill") && number == 1){
+			  lumbermill.moveBuilding(finalLocation);
+			  locations[1] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill2")){
-			  lumbermill.moveBuilding(locationX, locationY);
-			  locations[2][0] = locationX;
-			  locations[2][1] = locationY;
+		  }else if(buildingToMove.equals("lumbermill") && number == 2){
+			  lumbermill.moveBuilding(finalLocation);
+			  locations[2] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill3")){
-			  lumbermill.moveBuilding(locationX, locationY);
-			  locations[3][0] = locationX;
-			  locations[3][1] = locationY;
+		  }else if(buildingToMove.equals("lumbermill") && number == 3){
+			  lumbermill.moveBuilding(finalLocation);
+			  locations[3] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill4")){
-			  lumbermill.moveBuilding(locationX, locationY);
-			  locations[4][0] = locationX;
-			  locations[4][1] = locationY;
+		  }else if(buildingToMove.equals("lumbermill") && number == 4){
+			  lumbermill.moveBuilding(finalLocation);
+			  locations[4] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill5")){
-			  lumbermill.moveBuilding(locationX, locationY);
-			  locations[5][0] = locationX;
-			  locations[5][1] = locationY;
+		  }else if(buildingToMove.equals("lumbermill") && number == 5){
+			  lumbermill.moveBuilding(finalLocation);
+			  locations[5] = finalLocation;
 			  
 			  
-		  }else if(buildingToMove.equals("quarry")){
-			  quarry.moveBuilding(locationX, locationY);
-			  locations[6][0] = locationX;
-			  locations[6][1] = locationY;
+		  }else if(buildingToMove.equals("quarry") && number == 1){
+			  quarry.moveBuilding(finalLocation);
+			  locations[6] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("quarry2")){
-			  quarry2.moveBuilding(locationX, locationY);
-			  locations[7][0] = locationX;
-			  locations[7][1] = locationY;
+		  }else if(buildingToMove.equals("quarry") && number == 2){
+			  quarry2.moveBuilding(finalLocation);
+			  locations[7] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("quarry3")){
-			  quarry3.moveBuilding(locationX, locationY);
-			  locations[8][0] = locationX;
-			  locations[8][1] = locationY;
+		  }else if(buildingToMove.equals("quarry") && number == 3){
+			  quarry3.moveBuilding(finalLocation);
+			  locations[8] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("quarry4")){
-			  quarry4.moveBuilding(locationX, locationY);
-			  locations[9][0] = locationX;
-			  locations[9][1] = locationY;
+		  }else if(buildingToMove.equals("quarry") && number == 4){
+			  quarry4.moveBuilding(finalLocation);
+			  locations[9] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("quarry5")){
-			  quarry5.moveBuilding(locationX, locationY);
-			  locations[10][0] = locationX;
-			  locations[10][1] = locationY;
+		  }else if(buildingToMove.equals("quarry") && number == 5){
+			  quarry5.moveBuilding(finalLocation);
+			  locations[10] = finalLocation;
 			  
 			  
-		  }else if(buildingToMove.equals("mine")){
-			  mine.moveBuilding(locationX, locationY);
-			  locations[11][0] = locationX;
-			  locations[11][1] = locationY;
+		  }else if(buildingToMove.equals("mine") && number == 1){
+			  mine.moveBuilding(finalLocation);
+			  locations[11] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("mine2")){
-			  mine2.moveBuilding(locationX, locationY);
-			  locations[12][0] = locationX;
-			  locations[12][1] = locationY;
+		  }else if(buildingToMove.equals("mine") && number == 2){
+			  mine2.moveBuilding(finalLocation);
+			  locations[12] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("mine3")){
-			  mine3.moveBuilding(locationX, locationY);
-			  locations[13][0] = locationX;
-			  locations[13][1] = locationY;
+		  }else if(buildingToMove.equals("mine") && number == 3){
+			  mine3.moveBuilding(finalLocation);
+			  locations[13] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("mine4")){
-			  mine4.moveBuilding(locationX, locationY);
-			  locations[14][0] = locationX;
-			  locations[14][1] = locationY;
+		  }else if(buildingToMove.equals("mine") && number == 4){
+			  mine4.moveBuilding(finalLocation);
+			  locations[14] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("mine5")){
-			  mine5.moveBuilding(locationX, locationY);
-			  locations[15][0] = locationX;
-			  locations[15][1] = locationY;
+		  }else if(buildingToMove.equals("mine") && number == 5){
+			  mine5.moveBuilding(finalLocation);
+			  locations[15] = finalLocation;
 			  
 			  
-		  }else if(buildingToMove.equals("storage")){
-			  quarry5.moveBuilding(locationX, locationY);
-			  locations[16][0] = locationX;
-			  locations[16][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 1){
+			  quarry5.moveBuilding(finalLocation);
+			  locations[16] = finalLocation;
 			    
-		  }else if(buildingToMove.equals("storage2")){
-			  mine.moveBuilding(locationX, locationY);
-			  locations[17][0] = locationX;
-			  locations[17][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 2){
+			  mine.moveBuilding(finalLocation);
+			  locations[17] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("storage3")){
-			  mine2.moveBuilding(locationX, locationY);
-			  locations[18][0] = locationX;
-			  locations[18][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 3){
+			  mine2.moveBuilding(finalLocation);
+			  locations[18] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("storage4")){
-			  mine3.moveBuilding(locationX, locationY);
-			  locations[19][0] = locationX;
-			  locations[19][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 4){
+			  mine3.moveBuilding(finalLocation);
+			  locations[19] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("storage5")){
-			  mine4.moveBuilding(locationX, locationY);
-			  locations[20][0] = locationX;
-			  locations[20][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 5){
+			  mine4.moveBuilding(finalLocation);
+			  locations[20] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("storage6")){
-			  mine5.moveBuilding(locationX, locationY);
-			  locations[21][0] = locationX;
-			  locations[21][1] = locationY;
+		  }else if(buildingToMove.equals("storage") && number == 6){
+			  mine5.moveBuilding(finalLocation);
+			  locations[21] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("apartment")){
-			  quarry5.moveBuilding(locationX, locationY);
-			  locations[22][0] = locationX;
-			  locations[22][1] = locationY;
+		  }else if(buildingToMove.equals("apartment") && number == 1){
+			  quarry5.moveBuilding(finalLocation);
+			  locations[22] = finalLocation;
 			    
-		  }else if(buildingToMove.equals("apartment2")){
-			  mine.moveBuilding(locationX, locationY);
-			  locations[23][0] = locationX;
-			  locations[23][1] = locationY;
+		  }else if(buildingToMove.equals("apartment") && number == 2){
+			  mine.moveBuilding(finalLocation);
+			  locations[23] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("apartment3")){
-			  mine2.moveBuilding(locationX, locationY);
-			  locations[24][0] = locationX;
-			  locations[24][1] = locationY;
+		  }else if(buildingToMove.equals("apartment") && number == 3){
+			  mine2.moveBuilding(finalLocation);
+			  locations[24] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("apartment4")){
-			  mine3.moveBuilding(locationX, locationY);
-			  locations[25][0] = locationX;
-			  locations[25][1] = locationY;
+		  }else if(buildingToMove.equals("apartment") && number == 4){
+			  mine3.moveBuilding(finalLocation);
+			  locations[25] = finalLocation;
 		  }else{
 			  System.err.println("Kein Geb"+ae+"ude gew"+ae+"hlt.");
 		  }
@@ -772,13 +702,12 @@ class Distributor implements Serializable {
 		  for ( int y = 1; y < 11; y++ ){
 			  for ( int x = 1; x < 41; x++ ){
 				  boolean isBuilding = false;
-				  java.awt.Point point = new java.awt.Point(x, y);
-				  if(mainBuildingBuild == 1){
-					  if(mainBuilding.getLocation().equals(point)){
-						  System.out.print("R");
-						  isBuilding = true;
-					  }
-				  }
+				  Location point = new Location(x, y);
+				  
+				  if(mainBuilding.getLocation().equals(point)){
+					  System.out.print("R");
+					  isBuilding = true;
+				  }  
 				  
 				  if(lumbermillBuild >= 1){
 					  if(lumbermill.getLocation().equals(point)){
@@ -945,37 +874,38 @@ class Distributor implements Serializable {
 	    System.out.println();
 	  }
 	  
-	  private int[] checkLocation(int locationX, int locationY){
-		  while( locationX > 39 || locationX < 0 ){
+	  private Location checkLocation(Location location){
+		  while( location.getLocation()[0] > 40 || location.getLocation()[0] < 0 ){
 			  System.err.println("Nicht innerhalb des Feldes.");
-			  System.out.println("neue X-Koordinate (0 bis 39):");
-			  locationX = enterInt();
+			  System.out.println("neue X-Koordinate (1 bis 40):");
+			  location.setLocationX(enterInt());
 		  }
-		  while( locationY > 9 || locationY < 0 ){
+		  while( location.getLocation()[1] > 10 || location.getLocation()[1] < 0 ){
 			  System.err.println("Nicht innerhalb des Feldes.");
-			  System.out.println("neue Y-Koordinate (0 bis 9):");
-			  locationY = enterInt();
+			  System.out.println("neue Y-Koordinate (1 bis 10):");
+			  location.setLocationY(enterInt());
 		  }
-		  for( int[] location : locations){
-			  while(locationX == location[0] && locationY == location[1]){
+		  for( Location oldLocation : locations){
+			  try{
+				  while(location.getLocationX() == oldLocation.getLocationX() && location.getLocationY() == oldLocation.getLocationY()){
 				  System.err.println("An dieser Stelle steht bereits ein Geb"+ae+"ude.");
-				  System.out.println("neue X-Koordinate (0 bis 39):");
-				  locationX = enterInt();
-				  System.out.println("neue Y-Koordinate (0 bis 9):");
-				  locationY = enterInt();
-				  while(locationX > 39 || locationX < 0){
-					  System.err.println("Nicht innerhalb des Feldes.");
-					  System.out.println("neue X-Koordinate (0 bis 39):");
-					  locationX = (int) new java.util.Scanner(System.in).nextInt();
-				  }
-				  while(locationY > 39 || locationY < 0){
-					  System.err.println("Nicht innerhalb des Feldes.");
-					  System.out.println("neue Y-Koordinate (0 bis 9):");
-					  locationY = (int) new java.util.Scanner(System.in).nextInt();
-				  }
+					  System.out.println("neue X-Koordinate (1 bis 40):");
+					  location.setLocationX(enterInt());
+					  System.out.println("neue Y-Koordinate (1 bis 10):");
+					  location.setLocationY(enterInt());
+					  while(location.getLocation()[0] > 40 || location.getLocation()[0] < 0){
+						  System.err.println("Nicht innerhalb des Feldes.");
+						  System.out.println("neue X-Koordinate (1 bis 40):");
+						  location.setLocationX(enterInt());
+					  }
+					  while(location.getLocation()[1] > 10 || location.getLocation()[1] < 0){
+						  System.err.println("Nicht innerhalb des Feldes.");
+						  System.out.println("neue Y-Koordinate (1 bis 10):");
+						  location.setLocationY(enterInt());
+					  }
+				  	}
+				  }catch( NullPointerException e){}
 			  }
-		  }
-		  int[] location = {locationX, locationY};
 		  return location;
 	  }
 		private static int enterInt(){
