@@ -38,37 +38,37 @@ public abstract class ConsoleInterface {
 				UserInterface.createAdmin();
 			}else if(in.equalsIgnoreCase("Saegewerk bauen")){
 				System.out.println("Wo soll das S" + ae +"gewerk stehen?");
-				System.out.println("X-Koordinate(zwischen 0 und 39):");
+				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 0 und 9):");
+				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY = enterInt();
 				UserInterface.npBuildLumbermill(locationX, locationY);
 			}else if(in.equalsIgnoreCase("Steinbruch bauen")){
 				System.out.println("Wo soll der Steinbruch stehen?");
-				System.out.println("X-Koordinate(zwischen 0 und 39):");
+				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 0 und 9):");
+				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
 				UserInterface.npBuildQuarry(locationX, locationY);
 			}else if( in.equalsIgnoreCase("Mine bauen")){
 				System.out.println("Wo soll die Mine stehen?");
-				System.out.println("X-Koordinate(zwischen 0 und 39):");
+				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 0 und 9):");
+				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
 				UserInterface.npBuildMine(locationX, locationY);
 			}else if( in.equalsIgnoreCase("Lager bauen")){
 				System.out.println("Wo soll das Lager stehen?");
-				System.out.println("X-Koordinate(zwischen 0 und 39):");
+				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 0 und 9):");
+				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
 				UserInterface.npBuildStorage(locationX, locationY);
 			}else if( in.equalsIgnoreCase("Wohnhaus bauen")){
 				System.out.println("Wo soll das Wohnhaus stehen?");
-				System.out.println("X-Koordinate(zwischen 0 und 39):");
+				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 0 und 9):");
+				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
 				UserInterface.npBuildApartment(locationX, locationY);
 			}else if( in.equalsIgnoreCase("Level Up")){
@@ -78,9 +78,9 @@ public abstract class ConsoleInterface {
 			}else if(in.equalsIgnoreCase("Bewegen")){
 				System.out.println("Welches Geb"+ae+"ude willst du bewegen?");
 				String building = enter();
-				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (0 bis 39)?");
+				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (1 bis 40)?");
 				int locationX = enterInt();
-				System.out.println("Zu welcher Y-Koordinate soll es bewegt werden (0 bis 9)");
+				System.out.println("Zu welcher Y-Koordinate soll es bewegt werden (1 bis 10)");
 				int locationY = enterInt();
 				UserInterface.npMove(building, locationX, locationY);
 			}else if( in.equalsIgnoreCase("Speichern")){
@@ -103,7 +103,6 @@ public abstract class ConsoleInterface {
 				System.out.println("11. Laden");
 				System.out.println("12. Ende");
 			}else if( in.equalsIgnoreCase("Ende")){
-				UserInterface.npCollect();
 				UserInterface.savePlayer();
 				System.exit(0);
 			} else if(in.equalsIgnoreCase("notes")) {
