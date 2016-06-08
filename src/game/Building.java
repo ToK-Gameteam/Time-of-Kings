@@ -1,5 +1,7 @@
 package game;
 
+import java.io.Serializable;
+
 /**
  * Class Building
  * 
@@ -9,21 +11,18 @@ package game;
  * @author Constantin Schulte
  * @version 0.0
  */
-
-import java.io.Serializable;
-
  public abstract class Building implements Serializable{
 	protected static final long serialVersionUID = 1L;
 
 	  protected final int number;
 	  protected int level;
-	  protected java.awt.Point location;
+	  protected Location location;
 	  protected int woodCost;
 	  protected int stoneCost;
 	  protected int ironCost;
 	  protected int hitpoints;
 	  
-	  protected Building(int woodCost, int stoneCost, int ironCost, int number, java.awt.Point location){
+	  protected Building(int woodCost, int stoneCost, int ironCost, int number, Location location){
 	    level = 1;
 	    this.location = location;
 	    this.number = number;
@@ -129,7 +128,7 @@ import java.io.Serializable;
 	   * 
 	   * Returns the location of a building.
 	   */
-	  public java.awt.Point getLocation(){
+	  public Location getLocation(){
 	      return location;
 	  }
 	  
@@ -148,9 +147,8 @@ import java.io.Serializable;
 	   * 
 	   * Moves a building to the new Points X and Y.
 	   */
-	  public void moveBuilding(int newX, int newY){
-		  location.x = newX;
-		  location.y = newY;
+	  public void moveBuilding(Location location){
+		  this.location = location;
 	  }
 	  
 	  public int getHitpoints(){
