@@ -1,6 +1,6 @@
 package game;
 
-class Location {
+public class Location {
 	private int locationX;
 	private int locationY;
 	
