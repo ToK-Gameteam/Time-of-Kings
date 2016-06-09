@@ -34,43 +34,46 @@ public abstract class ConsoleInterface {
 			String in = enter();
 			if( in.equalsIgnoreCase( "Spieler erstellen" ) ){
 				UserInterface.createPlayer();
-			}else if( in.equals( "Admin erstellen" ) ){
-				UserInterface.createAdmin();
 			}else if(in.equalsIgnoreCase("Saegewerk bauen")){
 				System.out.println("Wo soll das S" + ae +"gewerk stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY = enterInt();
-				UserInterface.npBuildLumbermill(locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npBuildLumbermill(location);
 			}else if(in.equalsIgnoreCase("Steinbruch bauen")){
 				System.out.println("Wo soll der Steinbruch stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
-				UserInterface.npBuildQuarry(locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npBuildQuarry(location);
 			}else if( in.equalsIgnoreCase("Mine bauen")){
 				System.out.println("Wo soll die Mine stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
-				UserInterface.npBuildMine(locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npBuildMine(location);
 			}else if( in.equalsIgnoreCase("Lager bauen")){
 				System.out.println("Wo soll das Lager stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
-				UserInterface.npBuildStorage(locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npBuildStorage(location);
 			}else if( in.equalsIgnoreCase("Wohnhaus bauen")){
 				System.out.println("Wo soll das Wohnhaus stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
 				System.out.println("Y-Koordinate (zwischen 1 und 10):");
 				int locationY =enterInt();
-				UserInterface.npBuildApartment(locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npBuildApartment(location);
 			}else if( in.equalsIgnoreCase("Level Up")){
 				System.out.println("Welches Geb"+ae+"ude willst du aufwerten?");
 				String building = enter();
@@ -82,7 +85,8 @@ public abstract class ConsoleInterface {
 				int locationX = enterInt();
 				System.out.println("Zu welcher Y-Koordinate soll es bewegt werden (1 bis 10)");
 				int locationY = enterInt();
-				UserInterface.npMove(building, locationX, locationY);
+				Location location = new Location( locationX, locationY);
+				UserInterface.npMove(building, location);
 			}else if( in.equalsIgnoreCase("Speichern")){
 				UserInterface.savePlayer();
 			}else if(in.equalsIgnoreCase("Ressourcen sammeln")){
@@ -107,16 +111,11 @@ public abstract class ConsoleInterface {
 				System.exit(0);
 			} else if(in.equalsIgnoreCase("notes")) {
 				System.out.println("");
-				System.out.println("Patchnotes:");
+				System.out.println("Patchnotes (v" + GAME_VERSION + "):");
 				System.out.println("Neuer Geb" + ae +"udetyp: Wohnhaus!");
 				System.out.println("Baue jetzt deine Wohnh"+ae+"user mit 'Wohnhaus bauen'.");
 				System.out.println("");
-				System.out.println("Hotfix 1");
-				System.out.println("Neue Funktion: 'Ressourcen sammeln', sammelt deine Ressourcen");
-				System.out.println("Bugfixes: Geb"+ae+"ude nun auch in den " + ae +"u"+ss+"eren rechten Teil setzbar!");
-				System.out.println("Au"+ss+"erdem ist die 'Bewegen' Funktion nun nicht mehr verbugt und funktioniert einwandfrei!");
-				System.out.println("Auch die Level Up Funktion funktioniert jetzt.");
-				System.out.println("Falscheingaben von Benutzern werden jetzt abgefangen.");
+				System.out.println("Hotfix 2");
 				System.out.println("UniCode fix");
 				System.out.println("Updates k"+oe+"nnen nun auch manuel gecheckt werden mit -> checkupdate <-");
 				System.out.println("");
