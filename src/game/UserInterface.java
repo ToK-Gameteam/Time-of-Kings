@@ -12,7 +12,6 @@ package game;
 
 public abstract class UserInterface {
 	private static NormalPlayer player;
-	private static Admin admin;
 	private static java.util.Scanner scanner;
 
 	
@@ -48,41 +47,41 @@ public abstract class UserInterface {
 		}
 	}
 	
-	public static void npBuildLumbermill(int locationX, int locationY){
+	public static void npBuildLumbermill( Location location ){
 		try{
-			player.buildLumbermill(locationX, locationY);
+			player.buildLumbermill(location);
+		}catch( NullPointerException e){
+			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
+		}
+	}
+	
+	public static void npBuildQuarry( Location location ){
+		try{
+			player.buildQuarry( location );
 		}catch(NullPointerException e){
 			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
 		}
 	}
 	
-	public static void npBuildQuarry(int locationX, int locationY){
+	public static void npBuildMine( Location location ){
 		try{
-			player.buildQuarry(locationX, locationY);
+			player.buildMine(location);
 		}catch(NullPointerException e){
 			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
 		}
 	}
 	
-	public static void npBuildMine(int locationX, int locationY){
+	public static void npBuildStorage( Location location ){
 		try{
-			player.buildMine(locationX, locationY);
+			player.buildStorage(location);
 		}catch(NullPointerException e){
 			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
 		}
 	}
 	
-	public static void npBuildStorage(int locationX, int locationY){
+	public static void npBuildApartment( Location location ){
 		try{
-			player.buildStorage(locationX, locationY);
-		}catch(NullPointerException e){
-			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
-		}
-	}
-	
-	public static void npBuildApartment(int locationX, int locationY){
-		try{
-			player.buildApartment(locationX, locationY);
+			player.buildApartment(location);
 		}catch( NullPointerException e ){
 			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
 		}
@@ -167,7 +166,7 @@ public abstract class UserInterface {
 			buildingToUpgrade = "apartment";
 			number = 4;
 		}else{
-			System.err.println("Kein Geb�ude gew�hlt.");
+			System.err.println("Kein Gebäude gewählt.");
 			return;
 		}
 		try{
@@ -177,46 +176,92 @@ public abstract class UserInterface {
 		}
 	}
 	
-	public static void npMove(String building, int locationX, int locationY){
+	public static void npMove(String building, Location location){
+		String buildingToMove;
+		int number;
+		if(building.equals("Saegewerk")){
+			buildingToMove = "lumbermill";
+			number = 1;
+		}else if(building.equals("Saegewerk 2")){
+			buildingToMove = "lumbermill";
+			number = 2;
+		}else if(building.equals("Saegewerk 3")){
+			buildingToMove = "lumbermill";
+			number = 3;
+		}else if(building.equals("Saegewerk 4")){
+			buildingToMove = "lumbermill";
+			number = 4;
+		}else if(building.equals("Saegewerk 5")){
+			buildingToMove = "lumbermill";
+			number = 5;
+		}else if(building.equals("Steinbruch")){
+			buildingToMove = "quarry";
+			number = 1;
+		}else if(building.equals("Steinbruch 2")){
+			buildingToMove = "quarry";
+			number = 2;
+		}else if(building.equals("Steinbruch 3")){
+			buildingToMove = "quarry";
+			number = 3;
+		}else if(building.equals("Steinbruch 4")){
+			buildingToMove = "quarry";
+			number = 4;
+		}else if(building.equals("Steinbruch 5")){
+			buildingToMove = "quarry";
+			number = 5;
+		}else if(building.equals("Mine")){
+			buildingToMove = "mine";
+			number = 1;
+		}else if(building.equals("Mine 2")){
+			buildingToMove = "mine";
+			number = 2;
+		}else if(building.equals("Mine 3")){
+			buildingToMove = "mine";
+			number = 3;
+		}else if(building.equals("Mine 4")){
+			buildingToMove = "mine";
+			number = 4;
+		}else if(building.equals("Mine 5")){
+			buildingToMove = "mine";
+			number = 5;
+		}else if(building.equals("Lager")){
+			buildingToMove = "storage";
+			number = 1;
+		}else if(building.equals("Lager 2")){
+			buildingToMove = "storage";
+			number = 2;
+		}else if(building.equals("Lager 3")){
+			buildingToMove = "storage";
+			number = 3;
+		}else if(building.equals("Lager 4")){
+			buildingToMove = "storage";
+			number = 4;
+		}else if(building.equals("Lager 5")){
+			buildingToMove = "storage";
+			number = 5;
+		}else if(building.equals("Lager 6")){
+			buildingToMove = "storage";
+			number = 6;
+		}else if(building.equals("Wohnhaus")){
+			buildingToMove = "apartment";
+			number = 1;
+		}else if(building.equals("Wohnhaus 2")){
+			buildingToMove = "apartment";
+			number = 2;
+		}else if(building.equals("Wohnhaus 3")){
+			buildingToMove = "apartment";
+			number = 3;
+		}else if(building.equals("Wohnhaus 4")){
+			buildingToMove = "apartment";
+			number = 4;
+		}else{
+			System.err.println("Kein Gebäude gewählt.");
+			return;
+		}
 		try{
-			player.moveBuilding(building, locationX, locationX);
+			player.moveBuilding(buildingToMove, number, location);
 		}catch(NullPointerException e){
 			System.err.println("Kein Spieler vorhanden, erstelle erst einen Spieler.");
 		}
-	}
-	
-	public static void createAdmin(){
-		scanner = new java.util.Scanner(System.in);
-		String name = (String) scanner.next().toString();
-		admin = new Admin(name);
-	}
-	
-	public static void loadAdmin(){
-		admin = (Admin) LoadAdmin.main()[0];
-		admin.printDetails();
-	}
-	
-	public static void saveAdmin(){
-		SaveAdmin.save(admin);
-	}
-	
-	public static void aCollect(){
-		admin.collect();
-	}
-	
-	public static void aBuildLumbermill(int locationX, int locationY){
-		admin.buildLumbermill(locationX, locationY);
-	}
-	
-	public static void aBuildQuarry(int locationX, int locationY){
-		admin.buildQuarry(locationX, locationY);
-	}
-	
-	public static void aBuildMine(int locationX, int locationY){
-		admin.buildMine(locationX, locationY);
-	}
-	
-	public static void aSetValues(int newWood, int newStone, int newIron){
-		admin.setValue(newWood, newStone, newIron);
 	}
 }
