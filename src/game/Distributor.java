@@ -9,7 +9,7 @@ import game.buildings.*;
  * The class Distributor interacts between the buildings and the resources and is used by the player.
  * 
  * @author Constantin Schulte
- * @version 0.2
+ * @version 0.3
  */
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
