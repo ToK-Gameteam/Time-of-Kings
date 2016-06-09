@@ -8,8 +8,7 @@ package game;
  * 
  * @author Constantin Schulte
  * @version 0.0
- */
-
+ **/
 public abstract class UserInterface {
 	private static NormalPlayer player;
 	private static java.util.Scanner scanner;
