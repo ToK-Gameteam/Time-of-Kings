@@ -34,7 +34,8 @@ public class Tutorial implements Serializable {
 					  System.out.println("Y-Koordinate (zwischen 0 und 9):");
 					  int locationY = enterInt();
 					  if( locationX == 3 && locationY == 3 ){
-						  distributor.buildMainBuilding(locationX, locationY);
+					  	Location location = new Location( locationX, locationY);
+						  distributor.buildMainBuilding(location);
 						  break;
 				  	}else{
 					  	System.err.println("Falsche Koordinaten.");
