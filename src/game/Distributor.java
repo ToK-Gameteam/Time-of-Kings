@@ -1,5 +1,8 @@
 package game;
 
+import java.io.Serializable;
+import game.buildings.*;
+
 /**
  * Class Distributor
  * 
@@ -8,9 +11,6 @@ package game;
  * @author Constantin Schulte
  * @version 0.2
  */
-
-import java.io.Serializable;
-
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
