@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import game.util.Update;
 
-public abstract class ConsoleInterface {
+public class ConsoleInterface {
 
 	public static double  GAME_VERSION = 0.3;
 	private static java.util.Scanner scanner;
@@ -38,7 +38,7 @@ public abstract class ConsoleInterface {
 				System.out.println("Wo soll das S" + ae +"gewerk stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 1 und 10):");
+				System.out.println("Y-Koordinate (zwischen 1 und 40):");
 				int locationY = enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npBuildLumbermill(location);
@@ -46,7 +46,7 @@ public abstract class ConsoleInterface {
 				System.out.println("Wo soll der Steinbruch stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 1 und 10):");
+				System.out.println("Y-Koordinate (zwischen 1 und 40):");
 				int locationY =enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npBuildQuarry(location);
@@ -54,7 +54,7 @@ public abstract class ConsoleInterface {
 				System.out.println("Wo soll die Mine stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 1 und 10):");
+				System.out.println("Y-Koordinate (zwischen 1 und 40):");
 				int locationY =enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npBuildMine(location);
@@ -62,7 +62,7 @@ public abstract class ConsoleInterface {
 				System.out.println("Wo soll das Lager stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 1 und 10):");
+				System.out.println("Y-Koordinate (zwischen 1 und 40):");
 				int locationY =enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npBuildStorage(location);
@@ -70,10 +70,18 @@ public abstract class ConsoleInterface {
 				System.out.println("Wo soll das Wohnhaus stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
-				System.out.println("Y-Koordinate (zwischen 1 und 10):");
+				System.out.println("Y-Koordinate (zwischen 1 und 40):");
 				int locationY =enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npBuildApartment(location);
+			}else if(in.equalsIgnoreCase("Mauer bauen")){
+					System.out.println("Wo soll die Mauer stehen?");
+					System.out.println("X-Koordinate(zwischen 1 und 40):");
+					int locationX = enterInt();
+					System.out.println("Y-Koordinate (zwischen 1 und 40):");
+					int locationY =enterInt();
+					Location location = new Location( locationX, locationY);
+					UserInterface.npBuildWall(location);
 			}else if( in.equalsIgnoreCase("Level Up")){
 				System.out.println("Welches Geb"+ae+"ude willst du aufwerten?");
 				String building = enter();
@@ -83,7 +91,7 @@ public abstract class ConsoleInterface {
 				String building = enter();
 				System.out.println("Zu welcher X-Koordinate soll es bewegt werden (1 bis 40)?");
 				int locationX = enterInt();
-				System.out.println("Zu welcher Y-Koordinate soll es bewegt werden (1 bis 10)");
+				System.out.println("Zu welcher Y-Koordinate soll es bewegt werden (1 bis 40)");
 				int locationY = enterInt();
 				Location location = new Location( locationX, locationY);
 				UserInterface.npMove(building, location);
@@ -107,7 +115,6 @@ public abstract class ConsoleInterface {
 				System.out.println("11. Laden");
 				System.out.println("12. Ende");
 			}else if( in.equalsIgnoreCase("Ende")){
-				UserInterface.savePlayer();
 				System.exit(0);
 			} else if(in.equalsIgnoreCase("notes")) {
 				System.out.println("");
@@ -117,7 +124,7 @@ public abstract class ConsoleInterface {
 				System.out.println("");
 				System.out.println("Hotfix 2");
 				System.out.println("UniCode fix");
-				System.out.println("Updates k"+oe+"nnen nun auch manuel gecheckt werden mit -> checkupdate <-");
+				System.out.println("Updates k"+oe+"nnen nun auch manuell gecheckt werden mit -> checkupdate <-");
 				System.out.println("");
 			} else if(in.equalsIgnoreCase("checkupdate")) {
 				try {
