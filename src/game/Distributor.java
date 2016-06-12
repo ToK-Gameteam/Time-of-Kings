@@ -9,52 +9,57 @@ import game.buildings.*;
  * The class Distributor interacts between the buildings and the resources and is used by the player.
  * 
  * @author Constantin Schulte
- * @version 0.3
+ * @version 0.2
  */
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String oe = ConsoleInterface.oe;
 	private String ae = ConsoleInterface.ae;
-	private MainBuilding mainBuilding;
-	private ResourceCollector lumbermill, lumbermill2, lumbermill3, lumbermill4, lumbermill5;
+	private CommunityHall communityHall;
+	private ResourceCollector sawmill, sawmill2, sawmill3, sawmill4, sawmill5;
 	private ResourceCollector quarry, quarry2, quarry3, quarry4, quarry5;
 	private ResourceCollector mine, mine2, mine3, mine4, mine5;
 	private Storage storage, storage2, storage3, storage4, storage5, storage6;
 	private Apartment apartment, apartment2, apartment3, apartment4;
+	private Wall wall, wall2, wall3, wall4, wall5, wall6, wall7, wall8, wall9, wall10;
+	private Wall wall11, wall12, wall13, wall14, wall15, wall16, wall17, wall18, wall19, wall20;
+	private Wall wall21, wall22, wall23, wall24, wall25, wall26, wall27, wall28, wall29, wall30;
+	private Wall wall31, wall32, wall33, wall34, wall35, wall36, wall37, wall38, wall39, wall40;
 	private Resource wood;
 	private Resource stone;
 	private Resource iron;
 	private Location[] locations;
-	private int mainBuildingBuild, lumbermillBuild, quarryBuild, mineBuild, storageBuild, apartmentsBuild;
+	private int mainBuildingBuild, sawmillBuild, quarryBuild, mineBuild, storageBuild, apartmentsBuild, wallsBuild;
 	
-	private static java.util.Scanner scanner;		// Zu loeschen bei GUI
+	private static java.util.Scanner scanner;
 
 	  public Distributor(){
 	    wood = new Resource();
 	    stone = new Resource();
 	    iron = new Resource();
 	    mainBuildingBuild = 0;
-	    lumbermillBuild = 0;
+	    sawmillBuild = 0;
 	    quarryBuild = 0;
 	    mineBuild = 0;
 	    storageBuild = 0;
-	    locations = new Location[26];
+	    wallsBuild = 0;
+	    locations = new Location[66];
 	  }
 
 	  public void collect(){
 	    int wood = 0, stone = 0, iron = 0;
-	   	switch( lumbermillBuild ){
+	   	switch( sawmillBuild ){
 	   	case 5:
-	   		wood += lumbermill5.collect();
+	   		wood += sawmill5.collect();
 	   	case 4:
-	   		wood += lumbermill4.collect();
+	   		wood += sawmill4.collect();
 	   	case 3:
-	   		wood += lumbermill3.collect();
+	   		wood += sawmill3.collect();
 	   	case 2:
-	   		wood += lumbermill2.collect();
+	   		wood += sawmill2.collect();
 	   	case 1:
-	   		wood += lumbermill.collect();
+	   		wood += sawmill.collect();
 	   	}
 	   	
 	   	switch( quarryBuild ){
@@ -109,7 +114,7 @@ class Distributor implements Serializable {
 	  
 	  public void buildMainBuilding( Location location ){
 		  if( mainBuildingBuild == 0){
-			  mainBuilding = new MainBuilding(location);
+			  communityHall = new CommunityHall(location);
 			  mainBuildingBuild = 1;
 			  locations[0] = location;
 		  }
@@ -120,38 +125,38 @@ class Distributor implements Serializable {
 		  Location finalLocation = checkLocation(location);
 
 		  
-		 if(lumbermillBuild == 0){
+		 if(sawmillBuild == 0){
 	        if(wood.getValue() >= 5){
-	            lumbermill = new ResourceCollector(1, 20, 15, 10, finalLocation);
-	            lumbermillBuild = 1;
+	            sawmill = new ResourceCollector(1, 20, 15, 10, finalLocation);
+	            sawmillBuild = 1;
 	            wood.subtract(5);
 	            locations[1] = finalLocation;
 	        }
-	    }else if(lumbermillBuild == 1){
+	    }else if(sawmillBuild == 1){
 	    	if(wood.getValue() >= 10){
-	    		lumbermill2 = new ResourceCollector(2, 30, 30, 30, finalLocation);
+	    		sawmill2 = new ResourceCollector(2, 30, 30, 30, finalLocation);
 	    		wood.subtract(10);
-	    		lumbermillBuild = 2;
+	    		sawmillBuild = 2;
 	            locations[2] = finalLocation;
 	    	}
-	    }else if(lumbermillBuild == 2){
+	    }else if(sawmillBuild == 2){
 	    	if(wood.getValue() >= 25){
-	    		lumbermill3 = new ResourceCollector(3, 50, 60, 70, finalLocation);
+	    		sawmill3 = new ResourceCollector(3, 50, 60, 70, finalLocation);
 	    		wood.subtract(25);
-	    		lumbermillBuild = 3;
+	    		sawmillBuild = 3;
 	            locations[3] = finalLocation;
 	    	}
-	    }else if(lumbermillBuild == 3){
+	    }else if(sawmillBuild == 3){
 	    	if(wood.getValue() >= 100){
-	    		lumbermill4 = new ResourceCollector(4, 200, 300, 300, finalLocation);
-	    		lumbermillBuild = 4;
+	    		sawmill4 = new ResourceCollector(4, 200, 300, 300, finalLocation);
+	    		sawmillBuild = 4;
 	            locations[4] = finalLocation;
 	    	}
-	    }else if(lumbermillBuild == 4){
+	    }else if(sawmillBuild == 4){
 	    	if(wood.getValue() >= 500){
-	    		lumbermill5 = new ResourceCollector( 5, 1_000, 1_000, 1_000, finalLocation);
+	    		sawmill5 = new ResourceCollector( 5, 1_000, 1_000, 1_000, finalLocation);
 	    		wood.subtract(500);
-	    		lumbermillBuild = 5;
+	    		sawmillBuild = 5;
 	            locations[5] = finalLocation;
 	    	}
 	    }
@@ -307,76 +312,255 @@ class Distributor implements Serializable {
 		  draw();
 	  }
 	  
+	  public void buildWall( Location location ){
+		  Location finalLocation = checkLocation( location );
+		  
+		  if( wallsBuild == 0 ){
+			  wall = new Wall( 1, finalLocation );
+			  locations[23] = finalLocation;
+			  wallsBuild = 1;
+		  }else if( wallsBuild == 1 ){
+			  wall2 = new Wall( 2, finalLocation );
+			  locations[24] = finalLocation;
+			  wallsBuild = 2;
+		  }else if( wallsBuild == 2 ){
+			  wall3 = new Wall( 3, finalLocation );
+			  locations[25] = finalLocation;
+			  wallsBuild = 3;
+		  }else if( wallsBuild == 3 ){
+			  wall4 = new Wall( 4, finalLocation );
+			  locations[26] = finalLocation;
+			  wallsBuild = 4;
+		  }else if( wallsBuild == 4 ){
+			  wall5 = new Wall( 5, finalLocation );
+			  locations[27] = finalLocation;
+			  wallsBuild = 5;
+		  }else if( wallsBuild == 5 ){
+			  wall6 = new Wall( 6, finalLocation );
+			  locations[28] = finalLocation;
+			  wallsBuild = 6;
+		  }else if( wallsBuild == 6 ){
+			  wall7 = new Wall( 7, finalLocation );
+			  locations[29] = finalLocation;
+			  wallsBuild = 7;
+		  }else if( wallsBuild == 7 ){
+			  wall8 = new Wall( 8, finalLocation );
+			  locations[30] = finalLocation;
+			  wallsBuild = 8;
+		  }else if( wallsBuild == 8 ){
+			  wall9 = new Wall( 9, finalLocation );
+			  locations[31] = finalLocation;
+			  wallsBuild = 9;
+		  }else if( wallsBuild == 9 ){
+			  wall10 = new Wall( 10, finalLocation );
+			  locations[32] = finalLocation;
+			  wallsBuild = 10;
+		  }else if( wallsBuild == 10 ){
+			  wall11 = new Wall( 11, finalLocation );
+			  locations[33] = finalLocation;
+			  wallsBuild = 11;
+		  }else if( wallsBuild == 11 ){
+			  wall12 = new Wall( 12, finalLocation );
+			  locations[34] = finalLocation;
+			  wallsBuild = 12;
+		  }else if( wallsBuild == 12 ){
+			  wall13 = new Wall( 13, finalLocation );
+			  locations[35] = finalLocation;
+			  wallsBuild = 13;
+		  }else if( wallsBuild == 13 ){
+			  wall14 = new Wall( 14, finalLocation );
+			  locations[36] = finalLocation;
+			  wallsBuild = 14;
+		  }else if( wallsBuild == 14 ){
+			  wall15 = new Wall( 15, finalLocation );
+			  locations[37] = finalLocation;
+			  wallsBuild = 15;
+		  }else if( wallsBuild == 15 ){
+			  wall16 = new Wall( 16, finalLocation );
+			  locations[38] = finalLocation;
+			  wallsBuild = 16;
+		  }else if( wallsBuild == 16 ){
+			  wall17 = new Wall( 17, finalLocation );
+			  locations[39] = finalLocation;
+			  wallsBuild = 17;
+		  }else if( wallsBuild == 17 ){
+			  wall18 = new Wall( 18, finalLocation );
+			  locations[40] = finalLocation;
+			  wallsBuild = 18;
+		  }else if( wallsBuild == 18 ){
+			  wall19 = new Wall( 19, finalLocation );
+			  locations[41] = finalLocation;
+			  wallsBuild = 19;
+		  }else if( wallsBuild == 19 ){
+			  wall20 = new Wall( 20, finalLocation );
+			  locations[42] = finalLocation;
+			  wallsBuild = 20;
+		  }else if( wallsBuild == 20 ){
+			  wall21 = new Wall( 21, finalLocation );
+			  locations[43] = finalLocation;
+			  wallsBuild = 21;
+		  }else if( wallsBuild == 21 ){
+			  wall22 = new Wall( 22, finalLocation );
+			  locations[44] = finalLocation;
+			  wallsBuild = 22;
+		  }else if( wallsBuild == 22 ){
+			  wall23 = new Wall( 23, finalLocation );
+			  locations[45] = finalLocation;
+			  wallsBuild = 23;
+		  }else if( wallsBuild == 23 ){
+			  wall24 = new Wall( 24, finalLocation );
+			  locations[46] = finalLocation;
+			  wallsBuild = 24;
+		  }else if( wallsBuild == 24 ){
+			  wall25 = new Wall( 25, finalLocation );
+			  locations[47] = finalLocation;
+			  wallsBuild = 25;
+		  }else if( wallsBuild == 25 ){
+			  wall26 = new Wall( 26, finalLocation );
+			  locations[48] = finalLocation;
+			  wallsBuild = 26;
+		  }else if( wallsBuild == 26 ){
+			  wall27 = new Wall( 27, finalLocation );
+			  locations[49] = finalLocation;
+			  wallsBuild = 27;
+		  }else if( wallsBuild == 27 ){
+			  wall28 = new Wall( 28, finalLocation );
+			  locations[50] = finalLocation;
+			  wallsBuild = 28;
+		  }else if( wallsBuild == 28 ){
+			  wall29 = new Wall( 29, finalLocation );
+			  locations[51] = finalLocation;
+			  wallsBuild = 29;
+		  }else if( wallsBuild == 29 ){
+			  wall30 = new Wall( 30, finalLocation );
+			  locations[52] = finalLocation;
+			  wallsBuild = 30;
+		  }else if( wallsBuild == 30 ){
+			  wall31 = new Wall( 31, finalLocation );
+			  locations[53] = finalLocation;
+			  wallsBuild = 31;
+		  }else if( wallsBuild == 31 ){
+			  wall32 = new Wall( 32, finalLocation );
+			  locations[54] = finalLocation;
+			  wallsBuild = 32;
+		  }else if( wallsBuild == 32 ){
+			  wall33 = new Wall( 33, finalLocation );
+			  locations[55] = finalLocation;
+			  wallsBuild = 33;
+		  }else if( wallsBuild == 33 ){
+			  wall34 = new Wall( 34, finalLocation );
+			  locations[56] = finalLocation;
+			  wallsBuild = 34;
+		  }else if( wallsBuild == 34 ){
+			  wall35 = new Wall( 35, finalLocation );
+			  locations[57] = finalLocation;
+			  wallsBuild = 35;
+		  }else if( wallsBuild == 35 ){
+			  wall36 = new Wall( 36, finalLocation );
+			  locations[58] = finalLocation;
+			  wallsBuild = 36;
+		  }else if( wallsBuild == 36 ){
+			  wall37 = new Wall( 37, finalLocation );
+			  locations[59] = finalLocation;
+			  wallsBuild = 37;
+		  }else if( wallsBuild == 37 ){
+			  wall38 = new Wall( 38, finalLocation );
+			  locations[60] = finalLocation;
+			  wallsBuild = 38;
+		  }else if( wallsBuild == 38 ){
+			  wall39 = new Wall( 39, finalLocation );
+			  locations[61] = finalLocation;
+			  wallsBuild = 39;
+		  }else if( wallsBuild == 39 ){
+			  wall10 = new Wall( 40, finalLocation );
+			  locations[62] = finalLocation;
+			  wallsBuild = 40;
+		  }		
+		  draw();
+	  }
+	  
 	  public int levelUp(String buildingToUpgrade, int number){
+		  int[] costs = new int[3];
+		  int[] resources = {wood.getValue(), stone.getValue(), iron.getValue()};
 		  try{
+			  
 			  if(buildingToUpgrade.equals("lumbermill")){
-			  int[] costs;
+				  
+				  switch( number ){
+				  case 1:
+					  wood.add(sawmill.collect());
+					  costs = sawmill.levelUp(resources);
+					  break;
+				  case 2:
+					  wood.add(sawmill2.collect());
+					  costs = sawmill2.levelUp(resources);
+					  break;
+				  case 3:
+					  wood.add(sawmill3.collect());
+					  costs = sawmill3.levelUp(resources);
+					  break;
+				  case 4:
+					  wood.add(sawmill4.collect());
+					  costs = sawmill4.levelUp(resources);
+					  break;
+				  case 5:
+					  wood.add(sawmill5.collect());
+					  costs = sawmill5.levelUp(resources);
+					  break;
+				  default:
+					  return 0;
+				  }
 			  
+				  wood.subtract(costs[0]);
+				  stone.subtract(costs[1]);
+				  iron.subtract(costs[2]);
+				  setLimit();
 			  
-			  if(number == 1){
-				  wood.add(lumbermill.collect());
-				  costs = lumbermill.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 2){
-				  wood.add(lumbermill2.collect());
-				  costs = lumbermill2.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 3){
-				  wood.add(lumbermill3.collect());
-				  costs = lumbermill3.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if( number == 4){
-				  wood.add(lumbermill4.collect());
-				  costs = lumbermill4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 5){
-				  wood.add(lumbermill5.collect());
-				  costs = lumbermill5.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else{
-				 	return 0;
-			  }
-			  
-			  wood.subtract(costs[0]);
-			  stone.subtract(costs[1]);
-			  iron.subtract(costs[2]);
-			  setLimit();
-			  
-			  draw();
-			  switch( number ){
-			  case 1:
-				  return lumbermill.getLevel();
+				  draw();
+				  switch( number ){
+				  case 1:
+					  return sawmill.getLevel();
+					  
+				  case 2:
+					  return sawmill2.getLevel();
 				  
-			  case 2:
-				  return lumbermill2.getLevel();
+				  case 3:
+					  return sawmill3.getLevel();
 				  
-			  case 3:
-				  return lumbermill3.getLevel();
+				  case 4:
+					  return sawmill4.getLevel();
 				  
-			  case 4:
-				  return lumbermill4.getLevel();
+				  case 5:
+					  return sawmill5.getLevel();
 				  
-			  case 5:
-				  return lumbermill5.getLevel();
-				  
-			  }
+				  }
 			  
 			  
 			  
 		  }else if( buildingToUpgrade.equals( "quarry" ) ){
-			  int[] costs;
 			  
-			  if(number == 1){
+			  switch( number ){
+			  case 1:
 				  stone.add(quarry.collect());
-				  costs = quarry.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 2){
+				  costs = quarry.levelUp(resources);
+				  break;
+			  case 2:
 				  stone.add(quarry2.collect());
-				  costs = quarry2.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 3){
+				  costs = quarry2.levelUp(resources);
+				  break;
+			  case 3:
 				  stone.add(quarry3.collect());
-				  costs = quarry3.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if( number == 4){
+				  costs = quarry3.levelUp(resources);
+				  break;
+			  case 4:
 				  stone.add(quarry4.collect());
-				  costs = quarry4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 5){
+				  costs = quarry4.levelUp(resources);
+				  break;
+			  case 5:
 				  stone.add(quarry5.collect());
-				  costs = quarry5.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else{
+				  costs = quarry5.levelUp(resources);
+				  break;
+			  default:
 				 	return 0;
 			  }
 			  
@@ -405,25 +589,29 @@ class Distributor implements Serializable {
 			  
 			  
 		  }else if(buildingToUpgrade.equals("mine")){
-			  int[] costs;
-			  
-			  if(number == 1){
+			  switch( number ){
+			  case 1:
 				  iron.add(mine.collect());
-				  costs = mine.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 2){
+				  costs = mine.levelUp(resources);
+				  break;
+			  case 2:
 				  iron.add(mine2.collect());
-				  costs = mine2.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 3){
+				  costs = mine2.levelUp(resources);
+				  break;
+			  case 3:
 				  iron.add(mine3.collect());
-				  costs = mine3.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if( number == 4){
+				  costs = mine3.levelUp(resources);
+				  break;
+			  case 4:
 				  iron.add(mine4.collect());
-				  costs = mine4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 5){
+				  costs = mine4.levelUp(resources);
+				  break;
+			  case 5:
 				  iron.add(mine5.collect());
-				  costs = mine5.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else{
-				 	return 0;
+				  costs = mine5.levelUp(resources);
+				  break;
+			  default:
+				  return 0;
 			  }
 			  
 			  wood.subtract(costs[0]);
@@ -449,21 +637,27 @@ class Distributor implements Serializable {
 				  
 			  }
 		  }else if(buildingToUpgrade.equals("storage")){
-			  int[] costs;
 			  
-			  if(number == 1){
-				  costs = storage.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 2){
-				  costs = storage2.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 3){
-				  costs = storage3.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if( number == 4){
-				  costs = storage4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 5){
-				  costs = storage5.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 6){
-				  costs = storage6.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else{
+			  switch( number ){
+			  case 1:
+				  costs = storage.levelUp(resources);
+				  break;
+			  case 2:
+				  costs = storage2.levelUp(resources);
+				  break;
+			  case 3:
+				  costs = storage3.levelUp(resources);
+				  break;
+			  case 4:
+				  costs = storage4.levelUp(resources);
+				  break;
+			  case 5:
+				  costs = storage5.levelUp(resources);
+				  break;
+			  case 6:
+				  costs = storage6.levelUp(resources);
+				  break;
+			  default:
 				  System.err.println("Kein Lager gewählt");
 				 	return 0;
 			  }
@@ -494,17 +688,21 @@ class Distributor implements Serializable {
 				  
 			  }
 		  }else if(buildingToUpgrade.equals("apartment")){
-			  int[] costs;
 			  
-			  if(number == 1){
-				  costs = apartment.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 2){
-				  costs = apartment2.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if(number == 3){
-				  costs = apartment3.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else if( number == 4){
-				  costs = apartment4.levelUp(wood.getValue(), stone.getValue(), iron.getValue());
-			  }else{
+			  switch( number ){
+			  case 1:
+				  costs = apartment.levelUp(resources);
+				  break;
+			  case 2:
+				  costs = apartment2.levelUp(resources);
+				  break;
+			  case 3:
+				  costs = apartment3.levelUp(resources);
+				  break;
+			  case 4:
+				  costs = apartment4.levelUp(resources);
+				  break;
+			  default:
 				  System.err.println("Kein Wohnhaus gewählt");
 				  return 0;
 			  }
@@ -515,6 +713,7 @@ class Distributor implements Serializable {
 			  iron.subtract(costs[2]);
 			  
 			  draw();
+			  
 			  switch( number ){
 			  case 1:
 				  return apartment.getLevel();
@@ -530,6 +729,142 @@ class Distributor implements Serializable {
 				  
 				  
 			  }
+			  
+		  }else if(buildingToUpgrade.equals("wall")){
+			  switch( number ){
+			  case 1:
+				  costs = wall.levelUp(resources);
+				  break;
+			  case 2:
+				  costs = wall2.levelUp(resources);
+				  break;
+			  case 3:
+				  costs = wall3.levelUp(resources);
+				  break;
+			  case 4:
+				  costs = wall4.levelUp(resources);
+				  break;
+			  case 5:
+				  costs = wall5.levelUp(resources);
+				  break;
+			  case 6:
+				  costs = wall6.levelUp(resources);
+				  break;
+			  case 7:
+				  costs = wall7.levelUp(resources);
+				  break;
+			  case 8:
+				  costs = wall8.levelUp(resources);
+				  break;
+			  case 9:
+				  costs = wall9.levelUp(resources);
+				  break;
+			  case 10:
+				  costs = wall10.levelUp(resources);
+				  break;
+			  case 11:
+				  costs = wall11.levelUp(resources);
+				  break;
+			  case 12:
+				  costs = wall12.levelUp(resources);
+				  break;
+			  case 13:
+				  costs = wall13.levelUp(resources);
+				  break;
+			  case 14:
+				  costs = wall14.levelUp(resources);
+				  break;
+			  case 15:
+				  costs = wall15.levelUp(resources);
+				  break;
+			  case 16:
+				  costs = wall16.levelUp(resources);
+				  break;
+			  case 17:
+				  costs = wall17.levelUp(resources);
+				  break;
+			  case 18:
+				  costs = wall18.levelUp(resources);
+				  break;
+			  case 19:
+				  costs = wall19.levelUp(resources);
+				  break;
+			  case 20:
+				  costs = wall20.levelUp(resources);
+				  break;
+			  case 21:
+				  costs = wall21.levelUp(resources);
+				  break;
+			  case 22:
+				  costs = wall22.levelUp(resources);
+				  break;
+			  case 23:
+				  costs = wall23.levelUp(resources);
+				  break;
+			  case 24:
+				  costs = wall24.levelUp(resources);
+				  break;
+			  case 25:
+				  costs = wall25.levelUp(resources);
+				  break;
+			  case 26:
+				  costs = wall26.levelUp(resources);
+				  break;
+			  case 27:
+				  costs = wall27.levelUp(resources);
+				  break;
+			  case 28:
+				  costs = wall28.levelUp(resources);
+				  break;
+			  case 29:
+				  costs = wall29.levelUp(resources);
+				  break;
+			  case 30:
+				  costs = wall30.levelUp(resources);
+				  break;
+			  case 31:
+				  costs = wall31.levelUp(resources);
+				  break;
+			  case 32:
+				  costs = wall32.levelUp(resources);
+				  break;
+			  case 33:
+				  costs = wall33.levelUp(resources);
+				  break;
+			  case 34:
+				  costs = wall34.levelUp(resources);
+				  break;
+			  case 35:
+				  costs = wall35.levelUp(resources);
+				  break;
+			  case 36:
+				  costs = wall36.levelUp(resources);
+				  break;
+			  case 37:
+				  costs = wall37.levelUp(resources);
+				  break;
+			  case 38:
+				  costs = wall38.levelUp(resources);
+				  break;
+			  case 39:
+				  costs = wall39.levelUp(resources);
+				  break;
+			  case 40:
+				  costs = wall40.levelUp(resources);
+				  break;
+			  default:
+				  costs[0] = 0;
+				  costs[1] = 0;
+				  costs[2] = 0;
+			  }
+
+			  System.out.println(costs[0] + "" + costs[1] +"" + costs[2]);
+			  wood.subtract(costs[0]);
+			  stone.subtract(costs[1]);
+			  iron.subtract(costs[2]);
+			  
+			  draw();
+			  
 		  }else{
 			  System.err.println("Kein Gebäude gewählt");
 			  return 0;
@@ -540,7 +875,7 @@ class Distributor implements Serializable {
 		  return 0;
 	  }
 	  
-	  public void setLimit(){
+	  public int[] setLimit(){
 		  int totalLimit = 0;
 		  int woodLimit = 0;
 		  int stoneLimit = 0;
@@ -578,32 +913,34 @@ class Distributor implements Serializable {
 		  wood.setLimit( woodLimit );
 		  stone.setLimit( stoneLimit );
 		  iron.setLimit( ironLimit );
+		  int[] limit = {woodLimit, stoneLimit, ironLimit};
+		  return limit;
 	  }
 	  
 	  public void moveBuilding(String buildingToMove, int number, Location location ){
 		  Location finalLocation = checkLocation(location);
 		  
 		  if( buildingToMove.equals("mainBuilding") && number == 1){
-			  mainBuilding.moveBuilding(finalLocation);
+			  communityHall.moveBuilding(finalLocation);
 			  locations[0] = finalLocation;
 		  }else if(buildingToMove.equals("lumbermill") && number == 1){
-			  lumbermill.moveBuilding(finalLocation);
+			  sawmill.moveBuilding(finalLocation);
 			  locations[1] = finalLocation;
 			  
 		  }else if(buildingToMove.equals("lumbermill") && number == 2){
-			  lumbermill.moveBuilding(finalLocation);
+			  sawmill.moveBuilding(finalLocation);
 			  locations[2] = finalLocation;
 			  
 		  }else if(buildingToMove.equals("lumbermill") && number == 3){
-			  lumbermill.moveBuilding(finalLocation);
+			  sawmill.moveBuilding(finalLocation);
 			  locations[3] = finalLocation;
 			  
 		  }else if(buildingToMove.equals("lumbermill") && number == 4){
-			  lumbermill.moveBuilding(finalLocation);
+			  sawmill.moveBuilding(finalLocation);
 			  locations[4] = finalLocation;
 			  
 		  }else if(buildingToMove.equals("lumbermill") && number == 5){
-			  lumbermill.moveBuilding(finalLocation);
+			  sawmill.moveBuilding(finalLocation);
 			  locations[5] = finalLocation;
 			  
 			  
@@ -691,51 +1028,52 @@ class Distributor implements Serializable {
 		  }else{
 			  System.err.println("Kein Geb"+ae+"ude gew"+ae+"hlt.");
 		  }
+		  draw();
 	  }
 	  
 	  
 	  public void draw(){
-		  System.out.println("Holz:" + wood.getValue());
-		  System.out.println("Stein:"+ stone.getValue());
-		  System.out.println("Eisen:" + iron.getValue());
+		  System.out.println("Holz: " + wood.getValue() + "/" + setLimit()[0]);
+		  System.out.println("Stein: "+ stone.getValue() + "/" + setLimit()[1]);
+		  System.out.println("Eisen: " + iron.getValue() + "/" + setLimit()[2]);
 		  System.out.println("");
-		  for ( int y = 1; y < 11; y++ ){
+		  for ( int y = 1; y < 41; y++ ){
 			  for ( int x = 1; x < 41; x++ ){
 				  boolean isBuilding = false;
 				  Location point = new Location(x, y);
 				  
-				  if(mainBuilding.getLocation().equals(point)){
+				  if(communityHall.getLocation().equals(point)){
 					  System.out.print("R");
 					  isBuilding = true;
 				  }  
 				  
-				  if(lumbermillBuild >= 1){
-					  if(lumbermill.getLocation().equals(point)){
-	        			System.out.print(lumbermill.getLevel());
+				  if(sawmillBuild >= 1){
+					  if(sawmill.getLocation().equals(point)){
+	        			System.out.print(sawmill.getLevel());
 	        			isBuilding = true;
 					  }
 				  }
-				  if(lumbermillBuild >= 2){
-	        		if(lumbermill2.getLocation().equals(point)){
-	        			System.out.print(lumbermill2.getLevel());
+				  if(sawmillBuild >= 2){
+	        		if(sawmill2.getLocation().equals(point)){
+	        			System.out.print(sawmill2.getLevel());
 	        			isBuilding = true;
 	        		}
 				  }
-				  if(lumbermillBuild >= 3){
-					  if(lumbermill3.getLocation().equals(point)){
-						  System.out.print(lumbermill3.getLevel());
+				  if(sawmillBuild >= 3){
+					  if(sawmill3.getLocation().equals(point)){
+						  System.out.print(sawmill3.getLevel());
 						  isBuilding = true;
 					  }
 	        	}
-	        	if(lumbermillBuild >= 4){
-	        		if(lumbermill4.getLocation().equals(point)){
-	        			System.out.print(lumbermill4.getLevel());
+	        	if(sawmillBuild >= 4){
+	        		if(sawmill4.getLocation().equals(point)){
+	        			System.out.print(sawmill4.getLevel());
 	        			isBuilding = true;
 	        		}
 	        	}
-	        	if(lumbermillBuild == 5){
-		        	   if(lumbermill5.getLocation().equals(point)){
-		        	 	  System.out.print(lumbermill5.getLevel());
+	        	if(sawmillBuild == 5){
+		        	   if(sawmill5.getLocation().equals(point)){
+		        	 	  System.out.print(sawmill5.getLevel());
 		        	 	  isBuilding = true;
 		        	   }
 	        	}
@@ -865,6 +1203,247 @@ class Distributor implements Serializable {
 	        		}
 	        	}
 	        	
+	        	if(wallsBuild >= 1){
+	        		if( wall.getLocation().equals(point)){
+	        			System.out.print(wall.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 2){
+	        		if( wall2.getLocation().equals(point)){
+	        			System.out.print(wall2.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 3){
+	        		if( wall3.getLocation().equals(point)){
+	        			System.out.print(wall3.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 4){
+	        		if( wall4.getLocation().equals(point)){
+	        			System.out.print(wall4.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 5){
+	        		if( wall5.getLocation().equals(point)){
+	        			System.out.print(wall5.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 6){
+	        		if( wall6.getLocation().equals(point)){
+	        			System.out.print(wall6.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 7){
+	        		if( wall7.getLocation().equals(point)){
+	        			System.out.print(wall7.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 8){
+	        		if( wall8.getLocation().equals(point)){
+	        			System.out.print(wall8.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 9){
+	        		if( wall9.getLocation().equals(point)){
+	        			System.out.print(wall9.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 10){
+	        		if( wall10.getLocation().equals(point)){
+	        			System.out.print(wall10.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 11){
+	        		if( wall11.getLocation().equals(point)){
+	        			System.out.print(wall11.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 12){
+	        		if( wall12.getLocation().equals(point)){
+	        			System.out.print(wall12.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 13){
+	        		if( wall13.getLocation().equals(point)){
+	        			System.out.print(wall13.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 14){
+	        		if( wall14.getLocation().equals(point)){
+	        			System.out.print(wall14.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 15){
+	        		if( wall15.getLocation().equals(point)){
+	        			System.out.print(wall15.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 16){
+	        		if( wall16.getLocation().equals(point)){
+	        			System.out.print(wall16.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 17){
+	        		if( wall17.getLocation().equals(point)){
+	        			System.out.print(wall17.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 18){
+	        		if( wall18.getLocation().equals(point)){
+	        			System.out.print(wall18.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 19){
+	        		if( wall19.getLocation().equals(point)){
+	        			System.out.print(wall19.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 20){
+	        		if( wall20.getLocation().equals(point)){
+	        			System.out.print(wall20.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}	        	
+	        	if(wallsBuild >= 21){
+	        		if( wall21.getLocation().equals(point)){
+	        			System.out.print(wall21.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 22){
+	        		if( wall22.getLocation().equals(point)){
+	        			System.out.print(wall22.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 23){
+	        		if( wall23.getLocation().equals(point)){
+	        			System.out.print(wall23.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 24){
+	        		if( wall24.getLocation().equals(point)){
+	        			System.out.print(wall24.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 25){
+	        		if( wall25.getLocation().equals(point)){
+	        			System.out.print(wall25.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 26){
+	        		if( wall26.getLocation().equals(point)){
+	        			System.out.print(wall26.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 27){
+	        		if( wall27.getLocation().equals(point)){
+	        			System.out.print(wall27.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 28){
+	        		if( wall28.getLocation().equals(point)){
+	        			System.out.print(wall28.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 29){
+	        		if( wall29.getLocation().equals(point)){
+	        			System.out.print(wall29.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 30){
+	        		if( wall30.getLocation().equals(point)){
+	        			System.out.print(wall30.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}	        	
+	        	if(wallsBuild >= 31){
+	        		if( wall31.getLocation().equals(point)){
+	        			System.out.print(wall31.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 32){
+	        		if( wall32.getLocation().equals(point)){
+	        			System.out.print(wall32.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 33){
+	        		if( wall33.getLocation().equals(point)){
+	        			System.out.print(wall33.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 34){
+	        		if( wall34.getLocation().equals(point)){
+	        			System.out.print(wall34.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 35){
+	        		if( wall35.getLocation().equals(point)){
+	        			System.out.print(wall35.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 36){
+	        		if( wall36.getLocation().equals(point)){
+	        			System.out.print(wall36.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 37){
+	        		if( wall37.getLocation().equals(point)){
+	        			System.out.print(wall37.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 38){
+	        		if( wall38.getLocation().equals(point)){
+	        			System.out.print(wall38.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild >= 39){
+	        		if( wall39.getLocation().equals(point)){
+	        			System.out.print(wall39.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	if(wallsBuild == 40){
+	        		if( wall40.getLocation().equals(point)){
+	        			System.out.print(wall40.getLevel());
+	        			isBuilding = true;
+	        		}
+	        	}
+	        	
 	        	if(!isBuilding){
 	        		System.out.print("+");
 	        	}
@@ -877,30 +1456,30 @@ class Distributor implements Serializable {
 	  private Location checkLocation(Location location){
 		  while( location.getLocation()[0] > 40 || location.getLocation()[0] < 0 ){
 			  System.err.println("Nicht innerhalb des Feldes.");
-			  System.out.println("neue X-Koordinate (1 bis 40):");
+			  System.out.println("Neue X-Koordinate (1 bis 40):");
 			  location.setLocationX(enterInt());
 		  }
-		  while( location.getLocation()[1] > 10 || location.getLocation()[1] < 0 ){
+		  while( location.getLocation()[1] > 40 || location.getLocation()[1] < 0 ){
 			  System.err.println("Nicht innerhalb des Feldes.");
-			  System.out.println("neue Y-Koordinate (1 bis 10):");
+			  System.out.println("Neue Y-Koordinate (1 bis 40):");
 			  location.setLocationY(enterInt());
 		  }
 		  for( Location oldLocation : locations){
 			  try{
 				  while(location.getLocationX() == oldLocation.getLocationX() && location.getLocationY() == oldLocation.getLocationY()){
 				  System.err.println("An dieser Stelle steht bereits ein Geb"+ae+"ude.");
-					  System.out.println("neue X-Koordinate (1 bis 40):");
+					  System.out.println("Neue X-Koordinate (1 bis 40):");
 					  location.setLocationX(enterInt());
-					  System.out.println("neue Y-Koordinate (1 bis 10):");
+					  System.out.println("Neue Y-Koordinate (1 bis 40):");
 					  location.setLocationY(enterInt());
 					  while(location.getLocation()[0] > 40 || location.getLocation()[0] < 0){
 						  System.err.println("Nicht innerhalb des Feldes.");
-						  System.out.println("neue X-Koordinate (1 bis 40):");
+						  System.out.println("Neue X-Koordinate (1 bis 40):");
 						  location.setLocationX(enterInt());
 					  }
-					  while(location.getLocation()[1] > 10 || location.getLocation()[1] < 0){
+					  while(location.getLocation()[1] > 40 || location.getLocation()[1] < 0){
 						  System.err.println("Nicht innerhalb des Feldes.");
-						  System.out.println("neue Y-Koordinate (1 bis 10):");
+						  System.out.println("Neue Y-Koordinate (1 bis 40):");
 						  location.setLocationY(enterInt());
 					  }
 				  	}
