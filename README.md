@@ -1,9 +1,7 @@
 # Villagers
-Build your small village in this game!
+Baue dein eigenes kleines Dorf!
 
-Imgagine you could rule your own village.
+Stell dir vor, du könntest dein eigenes kleines Städtchen aufbauen.
 
-Start with a mainbuilding, then start producing wood, stone and iron.
-Build storages to increase your capacity and apartments for your people.
-
-English version coming soon.
+Beginne mit einem Rathaus, dann produziere Holz, Stein und Eisen.
+Baue Lager um deine Kapazität zu erhöhen und Wohnhäuser für deine Untertanen.
