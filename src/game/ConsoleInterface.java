@@ -34,7 +34,7 @@ public class ConsoleInterface {
 			String in = enter();
 			if( in.equalsIgnoreCase( "Spieler erstellen" ) ){
 				UserInterface.createPlayer();
-			}else if(in.equalsIgnoreCase("Saegewerk bauen")){
+			}else if(in.equalsIgnoreCase("S" + ae + "gewerk bauen")){
 				System.out.println("Wo soll das S" + ae +"gewerk stehen?");
 				System.out.println("X-Koordinate(zwischen 1 und 40):");
 				int locationX = enterInt();
