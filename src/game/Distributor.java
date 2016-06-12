@@ -484,7 +484,7 @@ class Distributor implements Serializable {
 		  int[] resources = {wood.getValue(), stone.getValue(), iron.getValue()};
 		  try{
 			  
-			  if(buildingToUpgrade.equals("lumbermill")){
+			  if(buildingToUpgrade.equals("sawmill")){
 				  
 				  switch( number ){
 				  case 1:
@@ -896,7 +896,7 @@ class Distributor implements Serializable {
 		  		totalLimit += storage.getCapacity();
 		  
 		  }
-		  totalLimit += 100; // because of MainBuilding
+		  totalLimit += 300; // because of MainBuilding
 		  if( ( totalLimit % 3 ) == 1 ){
 			  woodLimit = (int) ( totalLimit / 3 ) + 1;
 			  stoneLimit = (int) ( totalLimit / 3 );
@@ -923,24 +923,24 @@ class Distributor implements Serializable {
 		  if( buildingToMove.equals("mainBuilding") && number == 1){
 			  communityHall.moveBuilding(finalLocation);
 			  locations[0] = finalLocation;
-		  }else if(buildingToMove.equals("lumbermill") && number == 1){
+		  }else if(buildingToMove.equals("sawmill") && number == 1){
 			  sawmill.moveBuilding(finalLocation);
 			  locations[1] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill") && number == 2){
-			  sawmill.moveBuilding(finalLocation);
+		  }else if(buildingToMove.equals("sawmill") && number == 2){
+			  sawmill2.moveBuilding(finalLocation);
 			  locations[2] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill") && number == 3){
-			  sawmill.moveBuilding(finalLocation);
+		  }else if(buildingToMove.equals("sawmill") && number == 3){
+			  sawmill3.moveBuilding(finalLocation);
 			  locations[3] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill") && number == 4){
-			  sawmill.moveBuilding(finalLocation);
+		  }else if(buildingToMove.equals("sawmill") && number == 4){
+			  sawmill4.moveBuilding(finalLocation);
 			  locations[4] = finalLocation;
 			  
-		  }else if(buildingToMove.equals("lumbermill") && number == 5){
-			  sawmill.moveBuilding(finalLocation);
+		  }else if(buildingToMove.equals("sawmill") && number == 5){
+			  sawmill5.moveBuilding(finalLocation);
 			  locations[5] = finalLocation;
 			  
 			  
@@ -1033,6 +1033,7 @@ class Distributor implements Serializable {
 	  
 	  
 	  public void draw(){
+		  setLimit();
 		  System.out.println("Holz: " + wood.getValue() + "/" + setLimit()[0]);
 		  System.out.println("Stein: "+ stone.getValue() + "/" + setLimit()[1]);
 		  System.out.println("Eisen: " + iron.getValue() + "/" + setLimit()[2]);
