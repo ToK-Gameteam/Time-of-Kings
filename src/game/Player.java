@@ -66,6 +66,10 @@ abstract class Player implements Serializable{
 		  distributor.buildApartment(location);
 	  }
 	  
+	  public void buildWall( Location location ){
+		  distributor.buildWall(location);
+	  }
+	  
 	  public void moveBuilding(String building, int number, Location location){
 		  distributor.moveBuilding(building, number, location);
 	  }
