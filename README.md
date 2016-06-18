@@ -1,4 +1,4 @@
-# Villagers
+# Time of Kings
 Baue dein eigenes kleines Dorf!
 
 Stell dir vor, du könntest dein eigenes kleines Städtchen aufbauen.
