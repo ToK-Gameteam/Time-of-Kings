@@ -2,25 +2,13 @@ package game;
 
 import java.io.Serializable;
 
-public class Location implements Serializable{
-	private int locationX;
-	private int locationY;
+public class Location implements Serializable {
+	static final long serialVersionUID = 1;
 	
-	Location(int locationX, int locationY){
+	private int locationX, locationY;
+	
+	public Location(int locationX, int locationY){
 		this.locationX = locationX;
-		this.locationY = locationY;
-	}
-	
-	public void setLocation(int[] newLocation){
-		locationX = newLocation[0];
-		locationY = newLocation[1];
-	}
-	
-	public void setLocationX(int locationX){
-		this.locationX = locationX;
-	}
-	
-	public void setLocationY( int locationY ){
 		this.locationY = locationY;
 	}
 	
@@ -32,16 +20,11 @@ public class Location implements Serializable{
 		return locationY;
 	}
 	
-	public int[] getLocation(){
-		int[] location = {locationX, locationY};
-		return location;
+	public void setLocationX( int newLocationX ){
+		this.locationX =newLocationX;
 	}
 	
-	public boolean equals(Location location){
-		if(location.getLocationX() == locationX && location.getLocationY() == locationY){
-			return true;
-		}else{
-			return false;
-		}
+	public void setLocationY( int newLocationY ){
+		this.locationY = newLocationY;
 	}
 }
