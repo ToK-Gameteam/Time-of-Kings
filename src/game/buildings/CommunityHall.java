@@ -9,7 +9,7 @@ public class CommunityHall extends Building {
 	private int storedWood, storedStone, storedIron;
 	
 	public CommunityHall(Location location){
-		super(30, 30, 30, 1, location, "R");
+		super(30, 30, 30, 1, location);
 		capacity = 300;
 	}
 	
