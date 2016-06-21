@@ -1,5 +1,7 @@
 package game.buildings;
 
+import game.Location;
+
 public class MainBuilding extends Building {
 	private static final long serialVersionUID = 1L;
 	

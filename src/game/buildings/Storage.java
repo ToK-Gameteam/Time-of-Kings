@@ -1,5 +1,7 @@
 package game.buildings;
 
+import game.Location;
+
 /**
  * Class Storage
  * 

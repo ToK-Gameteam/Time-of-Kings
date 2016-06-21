@@ -1,4 +1,4 @@
-package game.village;
+package game.buildings;
 
 import game.Location;
 

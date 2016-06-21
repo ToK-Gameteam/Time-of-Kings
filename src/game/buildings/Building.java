@@ -2,6 +2,8 @@ package game.buildings;
 
 import java.io.Serializable;
 
+import game.Location;
+
 /**
  * Class Building
  * 
