@@ -38,7 +38,10 @@ import game.Location;
 	   * 
 	   * Levels a building up.
 	   */
-	  public int[] levelUp(int wood, int stone, int iron){
+	  public int[] levelUp(int[] resources){
+	  	int wood = resources[0];
+	  	int stone = resources[1];
+	  	int iron = resources[2];
 			  if(level == 1){
 				  if(wood >= woodCost && stone >= stoneCost && iron >= ironCost){
 					  level = 2;
