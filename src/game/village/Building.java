@@ -4,14 +4,12 @@ import java.io.Serializable;
 import game.*;
 
 /**
-- * Class Building
-- * 
-- * The class Building creates a building, which has a level (at the beginning 1), a number (depending on the number of buildings of this type build before),
-- * a location saved in a java.awt.Point, and allows to level the building up and to change the location.
-- * 
-- * @author Constantin Schulte
-- * @version 0.0
-- **/
+ * The class Building creates a building, which has a level (at the beginning 1), a number (depending on the number of buildings of this type build before),
+ * a location saved in a java.awt.Point, and allows to level the building up and to change the location.
+ * 
+ * @author Constantin Schulte
+ * @version 0.1
+ **/
 public abstract class Building implements Serializable, BuildingUpgrade {
 	static final long serialVersionUID = 1;
 	
@@ -53,15 +51,14 @@ public abstract class Building implements Serializable, BuildingUpgrade {
 		this.location = location;
 	}
 	
-	public int[] levelUp(int[] resources){
+	public int levelUp(int[] resources){
 		if( resources[0] >= upgradeCost && resources[1] >= upgradeCost && resources[3] >= upgradeCost && level < 7 ){
 			++level;
 			upgradeSpecification();
-			int[] costs = { upgradeCost, upgradeCost, upgradeCost };
-			return costs;
+			upgradeCost *= 2;
+			return upgradeCost / 2;
 		}else{
-			int[] nullCost = { 0, 0, 0 };
-			return nullCost;
+			return 0;
 		}
 	}
 	
