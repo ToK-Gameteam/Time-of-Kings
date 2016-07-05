@@ -3,8 +3,6 @@ package game.village;
 import game.*;
 
 /**
- * Class Apartment
- * 
  * The class Apartment creates a building with people living in it.
  * 
  * @author Constantin Schulte
