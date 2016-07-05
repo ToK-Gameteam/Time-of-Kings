@@ -1,10 +1,8 @@
 package game.village;
 
-import game.*;
+import game.Location;
 
 /**
- * Class RessourceCollector
- * 
  * The class RessourceCollector creates a building, which has a production and is producing a special type of resource (wood, stone, iron).
  * 
  * @author Constantin Schulte
@@ -21,7 +19,7 @@ public class ResourceCollector extends Building {
 	
 	
 	public ResourceCollector ( Location location, String type ){
-		super( 10, location, 100, "Ressourcensammler");
+		super( 10, location, 100, "Sammler");
 		this.production = 5;
 		this.limit = 50;
 		this.resourceType = type;
