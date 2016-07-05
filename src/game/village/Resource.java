@@ -3,8 +3,6 @@ package game.village;
 import java.io.Serializable;
 
 /**
- * Class Resource
- * 
  * The class Resource creates a special type of resource (wood, stone, iron), which has a value and a limit.
  * It implements the functions to add or subtract a value, and for admins only, to set the value of the resource.
  * There also setter and getter for the limit.
@@ -55,6 +53,13 @@ public class Resource implements Serializable {
 		this.value -= value;
 		if( this.value < 0 ) {
 			this.value = 0;
+		}
+	}
+	
+	public void setLimit( int limit ){
+		this.limit = limit;
+		if( value > limit){
+			value = limit;
 		}
 	}
 }
