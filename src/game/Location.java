@@ -12,6 +12,11 @@ public class Location implements Serializable {
 		this.locationY = locationY;
 	}
 	
+	public Location( Location location ){
+		this.locationX = location.getLocationX();
+		this.locationY = location.getLocationY();
+	}
+	
 	public int getLocationX(){
 		return locationX;
 	}
@@ -26,5 +31,13 @@ public class Location implements Serializable {
 	
 	public void setLocationY( int newLocationY ){
 		this.locationY = newLocationY;
+	}
+	
+	public boolean equals(Location location){
+		if( locationX == location.getLocationX() && locationY == location.getLocationY()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }
