@@ -9,14 +9,12 @@ import java.util.ArrayList;
 
 import javax.swing.ProgressMonitorInputStream;
 
-import game.ConsoleInterface;
-
 public class Update {
 	/**
 	 * Eine Txt mit den Inhalt VERSION=0.3 und URL=http://test.com/Village.jar
 	 */
 	public static String UPDATE_URL = "http://pastebin.com/raw/JNA1XFLM";
-	public static double GAME_VERSION = ConsoleInterface.GAME_VERSION;
+	public static double GAME_VERSION = 0.5;
 	public static String Url = "";
 	public static void checkUpdate() throws IOException {
 		ArrayList<String> version = WebUtil.getUrlSource(UPDATE_URL);
