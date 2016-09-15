@@ -1,0 +1,17 @@
+#startPane {
+     -fx-background-image: url("../resources/Village.jpg");
+}
+
+#loginPane {
+	-fx-background-image: url("../resources/loginPane.png");
+}
+
+#updatePane {
+	-fx-background-image: url("../resources/updatePane.png");
+}
+
+#update {
+	-fx-font-size: 15px;
+	-fx-font-weight: bold;
+    -fx-text-fill: #EAEAEA;
+}
