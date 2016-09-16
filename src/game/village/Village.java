@@ -14,6 +14,8 @@ public class Village implements Serializable {
 	
 	private static java.util.Scanner scanner;
 
+	private String name;
+	private boolean nameChanged = false;
 	private Building[] buildings;
 	private Resource[] resources;
 	private int[] buildingsBuild;
@@ -116,6 +118,17 @@ public class Village implements Serializable {
 			resourceLimits[i] = resources[i].getLimit();
 		}
 		return resourceLimits;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setName( String name ){
+		if( !nameChanged ){
+			this.name = name;
+			nameChanged = true;
+		}
 	}
 	
 	public int levelUp( String buildingToUpgrade, int number ){

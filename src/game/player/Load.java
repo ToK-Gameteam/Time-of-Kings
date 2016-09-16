@@ -3,6 +3,12 @@ package game.player;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+//import javafx.stage.StageStyle;
+
 /**
  * The class LoadPlayer loads an already saved Player so you can use him again.
  * 
@@ -10,13 +16,17 @@ import java.io.ObjectInputStream;
  * @version 0.1
  **/
 public class Load {
-	public static Player[] load(){
-		Player[] player = new Player[1];
+	public static Player load(){
+		Player player = new Player("");
 		try(ObjectInputStream in = new ObjectInputStream(new FileInputStream("player.bin"))){
-			player[0] =  (Player) in.readObject();
-			System.out.println("Laden erfolgreich");
+			player =  (Player) in.readObject();
 		}catch(Exception e){
-			System.err.println("Laden fehlgeschlagen");
+			Stage dialog = new Stage();
+			//dialog.initStyle(StageStyle.UTILITY);
+			Scene scene = new Scene(new Group(new Text(25, 25, e.toString())));
+			
+			dialog.setScene(scene);
+			dialog.show();
 		}
 		return player;
 	}

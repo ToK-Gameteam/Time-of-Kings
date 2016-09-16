@@ -2,6 +2,10 @@ package game.player;
 
 import java.io.Serializable;
 import game.village.Village;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import game.*;
 
 /**
@@ -51,14 +55,33 @@ public class Player implements Serializable {
 	}
 	
 	public String[] getInformation( int number ){
-		--number;
-		String[] information = new String[5];
+		String[] information = new String[6];
 		information[0] = name;
 		information[1] = level + " (" + collectedEpForNextLevel + "/" + neededEpForNextLevel + " Ep)";
 		information[2] = "Holz: " + myVillages[number].getResourceValues()[0] + "/" + myVillages[number].getResourceLimits()[0];
 		information[3] = "Stein: " + myVillages[number].getResourceValues()[1] + "/" + myVillages[number].getResourceLimits()[1];
 		information[4] = "Eisen: " + myVillages[number].getResourceValues()[2] + "/" + myVillages[number].getResourceLimits()[2];
+		information[5] = myVillages[number].getName();
 		return information;
+	}
+	
+	public Village getVillageAt( int index ){
+		return myVillages[index];
+	}
+	
+	public void createVillage( String name ){
+		for(int i = 0; i < 5; ++i){
+			if(myVillages[i].getName() != ""){
+				myVillages[i].setName(name);
+			}else{
+				Stage dialog = new Stage();
+				//dialog.initStyle(StageStyle.UTILITY);
+				Scene scene = new Scene(new Group(new Text(25, 25, "Bereits alle Dörfer erstellt.")));
+				
+				dialog.setScene(scene);
+				dialog.show();
+			}
+		}
 	}
 	
 	public void collect( int number ){
