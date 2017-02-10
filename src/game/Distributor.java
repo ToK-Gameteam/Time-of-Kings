@@ -14,6 +14,7 @@ import game.buildings.*;
 class Distributor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("unused")
 	private String oe = ConsoleInterface.oe;
 	private String ae = ConsoleInterface.ae;
 	private CommunityHall communityHall;

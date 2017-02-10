@@ -24,7 +24,7 @@ public class ConsoleInterface {
 		System.out.println("Herzlich willkommen!");
 		System.out.println("Brauchst du Hilfe? -> Optionen <-");
 		System.out.println("Version: Alpha Test, "+GAME_VERSION);
-		System.out.println("Patchnotes können mit -> notes <- eingesehen werden");
+		System.out.println("Patchnotes k" + oe + "nnen mit -> notes <- eingesehen werden");
 		System.out.println("");
 		System.out.println("Viel Spa"+ss+"!!");
 		
