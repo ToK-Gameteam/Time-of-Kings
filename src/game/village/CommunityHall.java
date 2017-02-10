@@ -1,6 +1,6 @@
 package game.village;
 
-import game.Location;
+import game.util.Location;
 
 public class CommunityHall extends Building {
 	static final long serialVersionUID = 1;

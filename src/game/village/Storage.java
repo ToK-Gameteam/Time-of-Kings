@@ -1,6 +1,6 @@
 package game.village;
 
-import game.Location;
+import game.util.Location;
 
 /**
  * A storage is a building storing resources.

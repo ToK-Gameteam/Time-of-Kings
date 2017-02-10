@@ -2,6 +2,7 @@ package game.village;
 
 import java.io.Serializable;
 import game.*;
+import game.util.Location;
 
 /**
  * The class Building creates a building, which has a level (at the beginning 1), a number (depending on the number of buildings of this type build before),

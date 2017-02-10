@@ -1,6 +1,6 @@
 package game.village;
 
-import game.Location;
+import game.util.Location;
 
 /**
  * The class RessourceCollector creates a building, which has a production and is producing a special type of resource (wood, stone, iron).

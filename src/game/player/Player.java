@@ -1,12 +1,9 @@
 package game.player;
 
 import java.io.Serializable;
+
+import game.util.Location;
 import game.village.Village;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import game.*;
 
 /**
  * The class Player creates a player, which has a name (3 - 16 numbers).
@@ -20,98 +17,51 @@ public class Player implements Serializable {
 	static final long serialVersionUID = 1;
 	
 	private String name;
-	private int level;
-	private int allEp;
-	private int collectedEpForNextLevel;
-	private int neededEpForNextLevel;
-	private Village[] myVillages;
+	private Village village;
 
 	public Player( String name ){
 		this.name = name;
-		this.level = 1;
-		this.allEp = 0;
-		this.collectedEpForNextLevel = 0;
-		this.neededEpForNextLevel = 10;
-		this.myVillages = new Village[5];
-		for( int i = 0; i < 5; ++i ){
-			myVillages[i] = new Village();
-		}
+		village = new Village();
 	}
 	
 	public String getName(){
 		return name;
 	}
 	
-	public int getLevel(){
-		return level;
-	}
-	
-	public int getEp(){
-		return allEp;
-	}
-	
-	public int getNeededEp(){
-		return neededEpForNextLevel;
-	}
-	
-	public String[] getInformation( int number ){
-		String[] information = new String[6];
+	public String[] getInformation(){
+		String[] information = new String[8];
 		information[0] = name;
-		information[1] = level + " (" + collectedEpForNextLevel + "/" + neededEpForNextLevel + " Ep)";
-		information[2] = "Holz: " + myVillages[number].getResourceValues()[0] + "/" + myVillages[number].getResourceLimits()[0];
-		information[3] = "Stein: " + myVillages[number].getResourceValues()[1] + "/" + myVillages[number].getResourceLimits()[1];
-		information[4] = "Eisen: " + myVillages[number].getResourceValues()[2] + "/" + myVillages[number].getResourceLimits()[2];
-		information[5] = myVillages[number].getName();
+		information[1] = village.getResourceValues()[0] + "";
+		information[2] = village.getResourceLimits()[0] + "";
+		information[3] = village.getResourceValues()[1] + "";
+		information[4] = village.getResourceLimits()[1] + "";
+		information[5] = village.getResourceValues()[2] + "";
+		information[6] = village.getResourceLimits()[2] + "";
+		information[7] = village.getName();
 		return information;
 	}
 	
-	public Village getVillageAt( int index ){
-		return myVillages[index];
+	public Village getVillage(){
+		return village;
 	}
 	
 	public void createVillage( String name ){
-		for(int i = 0; i < 5; ++i){
-			if(myVillages[i].getName() != ""){
-				myVillages[i].setName(name);
-			}else{
-				Stage dialog = new Stage();
-				//dialog.initStyle(StageStyle.UTILITY);
-				Scene scene = new Scene(new Group(new Text(25, 25, "Bereits alle Dörfer erstellt.")));
-				
-				dialog.setScene(scene);
-				dialog.show();
-			}
-		}
+		village.setName(name);
 	}
 	
-	public void collect( int number ){
-		--number;
-		myVillages[number].collect();
+	public void collect(){
+		village.collect();
 	}
 	
-	public void build( int number, String buildingType, Location location ){
-		--number;
-		collectedEpForNextLevel += myVillages[number].build(location, buildingType);
-		checkLevelUp();
+	public void build( int building, Location location ){
+		village.build(location, building);
 	}
 	
-	public void levelUp( int villageNumber, String buildingToUpgrade, int number ){
-		--villageNumber;
-		collectedEpForNextLevel += myVillages[villageNumber].levelUp(buildingToUpgrade, number);
-		checkLevelUp();
+	public void levelUp( int building, int number ){
+		village.levelUp(building, number);
 	}
 	
-	public void move( int villageNumber, String buildingToMove, int number, Location newLocation ){
-		--villageNumber;
-		myVillages[villageNumber].move(buildingToMove, number, newLocation);
-	}
-	
-	private void checkLevelUp(){
-		if( collectedEpForNextLevel >= neededEpForNextLevel){
-			++level;
-			collectedEpForNextLevel -= neededEpForNextLevel;
-			allEp += neededEpForNextLevel;
-			neededEpForNextLevel *= 10;
-		}
+	public void move( int building, int number, Location newLocation ){
+		village.move(building, number, newLocation);
 	}
 }

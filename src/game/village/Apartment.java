@@ -1,6 +1,7 @@
 package game.village;
 
 import game.*;
+import game.util.Location;
 
 /**
  * The class Apartment creates a building with people living in it.
