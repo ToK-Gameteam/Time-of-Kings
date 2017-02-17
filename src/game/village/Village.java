@@ -1,7 +1,5 @@
 package game.village;
 
-import java.io.Serializable;
-
 import game.util.Location;
 
 /** 
@@ -10,8 +8,7 @@ import game.util.Location;
  * @author Constantin Schulte
  * @version 0.3
  **/
-public class Village implements Serializable {
-	static final long serialVersionUID = 1;
+public class Village {
 	
 	private String name = "";
 	private boolean nameChanged = false;
@@ -45,6 +42,16 @@ public class Village implements Serializable {
 		}
 	}
 	
+	public Village(Building[] buildings, int[] resourceValues, int[] buildingsBuild ){
+		this.buildings = buildings;
+		resources = new Resource[3];
+		resources[0] = new Resource( "wood", 100, resourceValues[0] );
+		resources[1] = new Resource( "stone", 100, resourceValues[1] );
+		resources[2] = new Resource( "iron", 100, resourceValues[2] );
+		
+		this.buildingsBuild = buildingsBuild;
+	}
+	
 	public void build( Location location, int building ){
 		switch( building ){
 		case COMMUNITY_HALL:
@@ -54,44 +61,49 @@ public class Village implements Serializable {
 			break;
 		case SAWMILL:
 			if( buildingsBuild[1] < 5 ){
-				buildings[++buildingsBuild[1]] = new ResourceCollector( location, "wood" );
+				buildings[buildingsBuild[1]+SAWMILL] = new ResourceCollector( location, SAWMILL, buildingsBuild[1]++ );
 			}
 			break;
 		case QUARRY:
 			if( buildingsBuild[2] < 5 ){
-				buildings[++buildingsBuild[2]] = new ResourceCollector( location, "stone" );
+				buildings[buildingsBuild[2]+QUARRY] = new ResourceCollector( location, QUARRY, buildingsBuild[2]++ );
 			}
 			break;
 		case MINE:
 			if( buildingsBuild[3] < 5 ){
-				buildings[++buildingsBuild[3]] = new ResourceCollector( location, "iron" );
+				buildings[buildingsBuild[3]+MINE] = new ResourceCollector( location, MINE, buildingsBuild[3]++ );
 			}
 			break;
 		case APARTMENT:
 			if( buildingsBuild[4] < 4 ){
-				buildings[++buildingsBuild[4]] = new Apartment( location );
+				buildings[buildingsBuild[4]+APARTMENT] = new Apartment( location, buildingsBuild[4]++ );
 			}
 			break;
 		case STORAGE:
 			if( buildingsBuild[5] < 6 ){
-				buildings[++buildingsBuild[5]] = new Storage( location );
+				buildings[buildingsBuild[5]+STORAGE] = new Storage( location, buildingsBuild[5]++ );
 			}
 			break;
 		case WALL:
 			if( buildingsBuild[6] < 40 ){
-				buildings[++buildingsBuild[6]] = new Wall( location );
+				buildings[buildingsBuild[6]+WALL] = new Wall( location, buildingsBuild[6]++ );
 			}
 		}
 		setLimit();
 	}
 	
 	public void collect(){
-		for( int resource = 0; resource < 3; ++resource){
-			for( int number = 1; number <= buildingsBuild[resource+1]; ++number){
-				ResourceCollector collector = (ResourceCollector) buildings[number+resource*5];
-				resources[resource].addValue(collector.collect());
+		for(int number = 0; number < 5; ++number){
+			if(buildings[SAWMILL+number] != null){
+				resources[0].addValue(((ResourceCollector)buildings[SAWMILL+number]).collect());
 			}
-		}	
+			if(buildings[QUARRY+number] != null){
+				resources[1].addValue(((ResourceCollector)buildings[QUARRY+number]).collect());
+			}
+			if(buildings[MINE+number] != null){
+				resources[2].addValue(((ResourceCollector)buildings[MINE+number]).collect());
+			}
+		}
 	}
 	
 	public int[] getResourceValues(){
@@ -143,10 +155,10 @@ public class Village implements Serializable {
 		}
 	}
 	
-	private void setLimit(){
+	public void setLimit(){
 		int totalLimit = 300; // because of CommunityHall
-		for( int number = 0; number < buildingsBuild[3]; ++number ){
-			Storage storage = (Storage) buildings[number];
+		for( int number = 0; number < buildingsBuild[5]; ++number ){
+			Storage storage = (Storage) buildings[number+STORAGE];
 			totalLimit += storage.getLimit();
 		}
 		
@@ -154,5 +166,13 @@ public class Village implements Serializable {
 		for( int resource = 0; resource < 3; ++resource ){
 			resources[resource].setLimit( resourceLimit );
 		}
+	}
+	
+	public int[] getBuildingsBuild(){
+		return buildingsBuild;
+	}
+	
+	public Building[] getBuildings(){
+		return buildings;
 	}
 }

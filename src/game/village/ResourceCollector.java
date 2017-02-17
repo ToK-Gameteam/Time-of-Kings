@@ -9,21 +9,25 @@ import game.util.Location;
  * @version 0.1
  **/
 public class ResourceCollector extends Building {
-	static final long serialVersionUID = 1;
 	
 	private int production;
 	private int limit;
-	private String resourceType;
 	private long lastCollected;
 	private double rest;
 	
 	
-	public ResourceCollector ( Location location, String type ){
-		super( 10, location, 100, "Sammler");
+	public ResourceCollector ( Location location, int type, int number ){
+		super( 10, location, 100, type, number );
 		this.production = 5;
 		this.limit = 50;
-		this.resourceType = type;
 		this.lastCollected = System.currentTimeMillis();
+	}
+	
+	public ResourceCollector ( Location location, int type, int level, int id, long lastCollected, int number ){
+		super( 10+(2^(level-1)), location, 100*(2^(level-1)), type, level, id, number );
+		this.production = 5*(2^(level-1));
+		this.limit = 50*(2^(level-1));
+		this.lastCollected = lastCollected;
 	}
 	
 	public int getProduction(){
@@ -34,8 +38,8 @@ public class ResourceCollector extends Building {
 		return limit;
 	}
 	
-	public String getResourceType(){
-		return resourceType;
+	public long getLastCollected(){
+		return lastCollected;
 	}
 	
 	public int collect(){
@@ -55,5 +59,6 @@ public class ResourceCollector extends Building {
 	@Override public void upgradeSpecification(){
 		production *= 2;
 		hitpoints *= 2;
+		limit *= 2;
 	}
 }

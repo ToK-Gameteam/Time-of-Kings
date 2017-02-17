@@ -1,7 +1,5 @@
 package game.village;
 
-import java.io.Serializable;
-
 /**
  * The class Resource creates a special type of resource (wood, stone, iron), which has a value and a limit.
  * It implements the functions to add or subtract a value, and for admins only, to set the value of the resource.
@@ -10,8 +8,7 @@ import java.io.Serializable;
  * @author Constantin Schulte
  * @version 0.2
  **/
-public class Resource implements Serializable {
-	static final long serialVersionUID = 1;
+public class Resource {
 	
 	private final String type;
 	private int value;
@@ -21,6 +18,12 @@ public class Resource implements Serializable {
 		this.type = type;
 		this.limit = limit;
 		value = 100;
+	}
+	
+	public Resource( String type, int limit, int value){
+		this.type = type;
+		this.limit = limit;
+		this.value = value;
 	}
 	
 	public String getType(){

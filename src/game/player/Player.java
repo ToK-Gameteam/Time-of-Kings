@@ -1,7 +1,5 @@
 package game.player;
 
-import java.io.Serializable;
-
 import game.util.Location;
 import game.village.Village;
 
@@ -13,8 +11,7 @@ import game.village.Village;
  * @author Constantin Schulte
  * @version 0.1
  **/
-public class Player implements Serializable {
-	static final long serialVersionUID = 1;
+public class Player {
 	
 	private String name;
 	private Village village;
@@ -24,8 +21,26 @@ public class Player implements Serializable {
 		village = new Village();
 	}
 	
+	public Player( String name, Village village ){
+		this.name = name;
+		this.village = village;
+	}
+	
 	public String getName(){
 		return name;
+	}
+	
+	public int[] getResources(){
+		int[] resources = new int[6];
+		resources[0] = village.getResourceValues()[0];
+		resources[1] = village.getResourceLimits()[0];
+		
+		resources[2] = village.getResourceValues()[1];
+		resources[3] = village.getResourceLimits()[1];
+		
+		resources[4] = village.getResourceValues()[2];
+		resources[5] = village.getResourceLimits()[2];
+		return resources;
 	}
 	
 	public String[] getInformation(){

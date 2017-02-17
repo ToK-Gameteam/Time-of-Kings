@@ -1,7 +1,5 @@
 package game.village;
 
-import java.io.Serializable;
-import game.*;
 import game.util.Location;
 
 /**
@@ -11,25 +9,35 @@ import game.util.Location;
  * @author Constantin Schulte
  * @version 0.1
  **/
-public abstract class Building implements Serializable, BuildingUpgrade {
+public abstract class Building implements BuildingUpgrade {
 	static final long serialVersionUID = 1;
 	
-	protected String type;
 	protected Location location;
 	protected int upgradeCost;
 	protected int level;
 	protected int hitpoints;
+	protected int type;
+	protected int id, number;
 	
-	public Building( int upgradeCost, Location location, int hitpoints, String type ){
-		this.type = type;
+	public Building( int upgradeCost, Location location, int hitpoints, int type, int number ){
 		this.upgradeCost = upgradeCost;
 		this.location = location;
 		this.hitpoints = hitpoints;
+		this.type = type;
+		this.number = number;
 		level = 1;
+		id = 0;
 	}
 	
-	public String getType(){
-		return type;
+	public Building(int upgradeCost, Location location, int hitpoints, int type, int level, int id, int number){
+
+		this.upgradeCost = upgradeCost;
+		this.location = location;
+		this.hitpoints = hitpoints;
+		this.type = type;
+		this.level = level;
+		this.id = id;
+		this.number = number;
 	}
 	
 	public int getLevel(){
@@ -48,12 +56,16 @@ public abstract class Building implements Serializable, BuildingUpgrade {
 		return location;
 	}
 	
+	public int getType(){
+		return type;
+	}
+	
 	public void setLocation( Location location ){
 		this.location = location;
 	}
 	
 	public int levelUp(int[] resources){
-		if( resources[0] >= upgradeCost && resources[1] >= upgradeCost && resources[3] >= upgradeCost && level < 7 ){
+		if( resources[0] >= upgradeCost && resources[1] >= upgradeCost && resources[2] >= upgradeCost && level < 7 ){
 			++level;
 			upgradeSpecification();
 			upgradeCost *= 2;
@@ -64,4 +76,12 @@ public abstract class Building implements Serializable, BuildingUpgrade {
 	}
 	
 	@Override public void upgradeSpecification(){}
+
+	public int getId() {
+		return id;
+	}
+	
+	public int getNumber(){
+		return number;
+	}
 }
