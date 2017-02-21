@@ -25,6 +25,11 @@
 *.log
 *.sql
 *.sqlite
+*.script
+*.properties
+*.lock
+
+/bin/
 
 # OS generated files #
 ######################
