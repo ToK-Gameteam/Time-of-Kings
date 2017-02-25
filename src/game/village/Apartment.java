@@ -13,13 +13,13 @@ public class Apartment extends Building {
 	private int resident;
 	
 	public Apartment( Location location, int number ){
-		super(10, location, 100, Village.APARTMENT, number);
+		super(new int[]{100, 50, 75}, location, 100, Village.APARTMENT, number);
 	}
 	
 	public Apartment( Location location, int level, int id, int number){
-		super(10*(2^(level-1)), location, 100*(2^(level-1)), Village.APARTMENT, level, id, number);
+		super(new int[]{10*(2^(level-1)), 20*(2^(level-1)), 15*(2^(level-1))},
+				location, 100*(2^(level-1)), Village.APARTMENT, level, id, number);
 	}
-	
 	
 	public int getResident(){
 		return resident;

@@ -13,13 +13,14 @@ public class Storage extends Building {
 	private int limit;
 	
 	public Storage( Location location, int number){
-		super( 10, location, 100, Village.STORAGE, number);
-		limit = 100;
+		super( new int[]{15, 15, 15}, location, 100, Village.STORAGE, number);
+		limit = 1000;
 	}
 	
 	public Storage( Location location, int level, int id, int number){
-		super( 10*(2^(level-1)), location, 100*(2^(level-1)), Village.STORAGE, level, id, number );
-		limit = 100*(2^(level-1));
+		super( new int[]{15*(2^(level-1)), 15*(2^(level-1)), 15*(2^(level-1))},
+				location, 100*(2^(level-1)), Village.STORAGE, level, id, number );
+		limit = 1000*(2^(level-1));
 	}
 	
 	public int getLimit(){

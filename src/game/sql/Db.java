@@ -122,6 +122,7 @@ public class Db {
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
+			closeConnection();
 		}
 		return names;
 	}
@@ -251,6 +252,7 @@ public class Db {
 			
 			stmt.close();
 		} catch (SQLException e) {
+			closeConnection();
 			e.printStackTrace();
 		}
 	}

@@ -3,6 +3,7 @@ package game.gui;
 import java.util.ArrayList;
 
 import game.sql.Db;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -20,22 +21,23 @@ public class ChoosePlayer {
 	
 	public ChoosePlayer(Db db, PlayingGUI playingGUI){
 		this.playingGUI = playingGUI;
+		this.db = db;
 		myStage = new Stage();
 		nameButtons = new Button[10];
 		names = db.loadPlayers();
-		this.db = db;
 		pane = new GridPane();
-		scene = new Scene(pane);
+		scene = new Scene(pane, 1000, 550);
 		init();
 	}
 	
 	private void init(){
+		pane.setAlignment(Pos.CENTER);
 		if(!names.isEmpty()){
 			for(int index = 0; index < 10; ++index){
 				if(names.size()>index){
 					nameButtons[index] = new Button(names.get(index));
 					nameButtons[index].setPrefSize(100, 20);
-					pane.add(nameButtons[index], index, 0);
+					pane.add(nameButtons[index], 0, index);
 					final int i = index;
 					nameButtons[index].setOnAction(e->{
 						myStage.close();
@@ -45,6 +47,9 @@ public class ChoosePlayer {
 			}
 		}
 		myStage.setScene(scene);
+	}
+	
+	public void activate(){
 		myStage.show();
 	}
 }

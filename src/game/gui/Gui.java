@@ -1,5 +1,6 @@
 package game.gui;
 
+import config.LanguageController;
 import game.sql.Db;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ public class Gui {
 	private Stage primaryStage;
 	private PlayingGUI playingGUI;
 	private Db game;
+	private LanguageController langController;
 	private Rectangle2D screen;
 	private int screenWidth, screenHeight;
 	
@@ -24,9 +26,10 @@ public class Gui {
 	private GraphicsContext startGC;
 	private Scene startScene;
 	
-	public Gui(Stage primaryStage, Db game){
+	public Gui(Stage primaryStage, Db game, LanguageController langController){
 		this.primaryStage = primaryStage;
 		this.game = game;
+		this.langController = langController;
 		
 		primaryStage.setFullScreen(true);
 		screen = Screen.getPrimary().getVisualBounds();
@@ -40,38 +43,34 @@ public class Gui {
 		root.getChildren().add(startCanvas);
 		startScene = new Scene(root);
 
-		playingGUI = new PlayingGUI(primaryStage, screenWidth-100, screenHeight, game);	
+		playingGUI = new PlayingGUI(primaryStage, screenWidth-100, screenHeight, game, langController);	
 	}
 	
 	public void initialize(){
-		primaryStage.setTitle("Time of Kings");
-		primaryStage.setResizable(false);
-		if(getClass().getResourceAsStream("./../resources/Icon.png") == null){
-			System.err.println("null 1");
-		}
-		primaryStage.getIcons().add(new Image(getClass().getResource("../resources/Icon.png").toExternalForm()));
+		primaryStage.getIcons().add(new Image("/game/resources/Icon.png"));
 		
 		startGC.setFill(Color.GREEN);
 		startGC.fillRect(0, 0, 800, 450);
-		startGC.drawImage(new Image(getClass().getResource("../resources/loginPane.png").toExternalForm()),
+		startGC.drawImage(new Image("/game/resources/loginPane.png"),
 				500, 150, 250, 50);
-		startGC.drawImage(new Image(getClass().getResource("../resources/loginPane.png").toExternalForm()),
+		startGC.drawImage(new Image("/game/resources/loginPane.png"),
 				500, 225, 250, 50);
 		
-		startGC.strokeText("Spieler laden", 550, 175);
-		startGC.strokeText("Spieler erstellen", 550, 250);
+		startGC.strokeText(langController.getString("load_player"), 550, 175);
+		startGC.strokeText(langController.getString("create_player"), 550, 250);
 		
 		startCanvas.setOnMouseClicked(e->{
 			if(e.getX() >= 500 && e.getX() <= 750 && e.getY() >= 150 && e.getY() <= 200){
-            	@SuppressWarnings("unused")
 				ChoosePlayer choose = new ChoosePlayer(game, playingGUI);
+				choose.activate();
 			}
 			if(e.getX() >= 500 && e.getX() <= 750 && e.getY() >= 225 && e.getY() <= 275){
-            	@SuppressWarnings("unused")
-				CreatePlayer createPlayer = new CreatePlayer(primaryStage, playingGUI, game);
+				CreatePlayer createPlayer = new CreatePlayer(playingGUI, game, langController);
+            	createPlayer.activate();
 			}
 		});
 		
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("Time of Kings");
 		primaryStage.setScene(startScene);
 		primaryStage.show();

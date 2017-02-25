@@ -20,9 +20,9 @@ public class Resource {
 		value = 100;
 	}
 	
-	public Resource( String type, int limit, int value){
+	public Resource( String type, int value, boolean saved){
 		this.type = type;
-		this.limit = limit;
+		this.limit = 0;
 		this.value = value;
 	}
 	

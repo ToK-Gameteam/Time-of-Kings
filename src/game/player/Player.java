@@ -1,6 +1,7 @@
 package game.player;
 
 import game.util.Location;
+import game.village.Building;
 import game.village.Village;
 
 /**
@@ -64,8 +65,8 @@ public class Player {
 		village.setName(name);
 	}
 	
-	public void collect(){
-		village.collect();
+	public void collect(Building building){
+		village.collect(building);
 	}
 	
 	public void build( int building, Location location ){

@@ -32,9 +32,9 @@ public class Village {
 								+ 4 /*Apartments*/ + 6 /*Storages*/ + 40 /*Walls */ )]; // total = 66
 		
 		resources = new Resource[3]; // Wood, Stone, Iron
-		resources[0] = new Resource( "wood", 100 );
-		resources[1] = new Resource( "stone", 100 );
-		resources[2] = new Resource( "iron", 100 );
+		resources[0] = new Resource( "wood", 1000 );
+		resources[1] = new Resource( "stone", 1000 );
+		resources[2] = new Resource( "iron", 1000 );
 		
 		buildingsBuild = new int[7]; //one for every type of Building
 		for( int index = 0; index < 7; ++index){
@@ -45,9 +45,9 @@ public class Village {
 	public Village(Building[] buildings, int[] resourceValues, int[] buildingsBuild ){
 		this.buildings = buildings;
 		resources = new Resource[3];
-		resources[0] = new Resource( "wood", 100, resourceValues[0] );
-		resources[1] = new Resource( "stone", 100, resourceValues[1] );
-		resources[2] = new Resource( "iron", 100, resourceValues[2] );
+		resources[0] = new Resource( "wood", resourceValues[0], true );
+		resources[1] = new Resource( "stone", resourceValues[1], true );
+		resources[2] = new Resource( "iron", resourceValues[2], true );
 		
 		this.buildingsBuild = buildingsBuild;
 	}
@@ -60,49 +60,50 @@ public class Village {
 			}
 			break;
 		case SAWMILL:
-			if( buildingsBuild[1] < 5 ){
+			if( buildingsBuild[1] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[1]+SAWMILL] = new ResourceCollector( location, SAWMILL, buildingsBuild[1]++ );
+				subtractResources(new int[]{buildingsBuild[1]*10, buildingsBuild[1]*20, buildingsBuild[1]*20});
 			}
 			break;
 		case QUARRY:
-			if( buildingsBuild[2] < 5 ){
+			if( buildingsBuild[2] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[2]+QUARRY] = new ResourceCollector( location, QUARRY, buildingsBuild[2]++ );
+				subtractResources(new int[]{buildingsBuild[2]*20, buildingsBuild[2]*10, buildingsBuild[2]*20});
 			}
 			break;
 		case MINE:
-			if( buildingsBuild[3] < 5 ){
+			if( buildingsBuild[3] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[3]+MINE] = new ResourceCollector( location, MINE, buildingsBuild[3]++ );
 			}
 			break;
 		case APARTMENT:
-			if( buildingsBuild[4] < 4 ){
+			if( buildingsBuild[4] < 4 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[4]+APARTMENT] = new Apartment( location, buildingsBuild[4]++ );
 			}
 			break;
 		case STORAGE:
-			if( buildingsBuild[5] < 6 ){
+			if( buildingsBuild[5] < 6 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[5]+STORAGE] = new Storage( location, buildingsBuild[5]++ );
 			}
 			break;
 		case WALL:
-			if( buildingsBuild[6] < 40 ){
+			if( buildingsBuild[6] < 40 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[6]+WALL] = new Wall( location, buildingsBuild[6]++ );
 			}
 		}
 		setLimit();
 	}
 	
-	public void collect(){
-		for(int number = 0; number < 5; ++number){
-			if(buildings[SAWMILL+number] != null){
-				resources[0].addValue(((ResourceCollector)buildings[SAWMILL+number]).collect());
-			}
-			if(buildings[QUARRY+number] != null){
-				resources[1].addValue(((ResourceCollector)buildings[QUARRY+number]).collect());
-			}
-			if(buildings[MINE+number] != null){
-				resources[2].addValue(((ResourceCollector)buildings[MINE+number]).collect());
-			}
+	public void collect(Building building){
+		switch( building.getType() ){
+		case SAWMILL:
+			resources[0].addValue(((ResourceCollector)building).collect());
+			break;
+		case QUARRY:
+			resources[1].addValue(((ResourceCollector)building).collect());
+			break;
+		case MINE:
+			resources[2].addValue(((ResourceCollector)building).collect());
 		}
 	}
 	
@@ -136,7 +137,7 @@ public class Village {
 	public void levelUp( int building, int number ){
 		int buildingIndex = building + number;
 		if( buildings[buildingIndex] != null ){
-			int costs = buildings[buildingIndex].levelUp(getResourceValues());
+			int[] costs = buildings[buildingIndex].levelUp(getResourceValues());
 			subtractResources( costs );
 		}
 		setLimit();
@@ -149,9 +150,9 @@ public class Village {
 		}
 	}
 	
-	private void subtractResources( int subtractionValue ){
+	private void subtractResources( int[] subtractionValues ){
 		for( int i = 0; i < 3; ++i){
-			resources[i].subtractValue( subtractionValue );
+			resources[i].subtractValue( subtractionValues[i] );
 		}
 	}
 	

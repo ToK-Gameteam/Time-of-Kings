@@ -17,21 +17,18 @@ public class ResourceCollector extends Building {
 	
 	
 	public ResourceCollector ( Location location, int type, int number ){
-		super( 10, location, 100, type, number );
-		this.production = 5;
-		this.limit = 50;
+		super( new int[]{200, 200, 200}, location, 100, type, number );
+		this.production = 100;
+		this.limit = 500;
 		this.lastCollected = System.currentTimeMillis();
 	}
 	
 	public ResourceCollector ( Location location, int type, int level, int id, long lastCollected, int number ){
-		super( 10+(2^(level-1)), location, 100*(2^(level-1)), type, level, id, number );
-		this.production = 5*(2^(level-1));
-		this.limit = 50*(2^(level-1));
+		super( new int[]{200*(2^(level-1)), 200*(2^(level-1)), 200*(2^(level-1))},
+				location, 100*(2^(level-1)), type, level, id, number );
+		this.production = 100*(12^(level-1)/100);
+		this.limit = 500*(15^(level-1)/100);
 		this.lastCollected = lastCollected;
-	}
-	
-	public int getProduction(){
-		return production;
 	}
 	
 	public int getLimit(){
@@ -45,7 +42,7 @@ public class ResourceCollector extends Building {
 	public int collect(){
 		long timeSinceLastCollected =  System.currentTimeMillis() - lastCollected;
 		lastCollected = System.currentTimeMillis();
-		double produced = (double) ( production * timeSinceLastCollected * (1000*60*60) + rest );
+		double produced = (double) ( production * timeSinceLastCollected / (1000*60*60) + rest );
 		if( produced > limit){
 			produced = limit;
 		}

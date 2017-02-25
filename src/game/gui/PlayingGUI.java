@@ -1,5 +1,6 @@
 package game.gui;
 
+import config.LanguageController;
 import game.player.Player;
 import game.sql.Db;
 import game.util.Location;
@@ -12,7 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class PlayingGUI {
@@ -24,17 +25,20 @@ public class PlayingGUI {
 	private HBox rooter;
 	private Button save;
 	private Db game;
+	private LanguageController langController;
 
 	private Player player;
 	private Village village;
 	
 	private int screenWidth, screenHeight;
 
-	public PlayingGUI(Stage primaryStage, int screenWidth, int screenHeight, Db game){
+	public PlayingGUI(Stage primaryStage, int screenWidth, int screenHeight, Db game,
+			LanguageController langController){
 		this.primaryStage = primaryStage;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
 		this.game = game;
+		this.langController = langController;
 		save = new Button("Speichern");
 		
 		buildings = new Canvas(screenWidth, screenHeight);
@@ -60,14 +64,14 @@ public class PlayingGUI {
 	}
 	
 	private void initialize(){
-		bgc.setFill(Paint.valueOf("GREEN"));
+		bgc.setFill(Color.FORESTGREEN);
 		bgc.fillRect(0, 0, screenWidth, screenHeight);
 
 		root.getChildren().addAll(buildings, options, bg, buildingOptions, info);
 		rooter.getChildren().addAll(root, save);
 		
-		infoC.setStroke(Paint.valueOf("BLACK"));
-		infoC.setFill(Paint.valueOf("GRAY"));
+		infoC.setStroke(Color.BLACK);
+		infoC.setFill(Color.gray(0.5, 0.5));
 		infoC.setLineWidth(2);
 		
 		bg.toBack();
@@ -99,8 +103,7 @@ public class PlayingGUI {
 		Building[] buildings = village.getBuildings();
 		for(Building building : buildings){
 			if(building != null){
-				String path = "../resources/0_" + building.getLevel() + "building.png";
-				buildingsC.drawImage(new Image(PlayingGUI.class.getResourceAsStream(path)),
+				buildingsC.drawImage(new Image("game/resources/0_" + building.getLevel() + "building.png"),
 						building.getLocation().getLocationX()*50, building.getLocation().getLocationY()*50,
 						50, 50);
 			}
@@ -132,27 +135,26 @@ public class PlayingGUI {
 		for(Building building : buildings){
 			if(building != null){
 				if(building.getLocation().equals(new Location(x, y))){
-					optionsC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+					optionsC.drawImage(new Image("game/resources/loginPane.png"),
 							screenWidth/2-20, screenHeight-50, 80, 40);
 					String buildingDetails = "";
 					switch(building.getType()){
 					case(Village.COMMUNITY_HALL):
-						buildingDetails += "Rathaus";break;
+						buildingDetails += langController.getString("community_hall");break;
 					case(Village.SAWMILL):
-						buildingDetails += "Sägewerk";break;
+						buildingDetails += langController.getString("sawmill");break;
 					case(Village.QUARRY):
-						buildingDetails += "Steinbruch";break;
+						buildingDetails += langController.getString("quarry");break;
 					case(Village.MINE):
-						buildingDetails += "Mine";break;
+						buildingDetails += langController.getString("mine");break;
 					case(Village.APARTMENT):
-						buildingDetails += "Wohnhaus";break;
+						buildingDetails += langController.getString("apartment");break;
 					case(Village.STORAGE):
-						buildingDetails += "Lager";break;
+						buildingDetails += langController.getString("storage");break;
 					case(Village.WALL):
-						buildingDetails += "Mauer";break;
+						buildingDetails += langController.getString("wall");break;
 					}
-					buildingDetails += ", ";
-					buildingDetails += building.getLevel();
+					buildingDetails += (", " + langController.getString("level") + " " + building.getLevel());
 					optionsC.strokeText(buildingDetails, screenWidth/2-10, screenHeight-60);
 					optionsC.strokeText("Level-Up", screenWidth/2-10, screenHeight-30);
 					options.toFront();
@@ -169,9 +171,9 @@ public class PlayingGUI {
 					if(building.getType() == Village.SAWMILL || building.getType() == Village.QUARRY || 
 							building.getType() == Village.MINE){
 
-						optionsC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+						optionsC.drawImage(new Image("game/resources/loginPane.png"),
 								 screenWidth/2+70, screenHeight-50, 80, 40);
-						optionsC.strokeText("Sammeln", screenWidth/2+80, screenHeight-30);
+						optionsC.strokeText(langController.getString("collect"), screenWidth/2+80, screenHeight-30);
 						options.setOnMouseClicked(e->{
 							if(e.getX() >= screenWidth/2 && e.getX()<= screenWidth/2+40 
 									&& e.getY() >= screenHeight-50 && e.getY() <= screenHeight-10){
@@ -179,7 +181,7 @@ public class PlayingGUI {
 								draw();
 							}else if(e.getX() >= screenWidth/2+70 && e.getX()<= screenWidth/2+150 
 									&& e.getY() >= screenHeight-50 && e.getY() <= screenHeight-10){
-								player.collect();
+								player.collect(building);
 								draw();
 							}
 							options.toBack();
@@ -190,9 +192,9 @@ public class PlayingGUI {
 			}
 			++index;
 		}
-		optionsC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		optionsC.drawImage(new Image("game/resources/loginPane.png"),
 				screenWidth/2, screenHeight-50, 80, 40);
-		optionsC.strokeText("Baumenü", screenWidth/2+10,  screenHeight-30);
+		optionsC.strokeText(langController.getString("building_menu"), screenWidth/2+10,  screenHeight-30);
 		options.setOnMouseClicked(e->{
 			if(e.getX() >= screenWidth/2 && e.getX()<= screenWidth/2+40 
 					&& e.getY() >= screenHeight-50 && e.getY() <= screenHeight-10){
@@ -204,27 +206,27 @@ public class PlayingGUI {
 	
 	private void showBuildingOptions(int x, int y){
 		buildingC.clearRect(0, 0, screenWidth, screenHeight);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				50, 50, 200, 200);
-		buildingC.strokeText("Rathaus", 100, 100);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("community_hall"), 100, 100);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				300, 50, 200, 200);
-		buildingC.strokeText("Sägewerk", 350, 100);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("sawmill"), 350, 100);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				550, 50, 200, 200);
-		buildingC.strokeText("Steinbruch", 600, 100);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("quarry"), 600, 100);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				50, 300, 200, 200);
-		buildingC.strokeText("Mine", 100, 350);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("mine"), 100, 350);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				300, 300, 200, 200);
-		buildingC.strokeText("Wohnhaus", 350, 350);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("apartment"), 350, 350);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				550, 300, 200, 200);
-		buildingC.strokeText("Lager", 600, 350);
-		buildingC.drawImage(new Image(PlayingGUI.class.getResourceAsStream("../resources/loginPane.png")),
+		buildingC.strokeText(langController.getString("storage"), 600, 350);
+		buildingC.drawImage(new Image("game/resources/loginPane.png"),
 				50, 550, 200, 200);
-		buildingC.strokeText("Mauer", 100, 600);
+		buildingC.strokeText(langController.getString("wall"), 100, 600);
 		
 		buildingOptions.toFront();
 		buildingOptions.setOnMouseClicked(e->{
@@ -248,4 +250,15 @@ public class PlayingGUI {
 			options.toBack();
 		});
 	}
+	
+/**	private Building getBuildingAt(int x, int y){
+		for(Building building : village.getBuildings()){
+			if(building != null && building.getLocation().equals(new Location((int)x/50, (int)y/50))){
+				System.out.println(building.toString());
+				return building;
+			}
+		}
+		return null;
+ 	}**/	
 }
+

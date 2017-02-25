@@ -1,7 +1,9 @@
 package game.gui;
 
+import config.LanguageController;
 import game.player.Player;
 import game.sql.Db;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,11 +19,13 @@ public class CreatePlayer {
 	private PlayingGUI playingGUI;
 	private Db db;
 	private Label failed;
+	private LanguageController langController;
 
-	public CreatePlayer(Stage primaryStage, PlayingGUI playingGUI, Db db){
-		this.primaryStage = primaryStage;
+	public CreatePlayer(PlayingGUI playingGUI, Db db, LanguageController langController){
 		this.playingGUI = playingGUI;
 		this.db = db;
+		this.langController = langController;
+		primaryStage = new Stage();
 		name = new TextField();
 		root = new VBox();
 		failed = new Label();
@@ -31,12 +35,12 @@ public class CreatePlayer {
 	
 	private void init(){
 		
-		name.setPromptText("Name");
-		Button enter = new Button("Erstellen");
+		name.setPromptText(langController.getString("name"));
+		Button enter = new Button(langController.getString("create"));
 		enter.setOnAction(e->{
 			for(String name : db.loadPlayers()){
 				if(name.equals(this.name.getText())){
-					failed.setText("Name bereits vergeben.");
+					failed.setText(langController.getString("name_used"));
 					this.name.setText("");
 					return;
 				}
@@ -47,8 +51,12 @@ public class CreatePlayer {
 		});
 		
 		root.getChildren().addAll(name, enter, failed);
+		root.setAlignment(Pos.TOP_CENTER);
 		
 		primaryStage.setScene(createScene);
+	}
+	
+	public void activate(){
 		primaryStage.show();
 	}
 }
