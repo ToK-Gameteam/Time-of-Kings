@@ -26,10 +26,11 @@
 *.sql
 *.sqlite
 *.script
-*.properties
 *.lock
 
+/ToK/
 /bin/
+*.lck
 
 # OS generated files #
 ######################
@@ -45,5 +46,4 @@ Thumbs.db
 *.prefs
 gameDb.lck
 *.script
-*.properties
 README.md
