@@ -1,9 +1,8 @@
 package de.tok_gameteam.tok.gui;
 
-import java.io.File;
-
 import config.LanguageController;
 import de.tok_gameteam.tok.sql.Db;
+
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,8 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Gui {
-	public static final String PICTURE_PATH = File.separator + "de" + File.separator + "tok_gameteam"
-			+ File.separator + "tok" + File.separator + "resources" + File.separator;
+	public static final String PICTURE_PATH =  "/de/tok_gameteam/tok/resources/";
 	
 	private Stage primaryStage;
 	private PlayingGUI playingGUI;
