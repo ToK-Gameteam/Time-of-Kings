@@ -20,7 +20,6 @@ public class StartUp {
 			PrintWriter print = new PrintWriter(properties);
 			print.println("language = default");
 			print.close();
-			System.out.println("Jep");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

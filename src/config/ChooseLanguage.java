@@ -27,7 +27,7 @@ public class ChooseLanguage {
 		root = new GridPane();
 		chooseScene = new Scene(root, 400, 200);
 		choose = new Button("Choose");
-		chooseLabel = new Label("Choose your preferred language.");
+		chooseLabel = new Label("Choose your prefered language.");
 		init();
 	}
 	

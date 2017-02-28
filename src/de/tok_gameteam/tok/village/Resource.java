@@ -17,7 +17,7 @@ public class Resource {
 	public Resource( String type, int limit ){
 		this.type = type;
 		this.limit = limit;
-		value = 100;
+		value = 1000;
 	}
 	
 	public Resource( String type, int value, boolean saved){

@@ -55,7 +55,7 @@ public class Configuration {
 					+ File.separator + "ToK" + File.separator + "config.properties";
 			File file = new File(path);
 			out = new FileOutputStream(file);
-			prop.setProperty("language", "German");
+			prop.setProperty(key, newValue);
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -64,37 +64,41 @@ public class Village {
 		case SAWMILL:
 			if( buildingsBuild[1] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[1]+SAWMILL] = new ResourceCollector( location, SAWMILL, buildingsBuild[1]++ );
-				subtractResources(BUILDING_COSTS[1]);
+				subtractResources(new int[]{BUILDING_COSTS[1][0], BUILDING_COSTS[1][0], BUILDING_COSTS[1][0]});
 			}
 			break;
 		case QUARRY:
 			if( buildingsBuild[2] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[2]+QUARRY] = new ResourceCollector( location, QUARRY, buildingsBuild[2]++ );
-				subtractResources(BUILDING_COSTS[1]);
+				subtractResources(new int[]{BUILDING_COSTS[1][0], BUILDING_COSTS[1][0], BUILDING_COSTS[1][0]});
 			}
 			break;
 		case MINE:
 			if( buildingsBuild[3] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[3]+MINE] = new ResourceCollector( location, MINE, buildingsBuild[3]++ );
-				subtractResources(BUILDING_COSTS[1]);
+				subtractResources(new int[]{BUILDING_COSTS[1][0], BUILDING_COSTS[1][0], BUILDING_COSTS[1][0]});
 			}
 			break;
 		case APARTMENT:
 			if( buildingsBuild[4] < 4 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[4]+APARTMENT] = new Apartment( location, buildingsBuild[4]++ );
-				subtractResources(BUILDING_COSTS[2]);
+				subtractResources(new int[]{
+						BUILDING_COSTS[2][0],
+						BUILDING_COSTS[2][0], 
+						BUILDING_COSTS[2][0]	
+				});
 			}
 			break;
 		case STORAGE:
 			if( buildingsBuild[5] < 4 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[5]+STORAGE] = new Storage( location, buildingsBuild[5]++ );
-				subtractResources(BUILDING_COSTS[3]);
+				subtractResources(new int[]{BUILDING_COSTS[3][0], BUILDING_COSTS[3][0], BUILDING_COSTS[3][0]});
 			}
 			break;
 		case WALL:
 			if( buildingsBuild[6] < 40 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[6]+WALL] = new Wall( location, buildingsBuild[6]++ );
-				subtractResources(BUILDING_COSTS[4]);
+				subtractResources(new int[]{BUILDING_COSTS[4][0], BUILDING_COSTS[4][0], BUILDING_COSTS[4][0]});
 			}
 		}
 		setLimit();

@@ -42,7 +42,7 @@ public class BuildingValues {
 					+ "valueL4 INT NOT NULL, "
 					+ "valueL5 INT NOT NULL, "
 					+ "valueL6 INT NOT NULL)");
-			System.out.println("jo");
+			
 			ResultSet valueExists = stmt.executeQuery("SELECT * FROM buildingCosts");
 			
 			if(! valueExists.next()){
@@ -96,10 +96,13 @@ public class BuildingValues {
 					+ Village.SAWMILL + ", 85, 89, 94, 100, 107, 115)");
 			
 			stmt.executeQuery("INSERT INTO buildingValues VALUES("
-					+ Village.STORAGE + ", 3000, 9000, 30000, 120000, 300000, 750000)");
+					+ Village.QUARRY + ", 500, 850, 1300, 2000, 3000, 5000)");
 			
 			stmt.executeQuery("INSERT INTO buildingValues VALUES("
 					+ Village.APARTMENT + ", 100, 500, 2000, 8000, 20000, 50000)");
+			
+			stmt.executeQuery("INSERT INTO buildingValues VALUES("
+					+ Village.STORAGE + ", 3000, 9000, 30000, 120000, 300000, 750000)");
 			
 			stmt.close();
 		} catch (SQLException e) {
@@ -110,7 +113,7 @@ public class BuildingValues {
 	}
 	
 	public int[][] getBuildingCosts(){
-		int[][] buildingCosts = new int[7][6];
+		int[][] buildingCosts = new int[5][6];
 		try {
 			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
@@ -136,7 +139,7 @@ public class BuildingValues {
 	}
 	
 	public int[][] getBuildingValues(){
-		int[][] buildingValues = new int[3][6];
+		int[][] buildingValues = new int[4][6];
 		try {
 			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();

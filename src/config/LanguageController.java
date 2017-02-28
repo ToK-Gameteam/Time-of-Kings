@@ -12,6 +12,7 @@ public class LanguageController {
 	public LanguageController(String language){
 		supportedLanguages = new HashMap<String, Locale>();
 		supportedLanguages.put("German", Locale.GERMAN);
+		supportedLanguages.put("English", Locale.ENGLISH);
 		translation = ResourceBundle.getBundle("language", supportedLanguages.get(language));
 	}
 
