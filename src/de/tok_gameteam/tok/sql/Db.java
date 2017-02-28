@@ -181,6 +181,9 @@ public class Db {
 				
 				ply = new Player(name, new Village(buildings, resources, buildingsBuild));
 			}
+			
+			player.close();
+			village.close();
 			allBuildings.close();
 			stmt.close();
 		} catch (SQLException e) {
@@ -194,6 +197,7 @@ public class Db {
 	
 	public void updatePlayer(Player player){
 		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			
 			Village village = player.getVillage();
@@ -253,6 +257,7 @@ public class Db {
 				}
 			}
 			
+			rsltVillage.close();
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

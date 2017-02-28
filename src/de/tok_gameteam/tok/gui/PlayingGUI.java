@@ -39,7 +39,7 @@ public class PlayingGUI {
 		this.screenHeight = screenHeight;
 		this.game = game;
 		this.langController = langController;
-		save = new Button("Speichern");
+		save = new Button(langController.getString("save"));
 		
 		buildings = new Canvas(screenWidth, screenHeight);
 		buildingsC = buildings.getGraphicsContext2D();
