@@ -122,7 +122,7 @@ public class BuildingValues {
 			int index = 0;
 			while(rsltUpgradeCost.next()){
 				for(int level = 0; level < 6; ++level){
-					buildingCosts[index][level] = rsltUpgradeCost.getInt(level+1);
+					buildingCosts[index][level] = rsltUpgradeCost.getInt(level+2);
 				}
 				++index;
 			}
