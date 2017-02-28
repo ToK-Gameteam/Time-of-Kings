@@ -3,6 +3,7 @@ package de.tok_gameteam.tok.gui;
 import config.LanguageController;
 import de.tok_gameteam.tok.player.Player;
 import de.tok_gameteam.tok.sql.Db;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,12 +30,13 @@ public class CreatePlayer {
 		name = new TextField();
 		root = new VBox();
 		failed = new Label();
-		createScene = new Scene(root, 100, 200);
+		createScene = new Scene(root, 125, 200);
 		init();
 	}
 	
 	private void init(){
-		
+		root.setSpacing(10);
+		root.setPadding(new Insets(20));
 		name.setPromptText(langController.getString("name"));
 		Button enter = new Button(langController.getString("create"));
 		enter.setOnAction(e->{

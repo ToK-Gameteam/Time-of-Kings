@@ -32,6 +32,8 @@ public class ChoosePlayer {
 	
 	private void init(){
 		pane.setAlignment(Pos.CENTER);
+		pane.setHgap(20);
+		pane.setVgap(20);
 		if(!names.isEmpty()){
 			for(int index = 0; index < 10; ++index){
 				if(names.size()>index){

@@ -21,20 +21,17 @@ import de.tok_gameteam.tok.village.Wall;
 public class Db {
 	private Connection con = null;
 	private Statement stmt = null;
+	private String path;
 	
 	public Db(){
-		try {
-			String path = System.getProperty("user.dir")
-					+ File.separator + "ToK" + File.separator + "TokDB";
-			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		path = System.getProperty("user.dir")
+				+ File.separator + "ToK" + File.separator + "TokDB";
 		initialize();
 	}
 	
 	public void initialize(){
 		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			
 			stmt.executeQuery("CREATE TABLE IF NOT EXISTS player("
@@ -67,23 +64,27 @@ public class Db {
 					+ "level INT NOT NULL,"
 					+ "number INT NOT NULL, "
 					+ "additionalInformation BIGINT)");
+						
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			closeConnection();
 		}
 	}
 	
 	public void enterPlayer(Player player){
 		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			
 			Village village = player.getVillage();
 			
 			stmt.executeQuery("INSERT INTO player VALUES(DEFAULT, '"
 					+ player.getName()+ "', "
-					+ player.getInformation()[1] + ", "
-					+ player.getInformation()[3] + ", "
-					+ player.getInformation()[5] + ")");
+					+ player.getResources()[0] + ", "
+					+ player.getResources()[2] + ", "
+					+ player.getResources()[4] + ")");
 			
 			ResultSet rslt = stmt.executeQuery("SELECT id FROM player WHERE name='" + player.getName() + "'");
 			rslt.next();
@@ -99,32 +100,26 @@ public class Db {
 			
 			stmt.close();
 		} catch (SQLException e) {
-			try {
-				con.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
 			e.printStackTrace();
+		}finally{
+			closeConnection();
 		}
-		
 	}
 	
 	public ArrayList<String> loadPlayers(){
 		ArrayList<String> names = new ArrayList<String>();
 		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			ResultSet nameSet = stmt.executeQuery("SELECT name FROM player");
 			while(nameSet.next()){
 				names.add(nameSet.getString(1));
 			}
+			nameSet.close();
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				stmt.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		}finally{
 			closeConnection();
 		}
 		return names;
@@ -134,6 +129,7 @@ public class Db {
 		Player ply = new Player(name);
 		
 		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			ResultSet player = stmt.executeQuery("SELECT * FROM player WHERE name = '" + name + "'");
 			player.next();
@@ -185,8 +181,12 @@ public class Db {
 				
 				ply = new Player(name, new Village(buildings, resources, buildingsBuild));
 			}
+			allBuildings.close();
+			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally{
+			closeConnection();
 		}
 		
 		return ply;
@@ -199,9 +199,9 @@ public class Db {
 			Village village = player.getVillage();
 			
 			stmt.executeQuery("UPDATE player SET "
-					+ "wood = " + player.getInformation()[1] + ", "
-					+ "stone = " + player.getInformation()[3] + ", "
-					+ "iron = " + player.getInformation()[5] + ""
+					+ "wood = " + player.getResources()[0] + ", "
+					+ "stone = " + player.getResources()[2] + ", "
+					+ "iron = " + player.getResources()[4] + ""
 							+ "WHERE name = '" + player.getName() + "'");
 			
 			ResultSet rslt = stmt.executeQuery("SELECT id FROM player WHERE name='" + player.getName() + "'");
@@ -255,8 +255,9 @@ public class Db {
 			
 			stmt.close();
 		} catch (SQLException e) {
-			closeConnection();
 			e.printStackTrace();
+		}finally{
+			closeConnection();
 		}
 	}
 	

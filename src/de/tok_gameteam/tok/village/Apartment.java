@@ -13,12 +13,13 @@ public class Apartment extends Building {
 	private int resident;
 	
 	public Apartment( Location location, int number ){
-		super(new int[]{100, 50, 75}, location, 100, Village.APARTMENT, number);
+		super( location, 100, Village.APARTMENT, number);
+		resident = Village.BUILDING_VALUES[2][0];
 	}
 	
 	public Apartment( Location location, int level, int id, int number){
-		super(new int[]{10*(2^(level-1)), 20*(2^(level-1)), 15*(2^(level-1))},
-				location, 100*(2^(level-1)), Village.APARTMENT, level, id, number);
+		super(location, 100*(2^(level-1)), Village.APARTMENT, level, id, number);
+		resident = Village.BUILDING_VALUES[2][level-1];
 	}
 	
 	public int getResident(){
@@ -26,7 +27,7 @@ public class Apartment extends Building {
 	}
 	
 	@Override public void upgradeSpecification(){
-		resident *= 2;
+		resident = Village.BUILDING_VALUES[2][level-1];
 		hitpoints *= 2;
 	}
 }

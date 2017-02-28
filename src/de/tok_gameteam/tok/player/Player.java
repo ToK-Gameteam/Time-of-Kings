@@ -44,25 +44,8 @@ public class Player {
 		return resources;
 	}
 	
-	public String[] getInformation(){
-		String[] information = new String[8];
-		information[0] = name;
-		information[1] = village.getResourceValues()[0] + "";
-		information[2] = village.getResourceLimits()[0] + "";
-		information[3] = village.getResourceValues()[1] + "";
-		information[4] = village.getResourceLimits()[1] + "";
-		information[5] = village.getResourceValues()[2] + "";
-		information[6] = village.getResourceLimits()[2] + "";
-		information[7] = village.getName();
-		return information;
-	}
-	
 	public Village getVillage(){
 		return village;
-	}
-	
-	public void createVillage( String name ){
-		village.setName(name);
 	}
 	
 	public void collect(Building building){

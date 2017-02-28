@@ -13,14 +13,12 @@ public abstract class Building implements BuildingUpgrade {
 	static final long serialVersionUID = 1;
 	
 	protected Location location;
-	protected int upgradeCost[];
 	protected int level;
 	protected int hitpoints;
 	protected int type;
 	protected int id, number;
 	
-	public Building( int upgradeCost[], Location location, int hitpoints, int type, int number ){
-		this.upgradeCost = upgradeCost;
+	public Building( Location location, int hitpoints, int type, int number ){
 		this.location = location;
 		this.hitpoints = hitpoints;
 		this.type = type;
@@ -29,9 +27,7 @@ public abstract class Building implements BuildingUpgrade {
 		id = 0;
 	}
 	
-	public Building(int upgradeCost[], Location location, int hitpoints, int type, int level, int id, int number){
-
-		this.upgradeCost = upgradeCost;
+	public Building( Location location, int hitpoints, int type, int level, int id, int number){
 		this.location = location;
 		this.hitpoints = hitpoints;
 		this.type = type;
@@ -42,10 +38,6 @@ public abstract class Building implements BuildingUpgrade {
 	
 	public int getLevel(){
 		return level;
-	}
-	
-	public int[] getUpgradeCosts(){
-		return upgradeCost;
 	}
 	
 	public int getHitpoints(){
@@ -64,21 +56,9 @@ public abstract class Building implements BuildingUpgrade {
 		this.location = location;
 	}
 	
-	public int[] levelUp(int[] resources){
-		if( resources[0] >= upgradeCost[0] && resources[1] >= upgradeCost[1]
-				&& resources[2] >= upgradeCost[2] && level < 7 ){
-			++level;
-			upgradeSpecification();
-			return upgradeCost;
-		}else{
-			return new int[]{0, 0, 0};
-		}
-	}
-	
-	public void setUpgradeCost(){
-		for(int index = 0; index < 3; ++index){
-			upgradeCost[index] *= 2;
-		}
+	public void levelUp(){
+		++level;
+		upgradeSpecification();
 	}
 	
 	@Override public void upgradeSpecification(){}

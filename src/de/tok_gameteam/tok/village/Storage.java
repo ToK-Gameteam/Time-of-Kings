@@ -13,14 +13,13 @@ public class Storage extends Building {
 	private int limit;
 	
 	public Storage( Location location, int number){
-		super( new int[]{15, 15, 15}, location, 100, Village.STORAGE, number);
-		limit = 1000;
+		super( location, 9000, Village.STORAGE, number);
+		limit = 3000;
 	}
 	
 	public Storage( Location location, int level, int id, int number){
-		super( new int[]{15*(2^(level-1)), 15*(2^(level-1)), 15*(2^(level-1))},
-				location, 100*(2^(level-1)), Village.STORAGE, level, id, number );
-		limit = 1000*(2^(level-1));
+		super( location, 9000*(3^(level-1)), Village.STORAGE, level, id, number );
+		limit = Village.BUILDING_VALUES[3][level-1];
 	}
 	
 	public int getLimit(){
@@ -28,7 +27,7 @@ public class Storage extends Building {
 	}
 	
 	@Override public void upgradeSpecification(){
-		limit *= 2;
+		limit = Village.BUILDING_VALUES[3][level-1];
 		hitpoints *= 2;
 	}
 }

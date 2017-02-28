@@ -17,17 +17,16 @@ public class ResourceCollector extends Building {
 	
 	
 	public ResourceCollector ( Location location, int type, int number ){
-		super( new int[]{200, 200, 200}, location, 100, type, number );
-		this.production = 100;
-		this.limit = 500;
+		super( location, 100, type, number );
+		this.production = Village.BUILDING_VALUES[0][0];
+		this.limit = Village.BUILDING_VALUES[1][0];
 		this.lastCollected = System.currentTimeMillis();
 	}
 	
 	public ResourceCollector ( Location location, int type, int level, int id, long lastCollected, int number ){
-		super( new int[]{200*(2^(level-1)), 200*(2^(level-1)), 200*(2^(level-1))},
-				location, 100*(2^(level-1)), type, level, id, number );
-		this.production = 100*(12^(level-1)/100);
-		this.limit = 500*(15^(level-1)/100);
+		super( location, 100*(2^(level-1)), type, level, id, number );
+		this.production = Village.BUILDING_VALUES[0][level-1];
+		this.limit = Village.BUILDING_VALUES[1][level-1];
 		this.lastCollected = lastCollected;
 	}
 	
@@ -53,9 +52,10 @@ public class ResourceCollector extends Building {
 		return (int) produced;
 	}
 	
+	
 	@Override public void upgradeSpecification(){
-		production *= 2;
+		production = Village.BUILDING_VALUES[0][level-1];
 		hitpoints *= 2;
-		limit *= 2;
+		limit = Village.BUILDING_VALUES[1][level-1];
 	}
 }

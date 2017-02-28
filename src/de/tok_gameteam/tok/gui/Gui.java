@@ -1,5 +1,7 @@
 package de.tok_gameteam.tok.gui;
 
+import java.io.File;
+
 import config.LanguageController;
 import de.tok_gameteam.tok.sql.Db;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +15,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Gui {
+	public static final String PICTURE_PATH = File.separator + "de" + File.separator + "tok_gameteam"
+			+ File.separator + "tok" + File.separator + "resources" + File.separator;
 	
 	private Stage primaryStage;
 	private PlayingGUI playingGUI;
@@ -49,9 +53,9 @@ public class Gui {
 	public void initialize(){
 		startGC.setFill(Color.GREEN);
 		startGC.fillRect(0, 0, 800, 450);
-		startGC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		startGC.drawImage(new Image(PICTURE_PATH + "loginPane.png"),
 				500, 150, 250, 50);
-		startGC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		startGC.drawImage(new Image(PICTURE_PATH + "loginPane.png"),
 				500, 225, 250, 50);
 		
 		startGC.strokeText(langController.getString("load_player"), 550, 175);

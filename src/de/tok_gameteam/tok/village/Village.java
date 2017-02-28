@@ -1,5 +1,6 @@
 package de.tok_gameteam.tok.village;
 
+import de.tok_gameteam.tok.sql.BuildingValues;
 import de.tok_gameteam.tok.util.Location;
 
 /** 
@@ -10,8 +11,6 @@ import de.tok_gameteam.tok.util.Location;
  **/
 public class Village {
 	
-	private String name = "";
-	private boolean nameChanged = false;
 	private Building[] buildings;
 	private Resource[] resources;
 	private int[] buildingsBuild;
@@ -26,6 +25,9 @@ public class Village {
 	public static final int APARTMENT = 16;
 	public static final int STORAGE = 20;
 	public static final int WALL = 26;
+	
+	public static final int[][] BUILDING_COSTS = new BuildingValues().getBuildingCosts();
+	public static final int[][] BUILDING_VALUES = new BuildingValues().getBuildingValues();
 	
 	public Village(){
 		buildings = new Building[(1 /*CommmunityHall*/ + 15 /*ResourceCollectors*/
@@ -62,37 +64,37 @@ public class Village {
 		case SAWMILL:
 			if( buildingsBuild[1] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[1]+SAWMILL] = new ResourceCollector( location, SAWMILL, buildingsBuild[1]++ );
-				subtractResources(new int[]{10, 10, 10});
+				subtractResources(BUILDING_COSTS[1]);
 			}
 			break;
 		case QUARRY:
 			if( buildingsBuild[2] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[2]+QUARRY] = new ResourceCollector( location, QUARRY, buildingsBuild[2]++ );
-				subtractResources(new int[]{10, 10, 10});
+				subtractResources(BUILDING_COSTS[1]);
 			}
 			break;
 		case MINE:
 			if( buildingsBuild[3] < 5 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[3]+MINE] = new ResourceCollector( location, MINE, buildingsBuild[3]++ );
-				subtractResources(new int[]{10, 10, 10});
+				subtractResources(BUILDING_COSTS[1]);
 			}
 			break;
 		case APARTMENT:
 			if( buildingsBuild[4] < 4 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[4]+APARTMENT] = new Apartment( location, buildingsBuild[4]++ );
-				subtractResources(new int[]{10, 10, 10});
+				subtractResources(BUILDING_COSTS[2]);
 			}
 			break;
 		case STORAGE:
-			if( buildingsBuild[5] < 6 && buildingsBuild[0] != 0 ){
+			if( buildingsBuild[5] < 4 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[5]+STORAGE] = new Storage( location, buildingsBuild[5]++ );
-				subtractResources(new int[]{10, 10, 10});
+				subtractResources(BUILDING_COSTS[3]);
 			}
 			break;
 		case WALL:
 			if( buildingsBuild[6] < 40 && buildingsBuild[0] != 0 ){
 				buildings[buildingsBuild[6]+WALL] = new Wall( location, buildingsBuild[6]++ );
-				subtractResources(new int[]{2, 2, 2});
+				subtractResources(BUILDING_COSTS[4]);
 			}
 		}
 		setLimit();
@@ -127,22 +129,25 @@ public class Village {
 		return resourceLimits;
 	}
 	
-	public String getName(){
-		return name;
-	}
-	
-	public void setName( String name ){
-		if( !nameChanged ){
-			this.name = name;
-			nameChanged = true;
-		}
-	}
-	
 	public void levelUp( int building, int number ){
 		int buildingIndex = building + number;
-		if( buildings[buildingIndex] != null ){
-			int[] costs = buildings[buildingIndex].levelUp(getResourceValues());
-			subtractResources( costs );
+		int costIndex = 0;
+		switch(buildings[buildingIndex].getType()){
+		case COMMUNITY_HALL:costIndex = 0;break;
+		case SAWMILL:
+		case QUARRY:
+		case MINE: costIndex = 1;break;
+		case APARTMENT: costIndex = 2;break;
+		case STORAGE: costIndex = 3;break;
+		case WALL: costIndex = 4;break;
+		}
+		if(resources[0].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()] && 
+				resources[1].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()] &&
+				resources[2].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()]){
+			buildings[buildingIndex].levelUp();
+			for(int index = 0; index < 3; ++index){
+				resources[index].subtractValue(BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()]);
+			}
 		}
 		setLimit();
 	}
@@ -161,7 +166,7 @@ public class Village {
 	}
 	
 	public void setLimit(){
-		int totalLimit = 300; // because of CommunityHall
+		int totalLimit = 3000; // because of CommunityHall
 		for( int number = 0; number < buildingsBuild[5]; ++number ){
 			Storage storage = (Storage) buildings[number+STORAGE];
 			totalLimit += storage.getLimit();
