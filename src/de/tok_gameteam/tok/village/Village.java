@@ -147,7 +147,8 @@ public class Village {
 		}
 		if(resources[0].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()] && 
 				resources[1].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()] &&
-				resources[2].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()]){
+				resources[2].getValue() >= BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()]
+						&& buildings[buildingIndex].getLevel() < 7){
 			buildings[buildingIndex].levelUp();
 			for(int index = 0; index < 3; ++index){
 				resources[index].subtractValue(BUILDING_COSTS[costIndex][buildings[buildingIndex].getLevel()]);

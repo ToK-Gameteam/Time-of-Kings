@@ -104,7 +104,7 @@ public class PlayingGUI {
 		for(Building building : buildings){
 			if(building != null){
 				buildingsC.drawImage(
-						new Image("/de/tok_gameteam/tok/resources/0_" + building.getLevel() + "building.png"),
+						new Image(Gui.PICTURE_PATH + building.getType() + "_" + building.getLevel() + "building.png"),
 						building.getLocation().getLocationX()*50, building.getLocation().getLocationY()*50,
 						50, 50);
 			}
