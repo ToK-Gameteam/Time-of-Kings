@@ -178,9 +178,9 @@ public class Db {
 							allBuildings.getInt(6), allBuildings.getInt(1), allBuildings.getInt(7));
 					break;
 				}
-				
-				ply = new Player(name, new Village(buildings, resources, buildingsBuild));
 			}
+			
+			ply = new Player(name, new Village(buildings, resources, buildingsBuild));
 			
 			player.close();
 			village.close();
@@ -227,28 +227,28 @@ public class Db {
 			Building[] buildings = village.getBuildings();
 			for(Building building : buildings){
 				if(building != null){
-					if(building.getId() == 0){if(building.getType() == Village.SAWMILL || building.getType() == Village.QUARRY ||
-						building.getType() == Village.MINE){
-						String query = "INSERT INTO buildings VALUES(DEFAULT, "
-								+ rsltVillage.getInt(1) + ", "
-								+ building.getType() + ", "
-								+ building.getLocation().getLocationX() + ", "
-								+ building.getLocation().getLocationY() + ", "
-								+ building.getLevel() + ", "
-								+ building.getNumber() + ", ";
-						ResourceCollector collector = (ResourceCollector) building;
-						query += (collector.getLastCollected() +  ")");
-						stmt.executeQuery(query);
-					}else{
-						stmt.executeQuery("INSERT INTO buildings VALUES(DEFAULT, "
-								+ rsltVillage.getInt(1) + ", "
-								+ building.getType() + ", "
-								+ building.getLocation().getLocationX() + ", "
-								+ building.getLocation().getLocationY() + ", "
-								+ building.getLevel() + ", " 
-								+ building.getNumber() +  ", 0)");
-					}
-						
+					if(building.getId() == 0){
+						if(building.getType() == Village.SAWMILL || building.getType() == Village.QUARRY ||
+								building.getType() == Village.MINE){
+							String query = "INSERT INTO buildings VALUES(DEFAULT, "
+									+ rsltVillage.getInt(1) + ", "
+									+ building.getType() + ", "
+									+ building.getLocation().getLocationX() + ", "
+									+ building.getLocation().getLocationY() + ", "
+									+ building.getLevel() + ", "
+									+ building.getNumber() + ", ";
+							ResourceCollector collector = (ResourceCollector) building;
+							query += (collector.getLastCollected() +  ")");
+							stmt.executeQuery(query);
+						}else{
+							stmt.executeQuery("INSERT INTO buildings VALUES(DEFAULT, "
+									+ rsltVillage.getInt(1) + ", "
+									+ building.getType() + ", "
+									+ building.getLocation().getLocationX() + ", "
+									+ building.getLocation().getLocationY() + ", "
+									+ building.getLevel() + ", " 
+									+ building.getNumber() +  ", 0)");
+						}
 					}else{
 						stmt.executeQuery("UPDATE buildings SET xValue = " + building.getLocation().getLocationX()
 							+ ", yValue = " + building.getLocation().getLocationY()

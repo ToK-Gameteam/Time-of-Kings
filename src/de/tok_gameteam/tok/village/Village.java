@@ -52,6 +52,9 @@ public class Village {
 		resources[2] = new Resource( "iron", resourceValues[2], true );
 		
 		this.buildingsBuild = buildingsBuild;
+		
+		setLimit();
+		
 	}
 	
 	public void build( Location location, int building ){

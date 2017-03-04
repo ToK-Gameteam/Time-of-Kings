@@ -37,7 +37,6 @@ public class Main extends Application {
 	public void setLanguage(String language){
 		this.language = language;
 		config.changeConfiguration("language", language);
-		System.out.println(language);
 	}
 
 	public void load(){

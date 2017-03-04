@@ -148,7 +148,7 @@ public class BuildingValues {
 			int index = 0;
 			while(rsltValues.next()){
 				for(int level = 0; level < 6; ++level){
-					buildingValues[index][level] = rsltValues.getInt(level+1);
+					buildingValues[index][level] = rsltValues.getInt(level+2);
 				}
 				++index;
 			}

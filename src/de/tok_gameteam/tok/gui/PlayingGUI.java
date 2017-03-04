@@ -24,7 +24,7 @@ public class PlayingGUI {
 	private Group root;
 	private HBox rooter;
 	private Button save;
-	private Db game;
+	private Db db;
 	private LanguageController langController;
 
 	private Player player;
@@ -37,7 +37,7 @@ public class PlayingGUI {
 		this.primaryStage = primaryStage;
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
-		this.game = game;
+		this.db = game;
 		this.langController = langController;
 		save = new Button(langController.getString("save"));
 		
@@ -83,7 +83,7 @@ public class PlayingGUI {
 			showOptions((int)e.getX(), (int)e.getY());
 		});
 		save.setOnAction(e->{
-			game.updatePlayer(player);
+			db.updatePlayer(player);
 		});
 	}
 	
@@ -111,19 +111,25 @@ public class PlayingGUI {
 		}
 		this.buildings.toFront();
 		infoC.strokeRect(screenWidth-120, 20, 100, 10);
+		String wood = langController.getString("wood") + ": "
+				+ player.getResources()[0] + " / " + player.getResources()[1];
 		double xWood = screenWidth-120+100-(player.getResources()[0]*1.0/player.getResources()[1]*1.0)*100.0;
 		infoC.fillRect(xWood, 21, (player.getResources()[0]*1.0/player.getResources()[1]*1.0)*100.0, 8);
-		infoC.strokeText(player.getResources()[0]+ "", screenWidth-150, 30);
+		infoC.strokeText(wood, screenWidth-250, 30);
 		
 		infoC.strokeRect(screenWidth-120, 40, 100, 10);
+		String stone = langController.getString("stone") + ": "
+				+ player.getResources()[2] + " / " + player.getResources()[3];
 		double xStone = screenWidth-120+100-(player.getResources()[2]*1.0/player.getResources()[3]*1.0)*100.0;
 		infoC.fillRect(xStone, 41, (player.getResources()[2]*1.0/player.getResources()[3]*1.0)*100.0, 8);
-		infoC.strokeText(player.getResources()[2] + "", screenWidth-150, 50);
+		infoC.strokeText(stone, screenWidth-250, 50);
 
 		infoC.strokeRect(screenWidth-120, 60, 100, 10);
+		String iron = langController.getString("iron") + ": "
+				+ player.getResources()[4] + " / " + player.getResources()[5];
 		double xIron = screenWidth-120+100-(player.getResources()[4]*1.0/player.getResources()[5]*1.0)*100.0;
 		infoC.fillRect(xIron, 61, (player.getResources()[4]*1.0/player.getResources()[5]*1.0)*100.0, 8);
-		infoC.strokeText(player.getResources()[4] + "", screenWidth-150, 70);
+		infoC.strokeText(iron, screenWidth-250, 70);
 	}
 	
 	private void showOptions(int helpX, int helpY){
@@ -136,7 +142,7 @@ public class PlayingGUI {
 		for(Building building : buildings){
 			if(building != null){
 				if(building.getLocation().equals(new Location(x, y))){
-					optionsC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+					optionsC.drawImage(new Image(Gui.PICTURE_PATH + "loginPane.png"),
 							screenWidth/2-20, screenHeight-50, 80, 40);
 					String buildingDetails = "";
 					switch(building.getType()){
