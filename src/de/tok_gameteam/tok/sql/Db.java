@@ -18,7 +18,17 @@ import de.tok_gameteam.tok.village.Storage;
 import de.tok_gameteam.tok.village.Village;
 import de.tok_gameteam.tok.village.Wall;
 
+/**
+ * The db for the game saves a player, its village and buildings.
+ * 
+ * @author Constantin Schulte
+ * @version 1.0
+ */
 public class Db {
+	
+	/**
+	 * The Connection to the db is always 
+	 */
 	private Connection con = null;
 	private Statement stmt = null;
 	private String path;
@@ -162,13 +172,13 @@ public class Db {
 							new Location(allBuildings.getInt(4), allBuildings.getInt(5)), Village.MINE,
 							allBuildings.getInt(6), allBuildings.getInt(1), allBuildings.getLong(8), allBuildings.getInt(7));
 					break;
-				case Village.APARTMENT:
-					buildings[Village.APARTMENT+allBuildings.getInt(7)] = new Apartment(
+				case Village.STORAGE:
+					buildings[Village.STORAGE+allBuildings.getInt(7)] = new Storage(
 							new Location(allBuildings.getInt(4), allBuildings.getInt(5)),
 							allBuildings.getInt(6), allBuildings.getInt(1), allBuildings.getInt(7));
 					break;
-				case Village.STORAGE:
-					buildings[Village.STORAGE+allBuildings.getInt(7)] = new Storage(
+				case Village.APARTMENT:
+					buildings[Village.APARTMENT+allBuildings.getInt(7)] = new Apartment(
 							new Location(allBuildings.getInt(4), allBuildings.getInt(5)),
 							allBuildings.getInt(6), allBuildings.getInt(1), allBuildings.getInt(7));
 					break;
@@ -233,8 +243,8 @@ public class Db {
 							String query = "INSERT INTO buildings VALUES(DEFAULT, "
 									+ rsltVillage.getInt(1) + ", "
 									+ building.getType() + ", "
-									+ building.getLocation().getLocationX() + ", "
-									+ building.getLocation().getLocationY() + ", "
+									+ building.getLocation().getX() + ", "
+									+ building.getLocation().getY() + ", "
 									+ building.getLevel() + ", "
 									+ building.getNumber() + ", ";
 							ResourceCollector collector = (ResourceCollector) building;
@@ -244,14 +254,14 @@ public class Db {
 							stmt.executeQuery("INSERT INTO buildings VALUES(DEFAULT, "
 									+ rsltVillage.getInt(1) + ", "
 									+ building.getType() + ", "
-									+ building.getLocation().getLocationX() + ", "
-									+ building.getLocation().getLocationY() + ", "
+									+ building.getLocation().getX() + ", "
+									+ building.getLocation().getY() + ", "
 									+ building.getLevel() + ", " 
 									+ building.getNumber() +  ", 0)");
 						}
 					}else{
-						stmt.executeQuery("UPDATE buildings SET xValue = " + building.getLocation().getLocationX()
-							+ ", yValue = " + building.getLocation().getLocationY()
+						stmt.executeQuery("UPDATE buildings SET xValue = " + building.getLocation().getX()
+							+ ", yValue = " + building.getLocation().getY()
 							+ ", level = " + building.getLevel() + "WHERE id = " + building.getId());
 					}
 				}

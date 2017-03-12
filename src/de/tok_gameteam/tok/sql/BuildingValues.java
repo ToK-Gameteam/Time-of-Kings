@@ -45,9 +45,19 @@ public class BuildingValues {
 			
 			ResultSet valueExists = stmt.executeQuery("SELECT * FROM buildingCosts");
 			
+			stmt.executeQuery("CREATE TABLE IF NOT EXISTS buildableBuildings("
+					+ "level INT NOT NULL PRIMARY KEY, "
+					+ "sawmills INT NOT NULL, "
+					+ "quarrys INT NOT NULL, "
+					+ "mines INT NOT NULL, "
+					+ "storages INT NOT NULL, "
+					+ "apartments INT NOT NULL, "
+					+ "walls INT NOT NULL)");
+			
 			if(! valueExists.next()){
 				insertBuildingCosts();
 				insertBuildingValues();
+				insertBuildableBuildings();
 			}
 			
 			valueExists.close();
@@ -112,6 +122,37 @@ public class BuildingValues {
 		}
 	}
 	
+	private void insertBuildableBuildings(){
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
+			stmt = con.createStatement();
+			
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					 + "1, 1, 1, 1, 1, 1, 5)"); //level=1; sawmill, quarry, mine=1; storage=1; apartment=1; wall=5
+			
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					+ "2, 1, 1, 1, 1, 2, 10)");
+			
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					+ "3, 2, 2, 2, 2, 3, 15)");
+			
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					+ "4, 3, 3, 3, 3, 3, 20)");
+
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					+ "5, 4, 4, 4, 3, 4, 30)");
+
+			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
+					+ "6, 5, 5, 5, 4, 4, 40)");
+			
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeConnection();
+		}
+	}
+	
 	public int[][] getBuildingCosts(){
 		int[][] buildingCosts = new int[5][6];
 		try {
@@ -149,6 +190,31 @@ public class BuildingValues {
 			while(rsltValues.next()){
 				for(int level = 0; level < 6; ++level){
 					buildingValues[index][level] = rsltValues.getInt(level+2);
+				}
+				++index;
+			}
+			
+			rsltValues.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			closeConnection();
+		}
+		
+		return buildingValues;
+	}
+	public int[][] getBuildableBuildings(){
+		int[][] buildingValues = new int[6][6];
+		try {
+			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
+			stmt = con.createStatement();
+			
+			ResultSet rsltValues = stmt.executeQuery("SELECT * FROM buildableBuildings ORDER BY level");
+			int index = 0;
+			while(rsltValues.next()){
+				for(int building = 0; building < 6; ++building){
+					buildingValues[index][building] = rsltValues.getInt(building+2);
 				}
 				++index;
 			}

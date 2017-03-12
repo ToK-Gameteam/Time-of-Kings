@@ -105,7 +105,7 @@ public class PlayingGUI {
 			if(building != null){
 				buildingsC.drawImage(
 						new Image(Gui.PICTURE_PATH + building.getType() + "_" + building.getLevel() + "building.png"),
-						building.getLocation().getLocationX()*50, building.getLocation().getLocationY()*50,
+						building.getLocation().getX()*50, building.getLocation().getY()*50,
 						50, 50);
 			}
 		}

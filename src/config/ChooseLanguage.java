@@ -33,6 +33,7 @@ public class ChooseLanguage {
 	
 	private void init(){
 		chooseStage.setTitle("Choose language");
+		languageBox.setValue("English");
 		root.setAlignment(Pos.CENTER);
 		root.setHgap(50);
 		root.setVgap(50);
@@ -45,9 +46,11 @@ public class ChooseLanguage {
 		chooseStage.setScene(chooseScene);
 		chooseStage.show();
 		choose.setOnAction(e->{
-			main.setLanguage(languageBox.getValue());
-			main.load();
-			chooseStage.close();
+			if(languageBox.getValue() != null){
+				main.setLanguage(languageBox.getValue());
+				main.load();
+				chooseStage.close();
+			}
 		});
 	}
 }

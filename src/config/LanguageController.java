@@ -10,10 +10,11 @@ public class LanguageController {
 	private ResourceBundle translation;
 
 	public LanguageController(String language){
+		System.out.println(language);
 		supportedLanguages = new HashMap<String, Locale>();
-		supportedLanguages.put("German", Locale.GERMAN);
 		supportedLanguages.put("English", Locale.ENGLISH);
-		translation = ResourceBundle.getBundle("language", supportedLanguages.get(language));
+		supportedLanguages.put("German", Locale.GERMAN);
+		translation = ResourceBundle.getBundle("language", supportedLanguages.get("English"));
 	}
 
 	public String getString(String keyword){

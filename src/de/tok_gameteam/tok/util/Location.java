@@ -1,40 +1,87 @@
 package de.tok_gameteam.tok.util;
 
-import java.io.Serializable;
-
-public class Location implements Serializable {
-	static final long serialVersionUID = 1;
+/**
+ * A util-class providing an object with x and y value.
+ * 
+ * @author Constantin
+ * @version 1.0
+ */
+public class Location {
 	
-	private int locationX, locationY;
+	private int x, y;
 	
+	/**
+	 * Basic constructor with two int-values.
+	 * 
+	 * @param locationX :
+	 * 		X-Value of the created location
+	 * @param locationY :
+	 * 		Y-Value of the created location
+	 */
 	public Location(int locationX, int locationY){
-		this.locationX = locationX;
-		this.locationY = locationY;
+		this.x = locationX;
+		this.y = locationY;
 	}
 	
+	/**
+	 * Constructor creating a location from another one, just like cloning it
+	 * 
+	 * @param location : The existing location which should be cloned.
+	 */
 	public Location( Location location ){
-		this.locationX = location.getLocationX();
-		this.locationY = location.getLocationY();
+		if(location != null){
+			x = location.getX();
+			y = location.getY();
+		}else{
+			x = 0;
+			y = 0;
+		}
 	}
 	
-	public int getLocationX(){
-		return locationX;
+	/**
+	 * Basic getter for the x-Value of the location.
+	 * 
+	 * @return The specific x-Value of the location, either set in the constructor or later with a setter.
+	 */
+	public int getX(){
+		return x;
 	}
 	
-	public int getLocationY(){
-		return locationY;
+	/**
+	 * Basic getter for the y-Value of the location.
+	 * 
+	 * @return The specific y-Value of the location, either set in the constructor or later with a setter.
+	 */
+	public int getY(){
+		return y;
 	}
 	
-	public void setLocationX( int newLocationX ){
-		this.locationX =newLocationX;
+	/**
+	 * Basic setter for the x-Value of the location.
+	 * 
+	 * @param newX : The new x-Value.
+	 */
+	public void setX( int newX ){
+		this.x =newX;
 	}
 	
-	public void setLocationY( int newLocationY ){
-		this.locationY = newLocationY;
+	/**
+	 * Basic setter for the y-Value of the location.
+	 * 
+	 * @param newY : The new y-Value.
+	 */
+	public void setY( int newY ){
+		this.y = newY;
 	}
 	
+	/**
+	 * Compares the x- and y-Values of the given location and itself.
+	 * 
+	 * @param location : The location to be compared to.
+	 * @return True if both values are the same.
+	 */
 	public boolean equals(Location location){
-		if( locationX == location.getLocationX() && locationY == location.getLocationY()){
+		if( x == location.getX() && y == location.getY()){
 			return true;
 		}else{
 			return false;

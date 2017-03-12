@@ -37,6 +37,7 @@ public class CreatePlayer {
 	private void init(){
 		root.setSpacing(10);
 		root.setPadding(new Insets(20));
+		
 		name.setPromptText(langController.getString("name"));
 		Button enter = new Button(langController.getString("create"));
 		enter.setOnAction(e->{
@@ -51,6 +52,7 @@ public class CreatePlayer {
 			Player ply = new Player(this.name.getText());
 			db.enterPlayer(ply);
 			playingGUI.play(ply);
+			createStage.close();
 		});
 		
 		root.getChildren().addAll(name, enter, failed);
@@ -61,5 +63,6 @@ public class CreatePlayer {
 	
 	public void activate(){
 		createStage.show();
+		failed.requestFocus();
 	}
 }
