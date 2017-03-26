@@ -1,4 +1,4 @@
-package config;
+package de.tok_gameteam.tok.config;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -10,11 +10,10 @@ public class LanguageController {
 	private ResourceBundle translation;
 
 	public LanguageController(String language){
-		System.out.println(language);
 		supportedLanguages = new HashMap<String, Locale>();
 		supportedLanguages.put("English", Locale.ENGLISH);
 		supportedLanguages.put("German", Locale.GERMAN);
-		translation = ResourceBundle.getBundle("language", supportedLanguages.get("English"));
+		translation = ResourceBundle.getBundle("language", supportedLanguages.get(language));
 	}
 
 	public String getString(String keyword){

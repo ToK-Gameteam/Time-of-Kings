@@ -43,8 +43,6 @@ public class BuildingValues {
 					+ "valueL5 INT NOT NULL, "
 					+ "valueL6 INT NOT NULL)");
 			
-			ResultSet valueExists = stmt.executeQuery("SELECT * FROM buildingCosts");
-			
 			stmt.executeQuery("CREATE TABLE IF NOT EXISTS buildableBuildings("
 					+ "level INT NOT NULL PRIMARY KEY, "
 					+ "sawmills INT NOT NULL, "
@@ -53,6 +51,8 @@ public class BuildingValues {
 					+ "storages INT NOT NULL, "
 					+ "apartments INT NOT NULL, "
 					+ "walls INT NOT NULL)");
+			
+			ResultSet valueExists = stmt.executeQuery("SELECT * FROM buildingCosts");
 			
 			if(! valueExists.next()){
 				insertBuildingCosts();
@@ -131,7 +131,7 @@ public class BuildingValues {
 					 + "1, 1, 1, 1, 1, 1, 5)"); //level=1; sawmill, quarry, mine=1; storage=1; apartment=1; wall=5
 			
 			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
-					+ "2, 1, 1, 1, 1, 2, 10)");
+					+ "2, 1, 1, 1, 2, 2, 10)");
 			
 			stmt.executeQuery("INSERT INTO buildableBuildings VALUES("
 					+ "3, 2, 2, 2, 2, 3, 15)");

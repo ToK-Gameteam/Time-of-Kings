@@ -1,6 +1,6 @@
 package de.tok_gameteam.tok.gui;
 
-import config.LanguageController;
+import de.tok_gameteam.tok.config.LanguageController;
 import de.tok_gameteam.tok.sql.Db;
 
 import javafx.geometry.Rectangle2D;
@@ -70,7 +70,6 @@ public class Gui {
 			}
 		});
 		
-		primaryStage.setResizable(false);
 		primaryStage.setTitle("Time of Kings");
 		primaryStage.setScene(startScene);
 		primaryStage.show();

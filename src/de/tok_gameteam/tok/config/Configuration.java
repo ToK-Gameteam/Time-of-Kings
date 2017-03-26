@@ -1,4 +1,4 @@
-package config;
+package de.tok_gameteam.tok.config;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,10 +27,20 @@ public class Configuration {
 			startUp.activate();
 		}
 
+		load();
+	}
+	
+	public String getConfiguration(String key){
+		return prop.getProperty(key);
+	}
+	
+	public void load(){
+		String path = System.getProperty("user.dir")
+				+ File.separator + "ToK" + File.separator + "config.properties";
+
 		try {
 			stream = new FileInputStream(path);
 		    prop.load(stream);
-
 		} catch (IOException ex) {
 		    ex.printStackTrace();
 		} finally {
@@ -42,10 +52,6 @@ public class Configuration {
 		        }
 		    }
 		}
-	}
-	
-	public String getConfiguration(String key){
-		return prop.getProperty(key);
 	}
 	
 	public void changeConfiguration(String key, String newValue){

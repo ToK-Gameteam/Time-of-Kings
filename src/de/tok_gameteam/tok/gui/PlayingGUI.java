@@ -1,6 +1,6 @@
 package de.tok_gameteam.tok.gui;
 
-import config.LanguageController;
+import de.tok_gameteam.tok.config.LanguageController;
 import de.tok_gameteam.tok.player.Player;
 import de.tok_gameteam.tok.sql.Db;
 import de.tok_gameteam.tok.util.Location;

@@ -1,10 +1,12 @@
 package de.tok_gameteam.tok;
 
-import config.ChooseLanguage;
-import config.Configuration;
-import config.LanguageController;
+import de.tok_gameteam.tok.config.ChooseLanguage;
+import de.tok_gameteam.tok.config.Configuration;
+import de.tok_gameteam.tok.config.LanguageController;
 import de.tok_gameteam.tok.gui.Gui;
 import de.tok_gameteam.tok.sql.Db;
+import de.tok_gameteam.tok.update.DatabaseUpdate;
+import de.tok_gameteam.tok.update.PropertiesUpdate;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -61,6 +63,9 @@ public class Main extends Application {
 	@Override public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
 		config = new Configuration();
+		PropertiesUpdate propertiesUpdate = new PropertiesUpdate();
+		propertiesUpdate.activate();
+		config.load();
 		language = config.getConfiguration("language");
 		if(language.equals("default")){
 			ChooseLanguage chooseLang = new ChooseLanguage();
@@ -86,6 +91,13 @@ public class Main extends Application {
 	public void load(){
 		langController = new LanguageController(language);
 		db = new Db();
+
+		if(Integer.parseInt(config.getConfiguration("balancing_version")) < DatabaseUpdate.BALANCING_VERSION){
+			DatabaseUpdate balancingUpdate = new DatabaseUpdate();
+			balancingUpdate.execute();
+			config.changeConfiguration("balancing_version", DatabaseUpdate.BALANCING_VERSION + "");
+		}
+		
 		gui = new Gui(primaryStage, db, langController);
 		gui.initialize();
 	}

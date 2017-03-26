@@ -1,4 +1,4 @@
-package config;
+package de.tok_gameteam.tok.config;
 
 import de.tok_gameteam.tok.Main;
 import javafx.collections.FXCollections;
