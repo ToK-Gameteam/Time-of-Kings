@@ -104,7 +104,7 @@ public class PlayingGUI {
 		for(Building building : buildings){
 			if(building != null){
 				buildingsC.drawImage(
-						new Image(Gui.PICTURE_PATH + building.getType() + "_" + building.getLevel() + "building.png"),
+						new Image( building.getType() + "_" + building.getLevel() + "building.png"),
 						building.getLocation().getX()*50, building.getLocation().getY()*50,
 						50, 50);
 			}
@@ -178,7 +178,7 @@ public class PlayingGUI {
 					if(building.getType() == Village.SAWMILL || building.getType() == Village.QUARRY || 
 							building.getType() == Village.MINE){
 
-						optionsC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+						optionsC.drawImage(new Image("loginPane.png"),
 								 screenWidth/2+70, screenHeight-50, 80, 40);
 						optionsC.strokeText(langController.getString("collect"), screenWidth/2+80, screenHeight-30);
 						options.setOnMouseClicked(e->{
@@ -199,7 +199,7 @@ public class PlayingGUI {
 			}
 			++index;
 		}
-		optionsC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		optionsC.drawImage(new Image("loginPane.png"),
 				screenWidth/2, screenHeight-50, 80, 40);
 		optionsC.strokeText(langController.getString("building_menu"), screenWidth/2+10,  screenHeight-30);
 		options.setOnMouseClicked(e->{
@@ -213,25 +213,25 @@ public class PlayingGUI {
 	
 	private void showBuildingOptions(int x, int y){
 		buildingC.clearRect(0, 0, screenWidth, screenHeight);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				50, 50, 200, 200);
 		buildingC.strokeText(langController.getString("community_hall"), 100, 100);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				300, 50, 200, 200);
 		buildingC.strokeText(langController.getString("sawmill"), 350, 100);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				550, 50, 200, 200);
 		buildingC.strokeText(langController.getString("quarry"), 600, 100);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				50, 300, 200, 200);
 		buildingC.strokeText(langController.getString("mine"), 100, 350);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				300, 300, 200, 200);
 		buildingC.strokeText(langController.getString("apartment"), 350, 350);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				550, 300, 200, 200);
 		buildingC.strokeText(langController.getString("storage"), 600, 350);
-		buildingC.drawImage(new Image("/de/tok_gameteam/tok/resources/loginPane.png"),
+		buildingC.drawImage(new Image("loginPane.png"),
 				50, 550, 200, 200);
 		buildingC.strokeText(langController.getString("wall"), 100, 600);
 		
