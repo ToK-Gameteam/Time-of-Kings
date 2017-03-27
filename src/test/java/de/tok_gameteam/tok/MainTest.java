@@ -1,4 +1,5 @@
-import static org.junit.Assert.*;
+package de.tok_gameteam.tok;
+
 
 /**
  * Created by jan on 27.03.17.
