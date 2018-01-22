@@ -14,7 +14,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Gui {
-	public static final String PICTURE_PATH =  "/de/tok_gameteam/tok/resources/";
+	public static final String PICTURE_PATH =  "./resources/";
 	
 	private Stage primaryStage;
 	private PlayingGUI playingGUI;

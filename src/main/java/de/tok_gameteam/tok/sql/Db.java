@@ -41,6 +41,7 @@ public class Db {
 	
 	public void initialize(){
 		try {
+			Class.forName("org.hsqldb.jdbcDriver");
 			con = DriverManager.getConnection("jdbc:hsqldb:file:" + path + ";shutdown=true", "sa", "");
 			stmt = con.createStatement();
 			
@@ -78,7 +79,9 @@ public class Db {
 			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally{
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally{
 			closeConnection();
 		}
 	}

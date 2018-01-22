@@ -20,30 +20,35 @@
 *.tar
 *.zip
 
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-*.script
-*.lock
+# Android built artifacts
+*.apk
+*.ap_
+*.dex
 
-/ToK/
-/bin/
-*.lck
+# Java build artifacts class files
+*.class
 
-# OS generated files #
-######################
+# other generated files
+bin/
+gen/
+build/
+out/
+
+# local configuration file (for Android sdk path, etc)
+local.properties
+
+# OSX files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-*.classpath
+
+# Eclipse project files
+.classpath
 .project
-*.prefs
-gameDb.lck
-*.script
-README.md
+
+# Android Studio
+*.iml
+.idea
+.gradle
+
+
+#NDK
+obj/
