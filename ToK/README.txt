@@ -1,0 +1,1 @@
+Copy this file into your own user directory (Directory with you get with "System.getProperty("user.home");")
